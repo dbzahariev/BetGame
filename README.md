@@ -1,1 +1,1 @@
-### UEFA Games
+### World Games

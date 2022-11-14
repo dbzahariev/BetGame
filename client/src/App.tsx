@@ -23,9 +23,10 @@ import AllMatches from "./components/AllMatches2";
 const competitionsIds = {
   Uefa: 2018,
   Premier: 2021,
+  world: 2000
 };
 
-export const selectedCompetition = competitionsIds.Uefa;
+export const selectedCompetition = competitionsIds.world;
 
 function MatchWithParams() {
   let params: any = useParams();

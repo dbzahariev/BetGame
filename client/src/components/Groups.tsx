@@ -35,7 +35,7 @@ export default function Groups() {
   const getAllMatches = () => {
     var config: AxiosRequestConfig = {
       method: "GET",
-      url: `https://api.football-data.org/v2/competitions/${selectedCompetition}/matches`,
+      url: `https://api.football-data.org/v4/competitions/${selectedCompetition}/matches`,
       headers: {
         "X-Auth-Token": "35261f5a038d45029fa4ae0abc1f2f7a",
       },
@@ -116,7 +116,7 @@ export default function Groups() {
   const getAllStandings = () => {
     var config: AxiosRequestConfig = {
       method: "GET",
-      url: `https://api.football-data.org/v2/competitions/${competitionsIds.Uefa}/standings`,
+      url: `https://api.football-data.org/v4/competitions/${competitionsIds.Uefa}/standings`,
       headers: {
         "X-Auth-Token": "35261f5a038d45029fa4ae0abc1f2f7a",
       },

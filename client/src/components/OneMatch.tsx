@@ -28,7 +28,7 @@ interface ScoreType {
 const getFinalScore = async (matchId: string) => {
   var config: AxiosRequestConfig = {
     method: "GET",
-    url: `https://api.football-data.org/v2/matches/${matchId}`,
+    url: `https://api.football-data.org/v4/matches/${matchId}`,
     headers: {
       "X-Auth-Token": "35261f5a038d45029fa4ae0abc1f2f7a",
     },
@@ -118,7 +118,7 @@ export default function OneMatch({ matchId }: { matchId: string }) {
   const getOneMatch = () => {
     var config: AxiosRequestConfig = {
       method: "GET",
-      url: `https://api.football-data.org/v2/matches/${matchId}`,
+      url: `https://api.football-data.org/v4/matches/${matchId}`,
       headers: {
         "X-Auth-Token": "35261f5a038d45029fa4ae0abc1f2f7a",
       },
