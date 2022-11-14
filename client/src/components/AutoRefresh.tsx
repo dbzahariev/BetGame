@@ -56,8 +56,10 @@ export default function AutoRefresh({ refresh }: { refresh: Function }) {
                 max={5 * 60}
                 defaultValue={30}
                 value={newInterval === "disable" ? 30 : newInterval}
-                onChange={(value: number) => {
-                  setNewInterval(value);
+                onChange={(value?: number | null) => {
+                  if (value) {
+                    setNewInterval(value);
+                  }
                 }}
                 bordered={false}
               />
