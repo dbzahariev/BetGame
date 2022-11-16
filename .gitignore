@@ -1,3 +1,9 @@
 client/.vscode/settings.json
 client/package-lock.json
 client/yarn.lock
+
+# No modules
+node_modules
+.env
+.vscode
+package-lock.json
