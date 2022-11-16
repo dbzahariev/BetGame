@@ -1,3 +1,5 @@
+// eslint-disable-next-line
+import React from "react"
 import axios, { AxiosRequestConfig } from "axios";
 import { selectedCompetition, selectedApiVersion } from "../App";
 import $ from "jquery";
