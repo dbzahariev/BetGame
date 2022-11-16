@@ -1,5 +1,5 @@
 import { Space, Spin, Switch } from "antd";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AutoRefresh, { AutoRefreshInterval } from "./AutoRefresh";
 import { LoadingOutlined } from "@ant-design/icons";
 import OneMatchTable from "./OneMatchTable";

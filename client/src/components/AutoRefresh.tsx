@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button, Checkbox, InputNumber, Modal, Space } from "antd";
 
 export let AutoRefreshInterval: number | "disable" = "disable";

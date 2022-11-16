@@ -1,3 +1,5 @@
+// eslint-disable-next-line
+import React from "react"
 import Table from "antd/lib/table";
 import Column from "antd/lib/table/Column";
 import ColumnGroup from "antd/lib/table/ColumnGroup";
