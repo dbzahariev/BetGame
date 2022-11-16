@@ -1,3 +1,5 @@
+import React from "react";
+
 import Austria from "./flags/Euro/Austria.svg";
 import Belgium from "./flags/Euro/Belgium.svg";
 import Croatia from "./flags/Euro/Croatia.svg";
