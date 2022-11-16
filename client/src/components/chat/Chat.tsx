@@ -1,3 +1,5 @@
+// eslint-disable-next-line
+import React from "react"
 import { Button, notification, Select, Space } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import axios from "axios";
@@ -129,7 +131,7 @@ export default function Chat() {
         setUsersNames(newUsers);
         setFullUsers(users);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const handleChangeForSelector = (value: any) => {
@@ -179,7 +181,7 @@ export default function Chat() {
       withCredentials: true,
       url: "/chat/save",
     })
-      .then((res) => {})
+      .then((res) => { })
       .catch((err) => console.error(err));
   };
 
