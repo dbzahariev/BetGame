@@ -1,3 +1,5 @@
+// eslint-disable-next-line
+import React from "react"
 import { Button, Popconfirm, Space } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import { Key, useEffect, useState } from "react";
@@ -138,7 +140,7 @@ export default function OneMessage({
             title="Потвърждаване"
             icon={false}
             onConfirm={() => removeMessage(message)}
-            onCancel={() => {}}
+            onCancel={() => { }}
             okText="Да"
             cancelText="Не"
           >
