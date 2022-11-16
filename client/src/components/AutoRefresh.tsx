@@ -38,7 +38,8 @@ export default function AutoRefresh({ refresh }: { refresh: Function }) {
           </Button>
           <Modal
             title="Basic Modal"
-            visible={isModalVisible}
+            // visible={isModalVisible}
+            open={isModalVisible}
             onOk={handleOk}
             onCancel={() => setIsModalVisible(false)}
           >
