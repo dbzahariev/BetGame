@@ -16,7 +16,6 @@ import {
   UsersType,
   getFinalStats,
 } from "../helpers/OtherHelpers";
-import { Redirect } from "react-router-dom";
 
 export const getMatchesForView = (
   matches: MatchType[],
@@ -38,9 +37,9 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
   const [users, setUsers] = useState<UsersType[]>([]);
   const [loading, setLoading] = useState(false);
   const [showGroups, setShowGroups] = useState(false);
-  const [finalState, setFinalState] = useState<MatchType | undefined>(
-    undefined
-  );
+  // const [finalState, setFinalState] = useState<MatchType | undefined>(
+  //   undefined
+  // );
 
   let intervalRef = useRef<any>();
 
@@ -65,7 +64,7 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
     getAllUsers(setUsers);
 
     getFinalStats((el: MatchType) => {
-      setFinalState(el);
+      // setFinalState(el);
     });
   }, []);
 

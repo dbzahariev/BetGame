@@ -1,6 +1,7 @@
 import { Space } from "antd";
 import axios, { AxiosRequestConfig } from "axios";
 import React, { useEffect, useState } from "react";
+import { selectedApiVersion } from "../App";
 
 interface ScoreType {
   duration: string;
@@ -28,7 +29,7 @@ interface ScoreType {
 const getFinalScore = async (matchId: string) => {
   var config: AxiosRequestConfig = {
     method: "GET",
-    url: `https://api.football-data.org/v2/matches/${matchId}`,
+    url: `https://api.football-data.org/${selectedApiVersion}/matches/${matchId}`,
     headers: {
       "X-Auth-Token": "35261f5a038d45029fa4ae0abc1f2f7a",
     },
@@ -66,9 +67,8 @@ const convertResult = (score: {
 
   res.result1 = `${score.halfTime.homeTeam}:${score.halfTime.awayTeam}`;
   res.result2 = `${score.fullTime.homeTeam}:${score.fullTime.awayTeam}`;
-  res.resultE = `${score.extraTime.homeTeam || 0}:${
-    score.extraTime.awayTeam || 0
-  }`;
+  res.resultE = `${score.extraTime.homeTeam || 0}:${score.extraTime.awayTeam || 0
+    }`;
   if (score.extraTime.homeTeam === null) {
     res.resultE = "няма";
   }
@@ -118,7 +118,7 @@ export default function OneMatch({ matchId }: { matchId: string }) {
   const getOneMatch = () => {
     var config: AxiosRequestConfig = {
       method: "GET",
-      url: `https://api.football-data.org/v2/matches/${matchId}`,
+      url: `https://api.football-data.org/${selectedApiVersion}/matches/${matchId}`,
       headers: {
         "X-Auth-Token": "35261f5a038d45029fa4ae0abc1f2f7a",
       },

@@ -3,13 +3,13 @@ import Column from "antd/lib/table/Column";
 import ColumnGroup from "antd/lib/table/ColumnGroup";
 import axios, { AxiosRequestConfig } from "axios";
 import { useEffect, useRef, useState } from "react";
-import { selectedCompetition } from "../App";
 import { translateTeamsName } from "../helpers/Translate";
 import AutoRefresh, { AutoRefreshInterval } from "./AutoRefresh";
 import $ from "jquery";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { calcScore, MatchType, UsersType } from "../helpers/OtherHelpers";
+import { selectedCompetition, selectedApiVersion } from "../App";
 
 export const renderP = (el: string, plainText = false) => {
   let result = "";
@@ -240,7 +240,7 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
   const getAllMatches = () => {
     var config: AxiosRequestConfig = {
       method: "GET",
-      url: `https://api.football-data.org/v2/competitions/${selectedCompetition}/matches`,
+      url: `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`,
       headers: {
         "X-Auth-Token": "35261f5a038d45029fa4ae0abc1f2f7a",
       },
@@ -309,7 +309,7 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
 
         setUsers(newUsers);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const calcWinner = (homeScore: number, awayScore: number) => {
@@ -488,7 +488,7 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
         withCredentials: true,
         url: `/api/update?id=${user.id}`,
       })
-        .then((res) => {})
+        .then((res) => { })
         .catch((err) => {
           notification.open({
             message: `Грешка`,
@@ -521,48 +521,48 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
           rowExpandable: () => true,
           defaultExpandedRowKeys: ["1"],
         }}
-        // footer={() => {
-        //   $("div.ant-table-footer").css("padding-right", 0);
+      // footer={() => {
+      //   $("div.ant-table-footer").css("padding-right", 0);
 
-        //   let headerWidth =
-        //     $("tr:nth-child(1) > th:nth-child(7)").width() || 330.31633;
+      //   let headerWidth =
+      //     $("tr:nth-child(1) > th:nth-child(7)").width() || 330.31633;
 
-        //   return (
-        //     <div
-        //       style={{
-        //         display: "flex",
-        //         justifyContent: "space-between",
-        //         alignItems: "center",
-        //       }}
-        //     >
-        //       <span>Последният оцелял:</span>
-        //       <div
-        //         style={{
-        //           alignSelf: "flex-end",
-        //           display: "flex",
-        //         }}
-        //       >
-        //         {users.map((user, index) => {
-        //           return (
-        //             <div
-        //               key={index}
-        //               style={{
-        //                 width: headerWidth + (363.38 - headerWidth),
-        //               }}
-        //             >
-        //               <Input
-        //                 placeholder=""
-        //                 defaultValue={getFinalWinner(user)}
-        //                 value={getFinalWinner(user)}
-        //                 onChange={(el) => handleChangeFinal(el, user)}
-        //               />
-        //             </div>
-        //           );
-        //         })}
-        //       </div>
-        //     </div>
-        //   );
-        // }}
+      //   return (
+      //     <div
+      //       style={{
+      //         display: "flex",
+      //         justifyContent: "space-between",
+      //         alignItems: "center",
+      //       }}
+      //     >
+      //       <span>Последният оцелял:</span>
+      //       <div
+      //         style={{
+      //           alignSelf: "flex-end",
+      //           display: "flex",
+      //         }}
+      //       >
+      //         {users.map((user, index) => {
+      //           return (
+      //             <div
+      //               key={index}
+      //               style={{
+      //                 width: headerWidth + (363.38 - headerWidth),
+      //               }}
+      //             >
+      //               <Input
+      //                 placeholder=""
+      //                 defaultValue={getFinalWinner(user)}
+      //                 value={getFinalWinner(user)}
+      //                 onChange={(el) => handleChangeFinal(el, user)}
+      //               />
+      //             </div>
+      //           );
+      //         })}
+      //       </div>
+      //     </div>
+      //   );
+      // }}
       >
         <Column
           title="Н"

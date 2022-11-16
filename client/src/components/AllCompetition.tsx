@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
 import React, { useEffect } from "react";
-import { selectedCompetition } from "../App";
+import { selectedCompetition, selectedApiVersion } from "../App";
 import { translateTeamsName } from "../helpers/Translate";
 
 export default function AllCompetition() {
@@ -14,7 +14,7 @@ export default function AllCompetition() {
       headers: myHeaders,
     };
 
-    fetch("https://api.football-data.org/v2/matches/285418", requestOptions)
+    fetch(`https://api.football-data.org/${selectedApiVersion}/matches/285418`, requestOptions)
       .then((response) => response.json())
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
@@ -29,7 +29,7 @@ export default function AllCompetition() {
   const getAllTeams = () => {
     var config: AxiosRequestConfig = {
       method: "GET",
-      url: `https://api.football-data.org/v2/competitions/${selectedCompetition}/teams`,
+      url: `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/teams`,
       headers: {
         "X-Auth-Token": "35261f5a038d45029fa4ae0abc1f2f7a",
       },
@@ -63,7 +63,7 @@ export default function AllCompetition() {
   const getAllMatches = () => {
     var config: AxiosRequestConfig = {
       method: "GET",
-      url: `https://api.football-data.org/v2/competitions/${selectedCompetition}/matches`,
+      url: `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`,
       headers: {
         "X-Auth-Token": "35261f5a038d45029fa4ae0abc1f2f7a",
       },
@@ -86,7 +86,7 @@ export default function AllCompetition() {
   const getAllAxios = () => {
     var config: AxiosRequestConfig = {
       method: "GET",
-      url: `https://api.football-data.org/v2/matches/285418`,
+      url: `https://api.football-data.org/${selectedApiVersion}/matches/285418`,
       headers: {
         "X-Auth-Token": "35261f5a038d45029fa4ae0abc1f2f7a",
       },

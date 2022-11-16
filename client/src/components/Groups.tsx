@@ -3,13 +3,8 @@ import axios, { AxiosRequestConfig } from "axios";
 import { Button, Space, Table } from "antd";
 import { translateTeamsName } from "../helpers/Translate";
 import { useParams } from "react-router-dom";
-import { selectedCompetition } from "../App";
+import { selectedCompetition, selectedApiVersion } from "../App";
 import { calcScore, MatchType } from "../helpers/OtherHelpers";
-
-const competitionsIds = {
-  Uefa: 2018,
-  Premier: 2021,
-};
 
 type OneRow = {
   key: string;
@@ -35,7 +30,7 @@ export default function Groups() {
   const getAllMatches = () => {
     var config: AxiosRequestConfig = {
       method: "GET",
-      url: `https://api.football-data.org/v2/competitions/${selectedCompetition}/matches`,
+      url: `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`,
       headers: {
         "X-Auth-Token": "35261f5a038d45029fa4ae0abc1f2f7a",
       },
@@ -116,7 +111,7 @@ export default function Groups() {
   const getAllStandings = () => {
     var config: AxiosRequestConfig = {
       method: "GET",
-      url: `https://api.football-data.org/v2/competitions/${competitionsIds.Uefa}/standings`,
+      url: `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/standings`,
       headers: {
         "X-Auth-Token": "35261f5a038d45029fa4ae0abc1f2f7a",
       },
@@ -199,13 +194,12 @@ export default function Groups() {
           render: (el: number) => (
             <span
               style={{
-                border: `2px solid ${
-                  el.toString() === "1" || el.toString() === "2"
-                    ? "#4285F4"
-                    : el.toString() === "3"
+                border: `2px solid ${el.toString() === "1" || el.toString() === "2"
+                  ? "#4285F4"
+                  : el.toString() === "3"
                     ? "#FA7B17"
                     : "black"
-                }`,
+                  }`,
               }}
             >
               {el}

@@ -4,7 +4,7 @@ import ColumnGroup from "antd/lib/table/ColumnGroup";
 import axios, { AxiosRequestConfig } from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { selectedCompetition } from "../App";
+import { selectedCompetition, selectedApiVersion } from "../App";
 import { calcScore, UsersType, MatchType } from "../helpers/OtherHelpers";
 import { translateTeamsName } from "../helpers/Translate";
 import { renderP } from "./AllMatches";
@@ -25,7 +25,7 @@ export default function AddNewBet() {
   const getAllMatches = () => {
     var config: AxiosRequestConfig = {
       method: "GET",
-      url: `https://api.football-data.org/v2/competitions/${selectedCompetition}/matches`,
+      url: `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`,
       headers: {
         "X-Auth-Token": "35261f5a038d45029fa4ae0abc1f2f7a",
       },
@@ -97,7 +97,7 @@ export default function AddNewBet() {
 
         setUsers(newUsers);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const getAllUsersNames = () => {
@@ -117,7 +117,7 @@ export default function AddNewBet() {
 
         setUsersNames(newUsers);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const handleChangeForSelector = (value: any) => {

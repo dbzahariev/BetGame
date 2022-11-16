@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
 import React, { useEffect, useState } from "react";
-import { selectedCompetition } from "../../App";
+import { selectedCompetition, selectedApiVersion } from "../../App";
 import { calcScore, MatchType } from "../../helpers/OtherHelpers";
 import OneMatchInScheme from "./OneMatchInScheme";
 import Separator from "./separator.svg";
@@ -15,8 +15,8 @@ export default function Scheme() {
   const getAllMatches = () => {
     var config: AxiosRequestConfig = {
       method: "GET",
-      url: `https://api.football-data.org/v2/competitions/${selectedCompetition}/matches`,
-      // url: `https://api.football-data.org/v2/matches/${325091}`,
+      url: `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`,
+      // url: `https://api.football-data.org/${selectedApiVersion}/matches/${325091}`,
       headers: {
         "X-Auth-Token": "35261f5a038d45029fa4ae0abc1f2f7a",
       },
