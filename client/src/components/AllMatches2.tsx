@@ -36,7 +36,7 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
   const [matches, setMatches] = useState<MatchType[]>([]);
   const [users, setUsers] = useState<UsersType[]>([]);
   const [loading, setLoading] = useState(false);
-  const [showGroups, setShowGroups] = useState(false);
+  const [showGroups, setShowGroups] = useState(true);
   // const [finalState, setFinalState] = useState<MatchType | undefined>(
   //   undefined
   // );
