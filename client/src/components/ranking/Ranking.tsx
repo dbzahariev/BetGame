@@ -198,13 +198,13 @@ export default function Ranking() {
     users.forEach((user) => {
       //check count bets for user
       if (user.bets.length !== countMatches) {
-        debugger;
+        // debugger;
       }
       let userPoints = 0;
       user.bets.forEach((bet) => {
         // check have bet for match
         if (matches.findIndex((el) => el.id === bet.matchId) === -1) {
-          debugger;
+          // debugger;
         }
 
         // check winner for bet
@@ -212,13 +212,13 @@ export default function Ranking() {
           (bet.homeTeamScore || -1) > (bet.awayTeamScore || -1) &&
           bet.winner !== "HOME_TEAM"
         ) {
-          debugger;
+          // debugger;
         }
         if (
           (bet.homeTeamScore || -1) < (bet.awayTeamScore || -1) &&
           bet.winner !== "AWAY_TEAM"
         ) {
-          debugger;
+          // debugger;
         }
 
         if (user.index === 5) {
@@ -228,20 +228,20 @@ export default function Ranking() {
               (el.homeTeamScore || -1) > (el.awayTeamScore || -1) &&
               el.score?.winner !== "HOME_TEAM"
             ) {
-              debugger;
+              // debugger;
             }
             if (
               (el.homeTeamScore || -1) < (el.awayTeamScore || -1) &&
               el.score?.winner !== "AWAY_TEAM"
             ) {
-              debugger;
+              // debugger;
             }
 
             if (bet.matchId === el.id) {
               let calculatedPoints = calcPoint(bet, el);
 
               if (bet.point !== calculatedPoints) {
-                debugger;
+                // debugger;
               }
               userPoints += calculatedPoints;
               if (calculatedPoints !== 0) {

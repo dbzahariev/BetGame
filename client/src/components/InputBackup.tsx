@@ -176,7 +176,6 @@ export default function InputBackup() {
     } else if (field === "winner") {
       setInput({ ...input, winner: value });
     } else {
-      debugger;
       console.log("err", { value, field });
     }
   };
