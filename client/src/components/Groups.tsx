@@ -40,7 +40,7 @@ export default function Groups() {
     axios(config)
       .then(function (response) {
         let data: MatchType[] = response.data.matches;
-        data = data.slice(0, 55); // limit First 3
+        data = data.slice(0, data.length); // limit First 3
         let matches: MatchType[] = [];
 
         data.forEach((el: any, index) => {
