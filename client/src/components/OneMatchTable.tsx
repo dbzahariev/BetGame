@@ -85,7 +85,19 @@ export default function oneMatchTable({
         dataIndex="number"
         key="number"
         width={56}
-        // fixed={true}
+      // fixed={true}
+      />
+      <Column
+        title="Дата"
+        dataIndex="utcDate"
+        key="utcDate"
+        width={columnWidth}
+        render={(el: any) => {
+          let newEl = new Date(el)
+          let res = `${newEl.getDate()}.${newEl.getMonth() + 1}`
+
+          return <span>{res}</span>;
+        }}
       />
       <Column
         title="Домакин"
