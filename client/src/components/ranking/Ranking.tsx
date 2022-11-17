@@ -127,18 +127,6 @@ export default function Ranking() {
   const checkValidUser = () => {
     let countMatches = matches.length;
 
-    //check Matches number
-    matches.forEach((el) => {
-      let number = Number(el.number);
-      let key = Number(el.key);
-      let id = Number(el.id);
-      let newId = Number(`2018${number < 10 ? 0 : ""}${number}`);
-
-      if (number !== key + 1 || newId !== id) {
-        // debugger;
-      }
-    });
-
     const calcPoint = (
       bet: {
         matchId: number;
@@ -178,10 +166,6 @@ export default function Ranking() {
         }
       }
 
-      if (bet.matchId === 201845) {
-        // debugger;
-      }
-
       if (match.group === "QUARTER_FINAL") {
         res *= 1.25;
       } else if (
@@ -194,68 +178,9 @@ export default function Ranking() {
 
       return res;
     };
-
-    users.forEach((user) => {
-      //check count bets for user
-      if (user.bets.length !== countMatches) {
-        // debugger;
-      }
-      let userPoints = 0;
-      user.bets.forEach((bet) => {
-        // check have bet for match
-        if (matches.findIndex((el) => el.id === bet.matchId) === -1) {
-          // debugger;
-        }
-
-        // check winner for bet
-        if (
-          (bet.homeTeamScore || -1) > (bet.awayTeamScore || -1) &&
-          bet.winner !== "HOME_TEAM"
-        ) {
-          // debugger;
-        }
-        if (
-          (bet.homeTeamScore || -1) < (bet.awayTeamScore || -1) &&
-          bet.winner !== "AWAY_TEAM"
-        ) {
-          // debugger;
-        }
-
-        if (user.index === 5) {
-          matches.forEach((el) => {
-            // check winner for match
-            if (
-              (el.homeTeamScore || -1) > (el.awayTeamScore || -1) &&
-              el.score?.winner !== "HOME_TEAM"
-            ) {
-              // debugger;
-            }
-            if (
-              (el.homeTeamScore || -1) < (el.awayTeamScore || -1) &&
-              el.score?.winner !== "AWAY_TEAM"
-            ) {
-              // debugger;
-            }
-
-            if (bet.matchId === el.id) {
-              let calculatedPoints = calcPoint(bet, el);
-
-              if (bet.point !== calculatedPoints) {
-                // debugger;
-              }
-              userPoints += calculatedPoints;
-              if (calculatedPoints !== 0) {
-              }
-            }
-          });
-        }
-      });
-      console.log(userPoints, user.totalPoints);
-    });
   };
 
   const getRankingImg = () => {
-    console.log(users.length);
     if (users.length === 4) {
       return rankingImg4;
     }
@@ -287,7 +212,6 @@ export default function Ranking() {
     let res = users
       .sort((a, b) => b.index - a.index)
       .sort((a, b) => b.totalPoints - a.totalPoints);
-    // debugger;
 
     return res;
   };
@@ -441,7 +365,6 @@ export default function Ranking() {
           marginTop: 10,
           marginBottom: 10,
         }}
-        // defaultValue={years[0].value}
         value={competitionValue}
         onChange={handleChangeForSelector}
       >

@@ -96,8 +96,6 @@ export const getAllUsers = (setUsers: Function) => {
         newUsers.push(userToAdd);
       });
 
-      // newUsers.sort((a, b) => a.index - b.index);
-
       setUsers(newUsers);
     })
     .catch((err) => console.error(err));

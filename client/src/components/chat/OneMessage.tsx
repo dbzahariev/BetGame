@@ -115,8 +115,6 @@ export default function OneMessage({
         direction={checkMobile() ? "vertical" : "horizontal"}
         style={{
           display: "flex",
-          // alignItems: "center",
-          // justifyContent: "center",
           float: checkMobile() ? "left" : "right",
           height: "200%",
         }}

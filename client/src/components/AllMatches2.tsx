@@ -14,7 +14,6 @@ import {
   getAllUsers,
   MatchType,
   UsersType,
-  getFinalStats,
 } from "../helpers/OtherHelpers";
 
 export const getMatchesForView = (
@@ -37,9 +36,6 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
   const [users, setUsers] = useState<UsersType[]>([]);
   const [loading, setLoading] = useState(false);
   const [showGroups, setShowGroups] = useState(true);
-  // const [finalState, setFinalState] = useState<MatchType | undefined>(
-  //   undefined
-  // );
 
   let intervalRef = useRef<any>();
 
@@ -62,10 +58,6 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
 
   useEffect(() => {
     getAllUsers(setUsers);
-
-    getFinalStats((el: MatchType) => {
-      // setFinalState(el);
-    });
   }, []);
 
   useEffect(() => {
@@ -114,10 +106,6 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
   if (matches.length === 0) {
     return null;
   }
-
-  // if (finalState !== undefined && finalState.status === "FINISHED") {
-  //   return <Redirect to="/ranking" />;
-  // }
 
   return (
     <>

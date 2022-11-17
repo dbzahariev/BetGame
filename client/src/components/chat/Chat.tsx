@@ -126,8 +126,6 @@ export default function Chat() {
           newUsers.push(el.name);
         });
 
-        // newUsers.sort((a, b) => a.index - b.index);
-
         setUsersNames(newUsers);
         setFullUsers(users);
       })

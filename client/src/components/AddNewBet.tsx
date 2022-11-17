@@ -33,7 +33,7 @@ export default function AddNewBet() {
     axios(config)
       .then(function (response) {
         let data: MatchType[] = response.data.matches;
-        data = data.slice(0, data.length); // limit First 3
+        data = data.slice(0, data.length);
         let matches: MatchType[] = [];
 
         data.forEach((el: any, index) => {
@@ -92,8 +92,6 @@ export default function AddNewBet() {
           }
         });
 
-        // newUsers.sort((a, b) => a.index - b.index);
-
         setUsers(newUsers);
       })
       .catch((err) => { });
@@ -111,8 +109,6 @@ export default function AddNewBet() {
         users.forEach((el) => {
           newUsers.push(el.name);
         });
-
-        // newUsers.sort((a, b) => a.index - b.index);
 
         setUsersNames(newUsers);
       })
@@ -347,9 +343,6 @@ export default function AddNewBet() {
       res = foo;
     }
 
-    // if (res === "DRAW") {
-    //   res = "";
-    // }
     return res;
   };
 
@@ -394,8 +387,6 @@ export default function AddNewBet() {
       };
 
       let res = renderP2(selectedMatchWinner);
-      // if (selectedMatchWinner === "DRAW") {
-      // res = <span>1</span>;
       let vall: string = getValue(
         user,
         "awayTeamScore",
@@ -413,7 +404,6 @@ export default function AddNewBet() {
           onChange={(el) => handleChange(el, user, record, "winner")}
         />
       );
-      // }
       return res;
     };
 
@@ -422,7 +412,6 @@ export default function AddNewBet() {
         dataSource={AllMatches}
         pagination={false}
         bordered
-        // scroll={{ y: windowHeight * 0.2 }}
         expandable={{
           expandedRowRender: (record: MatchType) => {
             let date = new Date(record.utcDate).toLocaleString("bg-bg");

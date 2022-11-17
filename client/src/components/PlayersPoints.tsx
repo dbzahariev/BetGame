@@ -62,8 +62,6 @@ export default function PlayersPoints() {
         };
 
         newPointModule.points.push(newPoint);
-        // newPointModule.totalPoints =
-        //   newPointModule.totalPoints + newPoint.point;
         newPointModule.points.sort((a, b) => a.matchId - b.matchId);
 
         if (points.findIndex((el) => el.user === user.name) === -1) {
@@ -107,7 +105,7 @@ export default function PlayersPoints() {
       response = await axios(config);
 
       let data: MatchType[] = response.data.matches;
-      data = data.slice(0, data.length); // limit First 3
+      data = data.slice(0, data.length);
       let matches: MatchType[] = [];
 
       data.forEach((el, index) => {
