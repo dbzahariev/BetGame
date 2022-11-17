@@ -68,6 +68,7 @@ export default function App() {
   return (
     <Router>
       <div
+        id="header"
         style={{
           position: "sticky",
           width: `${dimensions.widthO * 0.99}px`,

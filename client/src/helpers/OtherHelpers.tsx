@@ -273,7 +273,7 @@ export const getAllFinalWinner = (users: UsersType[]) => {
 export const stylingTable = (users: UsersType[]) => {
   const getSelector1 = (index: number) => {
     let res = "";
-    res += `tr:nth-child(1) > th:nth-child(${index + 5}), `;
+    res += `tr:nth-child(1) > th:nth-child(${index + 6}), `;
     res += `tr:nth-child(2) > th:nth-child(${4 * index}), `;
     res += `tr:nth-child(2) > th:nth-child(${4 * index + 1}), `;
     res += `tr:nth-child(2) > th:nth-child(${4 * index + 2}), `;
@@ -288,7 +288,7 @@ export const stylingTable = (users: UsersType[]) => {
     let result = "";
 
     for (let i = 4 * index - 4; i < 4 * index; i++) {
-      result += `td:nth-child(${8 + i}), `;
+      result += `td:nth-child(${9 + i}), `;
     }
 
     result = result.slice(0, result.length - 2);
@@ -314,16 +314,16 @@ export const stylingTable = (users: UsersType[]) => {
   const getForBorders = () => {
     let res = { sel3: "", sel4: "", sel5: "", sel6: "", sel7: "" };
 
-    for (let i = 8; i < 36; i += 4) {
+    for (let i = 9; i < 36; i += 4) {
       res.sel3 += `td:nth-child(${i}), `;
     }
 
-    for (let i = 8; i < 36; i += 1) {
+    for (let i = 9; i < ((users.length * 5) + 2); i += 1) {
       res.sel4 += `tr:nth-child(1) > td:nth-child(${i}), `;
       res.sel5 += `tr:nth-child(51) > td:nth-child(${i}), `;
     }
 
-    for (let i = 6; i < 13; i += 1) {
+    for (let i = 7; i < 14; i += 1) {
       res.sel6 += `thead > tr:nth-child(1) > th:nth-child(${i}), `;
     }
 
@@ -341,13 +341,13 @@ export const stylingTable = (users: UsersType[]) => {
   let borderSize = "2px solid hsl(0, 0%, 0%)";
 
   $(getForBorders().sel3).css("border-left", borderSize);
-  $(`td:nth-child(35)`).css("border-right", borderSize);
+  $(`td:nth-child(36)`).css("border-right", borderSize);
   $(getForBorders().sel4).css("border-top", borderSize);
   $(getForBorders().sel5).css("border-bottom", borderSize);
   $(getForBorders().sel6).css("border-top", borderSize);
   $(getForBorders().sel6).css("border-left", borderSize);
   $(getForBorders().sel7).css("border-left", borderSize);
-  $(`thead > tr:nth-child(1) > th:nth-child(12)`).css(
+  $(`thead > tr:nth-child(1) > th:nth-child(13)`).css(
     "border-right",
     borderSize
   );
@@ -386,6 +386,8 @@ export const stylingTable = (users: UsersType[]) => {
 
   $(`#root > div:nth-child(1)`).css("background-color", "white");
 
+  $(`#root > div:nth-child(1)`).css("width", `${($(`.ant-space`).width() || 1) * 2.46}px`);
+
   $(
     `#root > div:nth-child(2) > div:nth-child(2) > div.ant-table-wrapper > div > div > div > div > div > table > thead`
   ).css("top", "50px");
@@ -400,7 +402,7 @@ export const stylingTable = (users: UsersType[]) => {
 
   $(
     `#root > div:nth-child(4) > div > div > div > div > div > div > div > div > table > thead`
-  ).css("top", "50px");
+  ).css("top", `${$("#header").height()}px`);
 
   $(
     `#root > div:nth-child(4) > div > div > div > div > div > div > div > div > table > thead`
