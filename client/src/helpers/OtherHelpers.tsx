@@ -421,7 +421,7 @@ export const getFinalStats = (afterThat: Function) => {
   axios(config)
     .then(function (response) {
       let data: MatchType[] = response.data.matches;
-      data = data.slice(0, data.length); // limit First 3
+      data = data.slice(0, data.length);
       let matches: MatchType[] = [];
 
       let onlyFinal: MatchType | undefined = undefined;
@@ -499,7 +499,7 @@ export const getAllMatches = (setMatches: Function) => {
   axios(config)
     .then(function (response) {
       let data: MatchType[] = response.data.matches;
-      data = data.slice(0, data.length); // limit First 3
+      data = data.slice(0, data.length);
       let matches: MatchType[] = [];
 
       data.forEach((el: MatchType, index) => {

@@ -106,13 +106,6 @@ export default function Ranking() {
     // eslint-disable-next-line
   }, []);
 
-  useEffect(() => {
-    if (users.length !== 0 && matches.length !== 0) {
-      checkValidUser();
-    }
-    // eslint-disable-next-line
-  }, [users, matches]);
-
   const getPaddingLeft = () => {
     let res = "38%";
     if (users.length === 4) {
@@ -122,62 +115,6 @@ export default function Ranking() {
       res = "75%";
     }
     return res;
-  };
-
-  const checkValidUser = () => {
-    let countMatches = matches.length;
-
-    const calcPoint = (
-      bet: {
-        matchId: number;
-        homeTeamScore: number;
-        awayTeamScore: number;
-        winner: string;
-        point: number;
-        date: Date;
-      },
-      match: MatchType
-    ) => {
-      let res = 0;
-      let matchWinner = match.score?.winner;
-
-      let mh = match?.homeTeamScore;
-      let ma = match?.awayTeamScore;
-      let bh = bet?.homeTeamScore;
-      let ba = bet?.awayTeamScore;
-      if (mh === undefined) mh = -1;
-      if (ma === undefined) ma = -1;
-
-      if (bet.winner === matchWinner && bh === mh && ba === ma) {
-        res = 3;
-      }
-
-      if (
-        res === 0 &&
-        ((mh > ma && bh > ba) ||
-          (mh < ma && bh < ba) ||
-          (mh === ma && bh === ba))
-      ) {
-        res = 1;
-      }
-      if (match.group?.indexOf("Group") === -1) {
-        if (bet.winner === matchWinner) {
-          res += 1;
-        }
-      }
-
-      if (match.group === "QUARTER_FINAL") {
-        res *= 1.25;
-      } else if (
-        match.group === "SEMI_FINAL" ||
-        match.group === "THIRD_POSITION" ||
-        match.group === "FINAL"
-      ) {
-        res *= 1.5;
-      }
-
-      return res;
-    };
   };
 
   const getRankingImg = () => {
