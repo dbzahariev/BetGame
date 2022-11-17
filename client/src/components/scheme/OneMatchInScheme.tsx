@@ -18,12 +18,15 @@ export default function OneMatchInScheme({ match }: { match: MatchType }) {
     "Ноември",
     "Декември",
   ];
+  
+  if (match === undefined) {
+    return <div></div>
+  }
 
   let header = (
     <div style={{ color: "blue" }}>
-      {`${new Date(match.utcDate).getDate()} ${
-        months[new Date(match.utcDate).getMonth() - 0]
-      } - ${new Date(match.utcDate).toLocaleTimeString("bg-bg")}`}
+      {`${new Date(match.utcDate).getDate()} ${months[new Date(match.utcDate).getMonth() - 0]
+        } - ${new Date(match.utcDate).toLocaleTimeString("bg-bg")}`}
     </div>
   );
 

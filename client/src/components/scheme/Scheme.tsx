@@ -16,7 +16,6 @@ export default function Scheme() {
     var config: AxiosRequestConfig = {
       method: "GET",
       url: `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`,
-      // url: `https://api.football-data.org/${selectedApiVersion}/matches/${325091}`,
       headers: {
         "X-Auth-Token": "35261f5a038d45029fa4ae0abc1f2f7a",
       },
@@ -25,7 +24,7 @@ export default function Scheme() {
     axios(config)
       .then(function (response) {
         let data: MatchType[] = response.data.matches;
-        data = data.slice(0, 55); // limit First 3
+        data = data.slice(0, data.length)
         let matches: MatchType[] = [];
 
         data.forEach((el: any, index) => {
@@ -66,61 +65,61 @@ export default function Scheme() {
 
     return (
       <div>
-        <OneMatchInScheme match={matchesIn16[3]} /> {/* 1 */}
+        <OneMatchInScheme match={matchesIn16[0]} /> {/* 1 */}
         <OneMatchInScheme match={matchesIn16[1]} /> {/* 2 */}
-        <OneMatchInScheme match={matchesIn16[5]} /> {/* 3 */}
-        <OneMatchInScheme match={matchesIn16[4]} /> {/* 4 */}
-        <OneMatchInScheme match={matchesIn16[7]} /> {/* 5 */}
-        <OneMatchInScheme match={matchesIn16[6]} /> {/* 6 */}
-        <OneMatchInScheme match={matchesIn16[2]} /> {/* 7 */}
-        <OneMatchInScheme match={matchesIn16[0]} /> {/* 8 */}
+        <OneMatchInScheme match={matchesIn16[4]} /> {/* 3 */}
+        <OneMatchInScheme match={matchesIn16[5]} /> {/* 4 */}
+        <OneMatchInScheme match={matchesIn16[2]} /> {/* 5 */}
+        <OneMatchInScheme match={matchesIn16[3]} /> {/* 6 */}
+        <OneMatchInScheme match={matchesIn16[6]} /> {/* 7 */}
+        <OneMatchInScheme match={matchesIn16[7]} /> {/* 8 */}
       </div>
     );
   };
 
   const renderLast8 = () => {
-    let matchesIn8 = matches.filter((match) => match.group === "QUARTER_FINAL");
+    let matchesIn8 = matches.filter((match) => (match.group === "QUARTER_FINAL") || (match.group === "QUARTER_FINALS"));
 
     return (
       <div>
         <div style={{ marginTop: "18.8%" }}>
-          <OneMatchInScheme match={matchesIn8[1]} />
+          <OneMatchInScheme match={matchesIn8[1]} /> {/* 1 */}
         </div>
         <div style={{ marginTop: "38%" }}>
-          <OneMatchInScheme match={matchesIn8[0]} />
+          <OneMatchInScheme match={matchesIn8[0]} /> {/* 2 */}
         </div>
         <div style={{ marginTop: "38%" }}>
-          <OneMatchInScheme match={matchesIn8[3]} />
+          <OneMatchInScheme match={matchesIn8[3]} /> {/* 3 */}
         </div>
         <div style={{ marginTop: "38%" }}>
-          <OneMatchInScheme match={matchesIn8[2]} />
+          <OneMatchInScheme match={matchesIn8[2]} /> {/* 4 */}
         </div>
       </div>
     );
   };
 
   const renderLast4 = () => {
-    let matchesIn8 = matches.filter((match) => match.group === "SEMI_FINAL");
+    let matchesIn8 = matches.filter((match) => (match.group === "SEMI_FINAL") || (match.group === "SEMI_FINALS"));
 
     return (
       <div>
         <div style={{ marginTop: "55.5%" }}>
-          <OneMatchInScheme match={matchesIn8[0]} />
+          <OneMatchInScheme match={matchesIn8[0]} /> {/* 1 */}
         </div>
         <div style={{ marginTop: "112.5%" }}>
-          <OneMatchInScheme match={matchesIn8[1]} />
+          <OneMatchInScheme match={matchesIn8[1]} /> {/* 2 */}
         </div>
       </div>
     );
   };
 
   const renderLast2 = () => {
-    let matchesIn8 = matches.filter((match) => match.group === "FINAL");
+    let matchesIn24 = matches.filter((match) => match.group === "FINAL");
 
     return (
       <div style={{ height: "680px" }}>
         <div style={{ marginTop: "129%" }}>
-          <OneMatchInScheme match={matchesIn8[0]} />
+          <OneMatchInScheme match={matchesIn24[0]} /> {/* 1 */}
         </div>
       </div>
     );
