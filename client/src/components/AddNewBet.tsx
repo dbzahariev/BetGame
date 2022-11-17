@@ -5,9 +5,8 @@ import axios, { AxiosRequestConfig } from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { selectedCompetition, selectedApiVersion } from "../App";
-import { calcScore, UsersType, MatchType } from "../helpers/OtherHelpers";
+import { calcScore, UsersType, MatchType, renderP2 } from "../helpers/OtherHelpers";
 import { translateTeamsName } from "../helpers/Translate";
-import { renderP } from "./AllMatches";
 
 const { Option } = Select;
 
@@ -394,7 +393,7 @@ export default function AddNewBet() {
         return res;
       };
 
-      let res = renderP(selectedMatchWinner);
+      let res = renderP2(selectedMatchWinner);
       // if (selectedMatchWinner === "DRAW") {
       // res = <span>1</span>;
       let vall: string = getValue(
@@ -403,7 +402,7 @@ export default function AddNewBet() {
         record,
         true
       ).toString();
-      vall = renderP(vall, true).toString();
+      vall = renderP2(vall, true).toString();
 
       res = (
         <Input

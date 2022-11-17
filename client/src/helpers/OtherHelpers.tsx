@@ -119,8 +119,8 @@ export const reloadData = (
 
 export const renderP = (
   el: string,
-  user: UsersType | null,
-  fullMatch: MatchType | null
+  user?: UsersType | null,
+  fullMatch?: MatchType | null
 ) => {
   let result = "";
   if (el === "HOME_TEAM") {
@@ -153,6 +153,14 @@ export const renderP = (
     }
     return <span>{result}</span>;
   }
+};
+
+export const renderP2 = (el: string, plainText = false) => {
+  let result = renderP(el)
+  if (plainText) {
+    return result;
+  }
+  return <span>{result}</span>;
 };
 
 export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
