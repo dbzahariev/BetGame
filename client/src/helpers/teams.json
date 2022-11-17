@@ -51,6 +51,9 @@
   "GROUP": "Група",
   "LAST_16": "1/8 финал",
   "QUARTER_FINAL": "1/4 финал",
+  "QUARTER_FINALS": "1/4 финал",
   "SEMI_FINAL": "1/2 финал",
-  "FINAL": "финал"
+  "SEMI_FINALS": "1/2 финал",
+  "THIRD_PLACE": "Трето място",
+  "FINAL": "Финал"
 }
