@@ -32,7 +32,7 @@ export default function Ranking() {
   const [users, setUsers] = useState<UsersType[]>([]);
   const [matches, setMatches] = useState<MatchType[]>([]);
   const [showGroups, setShowGroups] = useState(true);
-  const [competitionValue, setCompetitionValue] = useState<string>("2016");
+  const [competitionValue, setCompetitionValue] = useState<string>("2020");
 
   const getMatches = () => {
     let matchesFromBackup: MatchType[] = [];
@@ -105,6 +105,12 @@ export default function Ranking() {
 
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    getMatches()
+    getUsers();
+    // eslint-disable-next-line
+  }, [competitionValue])
 
   const getPaddingLeft = () => {
     let res = "38%";
@@ -305,7 +311,7 @@ export default function Ranking() {
         value={competitionValue}
         onChange={handleChangeForSelector}
       >
-        <Option value="">Избери година</Option>
+        {/* <Option value="">Избери година</Option> */}
         {years.map((year) => {
           return (
             <Option key={year.value} value={year.value}>
