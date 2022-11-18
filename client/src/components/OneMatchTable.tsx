@@ -112,6 +112,15 @@ export default function oneMatchTable({
         }}
       />
       <Column
+        title="Група"
+        dataIndex="group"
+        key="group"
+        width={columnWidth*1.7}
+        render={(el: any) => {
+          return <span>{translateTeamsName(el || "") || "Ще се реши"}</span>;
+        }}
+      />
+      <Column
         title="Домакин"
         dataIndex="homeTeam"
         key="homeTeam"
