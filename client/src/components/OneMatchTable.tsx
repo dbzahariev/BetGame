@@ -115,7 +115,7 @@ export default function oneMatchTable({
         title="Група"
         dataIndex="group"
         key="group"
-        width={columnWidth*1.7}
+        // width={100}
         render={(el: any) => {
           return <span>{translateTeamsName(el || "") || "Ще се реши"}</span>;
         }}

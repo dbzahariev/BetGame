@@ -400,15 +400,15 @@ export const stylingTable = (users: UsersType[]) => {
     `#root > div:nth-child(4) > div > div > div > div > div > div > div > div > table > thead`
   ).css("position", "-webkit-sticky");
 
-  $(
-    `#root > div:nth-child(4) > div > div > div > div > div > div > div > div > table > thead`
-  ).css("top", `${$("#header").height()}px`);
+  $(`table > thead`).css("top", `${$("#header").height()}px`);
 
-  $(
-    `#root > div:nth-child(4) > div > div > div > div > div > div > div > div > table > thead`
-  ).css("z-index", "1");
+  $(`table > thead`).css("z-index", "1");
 
   $(`#root > div:nth-child(3)`).css("display", "inline");
+
+  $(`table > thead > tr:nth-child(1) > th:nth-child(4)`).css("min-width", "90px");
+
+  $(`table > thead > tr:nth-child(1) > th`).css("text-align", "center")
 };
 
 export const getFinalStats = (afterThat: Function) => {
