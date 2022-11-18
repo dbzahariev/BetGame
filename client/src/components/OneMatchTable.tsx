@@ -3,7 +3,7 @@ import React from "react"
 import Table from "antd/lib/table";
 import Column from "antd/lib/table/Column";
 import ColumnGroup from "antd/lib/table/ColumnGroup";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { MatchType, renderP, UsersType } from "../helpers/OtherHelpers";
 import { translateTeamsName } from "../helpers/Translate";
 
@@ -65,19 +65,19 @@ export default function oneMatchTable({
       pagination={false}
       bordered
       expandable={{
-        expandedRowRender: (record: MatchType) => {
-          let date = new Date(record.utcDate).toLocaleString("bg-bg");
-          return (
-            <>
-              <span>{`Този мач ще се проведе на ${date}. Този мач се играе в `}</span>
-              <Link to={`/groups/${record.group}`}>
-                {translateTeamsName(record.group || "") || "Ще се реши"}
-              </Link>
-            </>
-          );
-        },
-        rowExpandable: () => true,
-        defaultExpandedRowKeys: ["1"],
+        // expandedRowRender: (record: MatchType) => {
+        //   let date = new Date(record.utcDate).toLocaleString("bg-bg");
+        //   return (
+        //     <>
+        //       <span>{`Този мач ще се проведе на ${date}. Този мач се играе в `}</span>
+        //       <Link to={`/groups/${record.group}`}>
+        //         {translateTeamsName(record.group || "") || "Ще се реши"}
+        //       </Link>
+        //     </>
+        //   );
+        // },
+        // rowExpandable: () => true,
+        // defaultExpandedRowKeys: ["1"],
       }}
     >
       <Column
@@ -100,13 +100,25 @@ export default function oneMatchTable({
         }}
       />
       <Column
+        title="Час"
+        dataIndex="utcDate"
+        key="utcDate"
+        width={columnWidth}
+        render={(el: any) => {
+          let newEl = new Date(el)
+          let res = `${newEl.getHours()}.0${newEl.getUTCMinutes()}`
+
+          return <span>{res}</span>;
+        }}
+      />
+      <Column
         title="Домакин"
         dataIndex="homeTeam"
         key="homeTeam"
         width={columnWidth}
-        render={(el: any) => {
-          return <span>{translateTeamsName(el.name) || "Ще се реши"}</span>;
-        }}
+        render={(el: any) => (
+          <p style={{ justifyContent: "center" }}>{translateTeamsName(el.name) || "Ще се реши"}</p>
+        )}
       />
       <ColumnGroup title="Резултат">
         <Column
@@ -159,7 +171,7 @@ export default function oneMatchTable({
         key="awayTeam"
         width={columnWidth}
         render={(el: any) => (
-          <span>{translateTeamsName(el.name) || "Ще се реши"}</span>
+          <p>{translateTeamsName(el.name) || "Ще се реши"}</p>
         )}
       />
       {users.map((user: UsersType) => {
