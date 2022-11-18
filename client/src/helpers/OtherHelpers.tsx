@@ -154,7 +154,18 @@ export const renderP = (
 };
 
 export const renderP2 = (el: string, plainText = false) => {
+  if (el === "") {
+    return el
+  }
+
   let result = renderP(el)
+  if (typeof result === "object") {
+    if (result.props.children && plainText) {
+      return result.props.children
+    }
+    return result
+  }
+
   if (plainText) {
     return result;
   }
