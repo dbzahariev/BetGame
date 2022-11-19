@@ -9,7 +9,7 @@ import {
   coefficientSemiFinal,
 } from "../components/Rules";
 import { Key } from "react";
-
+import compare from 'just-compare';
 
 export interface ScoreType {
   duration: string;
@@ -254,6 +254,7 @@ export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
 
   for (let i = 0; i < res.length; i++) {
     let oneUser = res[i];
+    let rowUserBets = oneUser.bets.slice()
     for (let j = 0; j < oneUser.bets.length; j++) {
       let oneBet = oneUser.bets[j];
       let selectedMatch = matches.find((el) => el.id === oneBet.matchId);
@@ -272,14 +273,17 @@ export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
       return res;
     };
     oneUser.bets.sort((a, b) => getMatchDate(a) - getMatchDate(b));
-    axios({
-      method: "POST",
-      data: { bets: oneUser.bets },
-      withCredentials: true,
-      url: `/api/update?id=${oneUser.id}`,
-    })
-      .then((res) => { })
-      .catch((err) => console.error(err));
+
+    if (compare(rowUserBets, oneUser.bets) === false) {
+      axios({
+        method: "POST",
+        data: { bets: oneUser.bets },
+        withCredentials: true,
+        url: `/api/update?id=${oneUser.id}`,
+      })
+        .then((res) => { })
+        .catch((err) => console.error(err));
+    }
   }
 
   return res;
