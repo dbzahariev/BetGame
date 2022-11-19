@@ -4,6 +4,8 @@ import {
   ScoreType,
   stylingTable,
   UsersType,
+  getAllMatches,
+  getAllUsers
 } from "../../helpers/OtherHelpers";
 import { getMatchesForView } from "../AllMatches2";
 import OneMatchTable from "../OneMatchTable";
@@ -23,6 +25,7 @@ import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
 const { Option } = Select;
 
 const years = [
+  { value: "2022", name: { eng: "World 2022", bg: "Световно 2022" } },
   { value: "2020", name: { eng: "Euro 2020", bg: "Евро 2020" } },
   { value: "2018", name: { eng: "World 2018", bg: "Световно 2018" } },
   { value: "2016", name: { eng: "Euro 2016", bg: "Евро 2016" } },
@@ -32,20 +35,34 @@ export default function Ranking() {
   const [users, setUsers] = useState<UsersType[]>([]);
   const [matches, setMatches] = useState<MatchType[]>([]);
   const [showGroups, setShowGroups] = useState(true);
-  const [competitionValue, setCompetitionValue] = useState<string>("2020");
+  const [competitionValue, setCompetitionValue] = useState<string>("2022");
+  const [backup2022, setBackup2022] = useState<{
+    matches: any[];
+    users: any[];
+  }>({ matches: [], users: [] })
+
+  const fillBackup2022 = () => {
+    let back2022 = { matches, users }
+    setBackup2022(back2022)
+  }
+
 
   const getMatches = () => {
+    getUsers()
     let matchesFromBackup: MatchType[] = [];
 
-    let selectedBackup = backup2020;
+    let selectedBackup = backup2022;
 
     if (competitionValue === years[0].value) {
-      selectedBackup = backup2020;
+      selectedBackup = backup2022
     }
     if (competitionValue === years[1].value) {
-      selectedBackup = backup2018;
+      selectedBackup = backup2020;
     }
     if (competitionValue === years[2].value) {
+      selectedBackup = backup2018;
+    }
+    if (competitionValue === years[3].value) {
       selectedBackup = backup2016;
     }
 
@@ -72,16 +89,18 @@ export default function Ranking() {
   const getUsers = () => {
     let usersFromBackup: UsersType[] = [];
 
-    let selectedBackup = backup2020;
+    let selectedBackup = backup2022;
 
     if (competitionValue === years[0].value) {
-      selectedBackup = backup2020;
+      selectedBackup = backup2022;
     }
     if (competitionValue === years[1].value) {
+      selectedBackup = backup2020;
+    }
+    if (competitionValue === years[2].value) {
       selectedBackup = backup2018;
     }
-
-    if (competitionValue === years[2].value) {
+    if (competitionValue === years[3].value) {
       selectedBackup = backup2016;
     }
 
@@ -100,15 +119,34 @@ export default function Ranking() {
   };
 
   useEffect(() => {
-    getUsers();
-    getMatches();
-
+    // getUsers();
+    if (matches.length === 0) {
+      getAllMatches(setMatches)
+    }
+    if (users.length === 0) {
+      getAllUsers(setUsers)
+    }
     // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    getMatches()
-    getUsers();
+    if (matches.length === 0 && users.length === 0) {
+      fillBackup2022()
+    }
+    // eslint-disable-next-line
+  }, [matches, users])
+
+  useEffect(() => {
+    if (backup2022.matches.length !== 0) {
+      getMatches()
+      getUsers()
+    }
+    // eslint-disable-next-line
+  }, [backup2022])
+
+  useEffect(() => {
+    // getMatches()
+    // getUsers();
     // eslint-disable-next-line
   }, [competitionValue])
 
