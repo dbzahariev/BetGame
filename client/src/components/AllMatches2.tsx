@@ -23,7 +23,7 @@ export const getMatchesForView = (
 ) => {
   let res = [...matches];
   if (showGroups === false) {
-    res = res.filter((el) => isGroup(el));
+    res = res.filter((el) => !isGroup(el))
   }
 
   return res;
