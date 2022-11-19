@@ -438,6 +438,9 @@ export const stylingTable = (users: UsersType[]) => {
   $(`table > thead > tr:nth-child(1) > th:nth-child(4)`).css("min-width", "90px");
 
   $(`table > thead > tr:nth-child(1) > th`).css("text-align", "center")
+
+  // Гост колумн
+  $(`table > thead > tr:nth-child(1) > th:nth-child(7)`).css("min-width", "100px")
 };
 
 export const getFinalStats = (afterThat: Function) => {
