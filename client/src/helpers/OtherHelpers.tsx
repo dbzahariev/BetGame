@@ -10,6 +10,7 @@ import {
 } from "../components/Rules";
 import { Key } from "react";
 
+
 export interface ScoreType {
   duration: string;
   extraTime: {
@@ -69,6 +70,10 @@ export interface UsersType {
   finalWinner: string;
   colorTable: string;
   totalPoints: number;
+}
+
+export const isGroup = (fullMatch: MatchType) => {
+  return (fullMatch.group || "").includes("GROUP")
 }
 
 export const getAllUsers = (setUsers: Function) => {
@@ -140,13 +145,23 @@ export const renderP = (
     return <span>{result}</span>;
   } else {
     if (fullMatch) {
+
       let matchDate = new Date(fullMatch.utcDate);
       let now = new Date();
       let dif = matchDate.getTime() - now.getTime();
       if (result === "" && dif > 0 && fullMatch.winner === "") {
         result = "";
       } else if (dif > 0) {
-        result = "?";
+
+        // Провери ако няма залози да няма и ?
+        if (user.name === "Митко") {
+          // debugger
+        }
+        if (fullMatch.score?.winner === null) {
+          result = "?"
+        } else {
+          result = "??";
+        }
       }
     }
     return <span>{result}</span>;
@@ -210,7 +225,7 @@ export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
       }
 
       if (
-        (selectedMatch.group || "").indexOf("Group") === -1 &&
+        isGroup(selectedMatch) &&
         selectedMatch.status === "FINISHED" &&
         R3 === P3
       ) {

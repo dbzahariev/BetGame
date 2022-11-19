@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 import React, { useEffect, useState } from "react";
 import { selectedCompetition, selectedApiVersion } from "../../App";
-import { calcScore, MatchType } from "../../helpers/OtherHelpers";
+import { calcScore, MatchType, isGroup } from "../../helpers/OtherHelpers";
 import OneMatchInScheme from "./OneMatchInScheme";
 import Separator from "./separator.svg";
 
@@ -46,7 +46,7 @@ export default function Scheme() {
             status: el.status,
             score: el.score,
           };
-          if ((matchToAdd.group || "").indexOf("Group") === -1) {
+          if (isGroup(matchToAdd)) {
             matches.push(matchToAdd);
           }
         });

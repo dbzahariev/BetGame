@@ -5,7 +5,7 @@ import axios, { AxiosRequestConfig } from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { selectedCompetition, selectedApiVersion } from "../App";
-import { calcScore, UsersType, MatchType, renderP2 } from "../helpers/OtherHelpers";
+import { calcScore, UsersType, MatchType, renderP2, isGroup } from "../helpers/OtherHelpers";
 import { translateTeamsName } from "../helpers/Translate";
 
 const { Option } = Select;
@@ -179,7 +179,7 @@ export default function AddNewBet() {
     } else if (awayScore > homeScore || forW === 2) {
       res = "AWAY_TEAM";
     } else {
-      res = "";
+      res = "DRAW"
     }
     if (homeScore === -1 || awayScore === -1) {
       res = "";
@@ -376,10 +376,14 @@ export default function AddNewBet() {
         let res = false;
         let bet = user.bets.find((el) => el.matchId === vall.id);
         if (bet !== undefined) {
-          if (bet.homeTeamScore === bet.awayTeamScore) {
-            res = false;
+          if (isGroup(record)) {
+            res = true
           } else {
-            res = true;
+            if (bet.homeTeamScore === bet.awayTeamScore) {
+              res = false;
+            } else {
+              res = true;
+            }
           }
         }
 

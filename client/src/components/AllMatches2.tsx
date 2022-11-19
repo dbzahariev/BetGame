@@ -14,6 +14,7 @@ import {
   getAllUsers,
   MatchType,
   UsersType,
+  isGroup,
 } from "../helpers/OtherHelpers";
 
 export const getMatchesForView = (
@@ -22,10 +23,7 @@ export const getMatchesForView = (
 ) => {
   let res = [...matches];
   if (showGroups === false) {
-    let kk = res.filter(
-      (el) => (el.group || "").toLowerCase().indexOf("group") === -1
-    );
-    res = kk;
+    res = res.filter((el) => isGroup(el));
   }
 
   return res;
