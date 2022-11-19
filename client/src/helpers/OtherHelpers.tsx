@@ -145,22 +145,21 @@ export const renderP = (
     return <span>{result}</span>;
   } else {
     if (fullMatch) {
-
       let matchDate = new Date(fullMatch.utcDate);
       let now = new Date();
       let dif = matchDate.getTime() - now.getTime();
       if (result === "" && dif > 0 && fullMatch.winner === "") {
         result = "";
       } else if (dif > 0) {
+        let winerByUser = (user.bets.find(x => x.matchId === fullMatch.id))?.winner
 
-        // Провери ако няма залози да няма и ?
-        if (user.name === "Митко") {
-          // debugger
-        }
         if (fullMatch.score?.winner === null) {
-          result = "?"
+          result = ""
         } else {
-          result = "??";
+          result = "?";
+        }
+        if (winerByUser !== undefined) {
+          result = "?"
         }
       }
     }
