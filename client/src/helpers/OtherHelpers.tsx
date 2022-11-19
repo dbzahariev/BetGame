@@ -4,9 +4,10 @@ import axios, { AxiosRequestConfig } from "axios";
 import { selectedCompetition, selectedApiVersion } from "../App";
 import $ from "jquery";
 import {
-  coefficientFinal,
   coefficientQuarterFinal,
   coefficientSemiFinal,
+  coefficientThirdPlace,
+  coefficientFinal,
 } from "../components/Rules";
 import { Key } from "react";
 import compare from 'just-compare';
@@ -235,6 +236,8 @@ export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
         res *= coefficientQuarterFinal;
       } else if (selectedMatch.group === "SEMI_FINAL") {
         res *= coefficientSemiFinal;
+      } else if (selectedMatch.group === "THIRD_PLACE") {
+        res *= coefficientThirdPlace
       } else if (selectedMatch.group === "FINAL") {
         res *= coefficientFinal;
       }

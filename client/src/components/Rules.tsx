@@ -3,6 +3,7 @@ import React from "react";
 
 export const coefficientQuarterFinal = 1.5;
 export const coefficientSemiFinal = 2;
+export const coefficientThirdPlace = 2;
 export const coefficientFinal = 3;
 
 export default function Rules() {
@@ -79,6 +80,13 @@ export default function Rules() {
           <span style={styleMiniHeader}>Полуфинали</span>
           <span style={styleNormal}>
             - полученият брой точки се умножава по {coefficientSemiFinal}
+          </span>
+        </span>
+
+        <span>
+          <span style={styleMiniHeader}>Трето място</span>
+          <span style={styleNormal}>
+            - полученият брой точки се умножава по {coefficientThirdPlace}
           </span>
         </span>
 
