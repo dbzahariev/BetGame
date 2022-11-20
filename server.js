@@ -41,22 +41,6 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-let times = 1
-function bb() {
-  axios.get(process.env.http)
-    .then((response) => {
-      console.log('Triger awake', times)
-      if (times === 5) {
-        clearInterval(timer)
-      }
-      times += 1
-    })
-    .catch((err) => {
-      console.log("Unable to fetch -", err);
-    });
-}
-const timer = setInterval(bb, process.env.everySecond * 1000);
-
 
 // HTTP request logger
 app.use(morgan("tiny"));
