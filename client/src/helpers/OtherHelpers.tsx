@@ -189,6 +189,7 @@ export const renderP2 = (el: string, plainText = false) => {
 
 export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
   const getPointForEvent = (selectedMatch: MatchType, user: UsersType) => {
+
     let bet = user.bets.find((el) => el.matchId === selectedMatch.id);
     let res = 0;
 
@@ -229,7 +230,7 @@ export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
         selectedMatch.status === "FINISHED" &&
         R3 === P3
       ) {
-        res += 1;
+        // res += 1;
       }
 
       if (selectedMatch.group === "QUARTER_FINAL") {
