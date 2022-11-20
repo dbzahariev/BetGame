@@ -42,12 +42,13 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
+// Timer
 let times = 1
 function bb() {
   axios.get("https://dworld.onrender.com/api/users")
     .then((response) => {
       console.log('Triger awake', times)
-      if (times === 5) {
+      if (times === 9000) {
         clearInterval(timer)
       }
       times += 1
@@ -56,11 +57,7 @@ function bb() {
       console.log("Unable to fetch -", err.message);
     });
 }
-const timer = setInterval(bb, 30 * 1000);
-
-
-bb()
-
+const timer = setInterval(bb, 600 * 1000);
 
 // HTTP request logger
 app.use(morgan("tiny"));
