@@ -445,6 +445,8 @@ export const stylingTable = (users: UsersType[]) => {
 
   // Гост колумн
   $(`table > thead > tr:nth-child(1) > th:nth-child(7)`).css("min-width", "100px")
+
+  $(`.ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th`).css("padding", "11px") // default is 16px
 };
 
 export const getFinalStats = (afterThat: Function) => {

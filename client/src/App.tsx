@@ -71,7 +71,7 @@ export default function App() {
         id="header"
         style={{
           position: "sticky",
-          width: `${dimensions.widthO * 0.99}px`,
+          maxWidth: `${dimensions.widthO * 0.992}px`,
           zIndex: 2,
           top: 0,
         }}
