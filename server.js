@@ -44,8 +44,7 @@ if (process.env.NODE_ENV === "production") {
 
 let times = 1
 function bb() {
-  console.log('PE', process.env)
-  axios.get(process.env.http)
+  axios.get(process.env.http.toString())
     .then((response) => {
       console.log('Triger awake', times)
       if (times === 5) {
@@ -57,7 +56,7 @@ function bb() {
       console.log("Unable to fetch -", err);
     });
 }
-const timer = setInterval(bb, process.env.everySecond * 1000);
+const timer = setInterval(bb, Number(process.env.everySecond) * 1000);
 
 
 bb()
