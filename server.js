@@ -44,6 +44,7 @@ if (process.env.NODE_ENV === "production") {
 
 let times = 1
 function bb() {
+  console.log('PE', process.env)
   axios.get(process.env.http)
     .then((response) => {
       console.log('Triger awake', times)
