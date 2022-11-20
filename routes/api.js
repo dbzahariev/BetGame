@@ -17,6 +17,17 @@ router.get("/", (req, res) => {
     });
 });
 
+router.get("/users", (req, res) => {
+  Games.find({})
+    .then((data) => {
+      return res.json(data);
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.status(500);
+    });
+});
+
 router.post("/save", (req, res) => {
   const data = req.body;
 
