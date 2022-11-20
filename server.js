@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const path = require("path");
+const axios = require('axios');
 
 const app = express();
 const PORT = process.env.PORT || 8080; // Step 1
@@ -39,6 +40,23 @@ app.use(express.urlencoded({ extended: false }));
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
+
+let times = 1
+function bb() {
+  axios.get(process.env.http)
+    .then((response) => {
+      console.log('Triger awake', times)
+      if (times === 5) {
+        clearInterval(timer)
+      }
+      times += 1
+    })
+    .catch((err) => {
+      console.log("Unable to fetch -", err);
+    });
+}
+const timer = setInterval(bb, process.env.everySecond * 1000);
+
 
 // HTTP request logger
 app.use(morgan("tiny"));
