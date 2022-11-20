@@ -446,7 +446,14 @@ export const stylingTable = (users: UsersType[]) => {
   // Гост колумн
   $(`table > thead > tr:nth-child(1) > th:nth-child(7)`).css("min-width", "100px")
 
-  $(`.ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th`).css("padding", "11px") // default is 16px
+  // all padding (default 16px)
+  $(`.ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th`).css("padding", "0.8em")
+
+
+  $(`table > thead > tr:nth-child(2) > th`).css("text-align", "center")
+
+  // Center text
+  $(`table > tbody > tr:nth-child(1n) > td:nth-child(6), table > tbody > tr:nth-child(1n) > td:nth-child(7), table > tbody > tr:nth-child(1n) > td:nth-child(8)`).css("text-align", "center")
 };
 
 export const getFinalStats = (afterThat: Function) => {

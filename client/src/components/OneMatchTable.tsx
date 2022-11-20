@@ -126,7 +126,7 @@ export default function oneMatchTable({
         key="homeTeam"
         width={columnWidth}
         render={(el: any) => (
-          <p style={{ justifyContent: "center" }}>{translateTeamsName(el.name) || "Ще се реши"}</p>
+          <span style={{ justifyContent: "center" }}>{translateTeamsName(el.name) || "Ще се реши"}</span>
         )}
       />
       <ColumnGroup title="Резултат">
@@ -180,7 +180,7 @@ export default function oneMatchTable({
         key="awayTeam"
         width={columnWidth}
         render={(el: any) => (
-          <p>{translateTeamsName(el.name) || "Ще се реши"}</p>
+          <span>{translateTeamsName(el.name) || "Ще се реши"}</span>
         )}
       />
       {users.map((user: UsersType) => {
