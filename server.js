@@ -42,14 +42,21 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
+let times = 1
 function bb() {
-  console.log('gg')
+  axios.get(process.env.http)
+    .then((response) => {
+      console.log('Triger awake', times)
+      if (times === 5) {
+        clearInterval(timer)
+      }
+      times += 1
+    })
+    .catch((err) => {
+      console.log("Unable to fetch -", err);
+    });
 }
-function intervalFunc() {
-  console.log('Cant stop me now!');
-  clearInterval(timer)
-}
-const timer = setInterval(intervalFunc, 1500);
+const timer = setInterval(bb, process.env.everySecond * 1000);
 
 
 bb()
