@@ -81,7 +81,7 @@ export const getAllUsers = (setUsers: Function) => {
   axios({
     method: "GET",
     withCredentials: true,
-    url: "/api",
+    url: "/api/users",
   })
     .then((res) => {
       let users = [...res.data] as UsersType[];
