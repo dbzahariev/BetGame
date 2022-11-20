@@ -4,12 +4,13 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 const path = require("path");
 const axios = require('axios');
+const { clearInterval, setInterval } = require("timers");
 
 const app = express();
 const PORT = process.env.PORT || 8080; // Step 1
 
 const routes = require("./routes/api");
-const routesChat = require("./routes/chat");
+const routesChat = require("./routes/chat")
 
 require("dotenv").config();
 
@@ -44,6 +45,12 @@ if (process.env.NODE_ENV === "production") {
 function bb() {
   console.log('gg')
 }
+function intervalFunc() {
+  console.log('Cant stop me now!');
+  clearInterval(timer)
+}
+const timer = setInterval(intervalFunc, 1500);
+
 
 bb()
 
