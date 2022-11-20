@@ -5,7 +5,8 @@ import {
   stylingTable,
   UsersType,
   getAllMatches,
-  getAllUsers
+  getAllUsers,
+  getPoints
 } from "../../helpers/OtherHelpers";
 import { getMatchesForView } from "../AllMatches2";
 import OneMatchTable from "../OneMatchTable";
@@ -41,11 +42,35 @@ export default function Ranking() {
     users: any[];
   }>({ matches: [], users: [] })
 
-  const fillBackup2022 = () => {
-    let back2022 = { matches, users }
-    setBackup2022(back2022)
+  const genBackup2022 = () => {
+    getAllMatches((matches: any) => {
+      getAllUsers((users: any) => {
+        setBackup2022({ matches, users: getPoints(users, matches) })
+      })
+    })
   }
 
+  useEffect(() => {
+    getAllMatches(setMatches)
+    genBackup2022()
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    if (matches.length !== 0 && users.length === 0) {
+      getAllUsers((users: UsersType[]) => setUsers(getPoints(users, matches)))
+    }
+  }, [matches, users])
+
+  useEffect(() => {
+    getMatches();
+    getUsers();
+    // eslint-disable-next-line
+  }, [competitionValue])
+
+  useEffect(() => {
+    stylingTable(users);
+  }, [showGroups, users]);
 
   const getMatches = () => {
     getUsers()
@@ -118,38 +143,6 @@ export default function Ranking() {
     setUsers(usersFromBackup);
   };
 
-  useEffect(() => {
-    // getUsers();
-    if (matches.length === 0) {
-      getAllMatches(setMatches)
-    }
-    if (users.length === 0) {
-      getAllUsers(setUsers)
-    }
-    // eslint-disable-next-line
-  }, []);
-
-  useEffect(() => {
-    if (matches.length === 0 && users.length === 0) {
-      fillBackup2022()
-    }
-    // eslint-disable-next-line
-  }, [matches, users])
-
-  useEffect(() => {
-    if (backup2022.matches.length !== 0) {
-      getMatches()
-      getUsers()
-    }
-    // eslint-disable-next-line
-  }, [backup2022])
-
-  useEffect(() => {
-    // getMatches()
-    // getUsers();
-    // eslint-disable-next-line
-  }, [competitionValue])
-
   const getPaddingLeft = () => {
     let res = "38%";
     if (users.length === 4) {
@@ -185,10 +178,6 @@ export default function Ranking() {
     }
   };
 
-  useEffect(() => {
-    stylingTable(users);
-  }, [showGroups, users]);
-
   const getSortedUsers = () => {
     let res = users
       .sort((a, b) => b.index - a.index)
@@ -196,9 +185,6 @@ export default function Ranking() {
 
     return res;
   };
-  if (users.length === 0) {
-    return null;
-  }
 
   const oneHuman = (user: UsersType, color2: string) => {
     if (user === undefined) {
@@ -332,6 +318,10 @@ export default function Ranking() {
   const handleChangeForSelector = (value: any) => {
     setCompetitionValue(value);
   };
+
+  if (users.length === 0) {
+    return null;
+  }
 
   return (
     <div
