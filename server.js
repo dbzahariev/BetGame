@@ -41,6 +41,12 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
+function bb() {
+  console.log('gg')
+}
+
+bb()
+
 
 // HTTP request logger
 app.use(morgan("tiny"));
