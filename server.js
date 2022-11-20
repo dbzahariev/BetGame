@@ -44,7 +44,7 @@ if (process.env.NODE_ENV === "production") {
 
 let times = 1
 function bb() {
-  axios.get(process.env.http.toString())
+  axios.get(process.env.http || "https://dworld.onrender.com/api")
     .then((response) => {
       console.log('Triger awake', times)
       if (times === 5) {
@@ -56,7 +56,7 @@ function bb() {
       console.log("Unable to fetch -", err);
     });
 }
-const timer = setInterval(bb, Number(process.env.everySecond) * 1000);
+const timer = setInterval(bb, Number(process.env.everySecond || 5) * 1000);
 
 
 bb()
