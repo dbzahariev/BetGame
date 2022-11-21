@@ -1,7 +1,6 @@
-import axios, { AxiosRequestConfig } from "axios";
-import React, { useEffect, useState } from "react";
-import { selectedCompetition, selectedApiVersion } from "../../App";
-import { calcScore, MatchType, isGroup } from "../../helpers/OtherHelpers";
+import React from "react"
+import { useEffect, useState } from "react";
+import { MatchType, getAllMatches } from "../../helpers/OtherHelpers";
 import OneMatchInScheme from "./OneMatchInScheme";
 import Separator from "./separator.svg";
 
@@ -9,56 +8,8 @@ export default function Scheme() {
   const [matches, setMatches] = useState<MatchType[]>([]);
 
   useEffect(() => {
-    getAllMatches();
+    getAllMatches(setMatches);
   }, []);
-
-  const getAllMatches = () => {
-    var config: AxiosRequestConfig = {
-      method: "GET",
-      url: `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`,
-      headers: {
-        "X-Auth-Token": "35261f5a038d45029fa4ae0abc1f2f7a",
-      },
-    };
-
-    axios(config)
-      .then(function (response) {
-        let data: MatchType[] = response.data.matches;
-        data = data.slice(0, data.length)
-        let matches: MatchType[] = [];
-
-        data.forEach((el: any, index) => {
-          let score = el.score;
-
-          let calculatedScore = calcScore(el, score);
-
-          let matchToAdd: MatchType = {
-            number: index + 1,
-            key: matches.length || 0,
-            id: el.id,
-            homeTeam: el.homeTeam,
-            awayTeam: el.awayTeam,
-            utcDate: el.utcDate,
-            group: el.group || el.stage,
-            winner: score?.winner || "",
-            homeTeamScore: calculatedScore.ht,
-            awayTeamScore: calculatedScore.at,
-            status: el.status,
-            score: el.score,
-          };
-          if (isGroup(matchToAdd)) {
-            matches.push(matchToAdd);
-          }
-        });
-
-        setMatches(matches);
-      })
-      .catch((error) => console.error(error));
-  };
-
-  if (matches.length === 0) {
-    return null;
-  }
 
   const renderLast16 = () => {
     let matchesIn16 = matches.filter((match) => match.group === "LAST_16");
@@ -220,6 +171,10 @@ export default function Scheme() {
       </div>
     );
   };
+
+  if (matches.length === 0) {
+    return null;
+  }
 
   return (
     <div

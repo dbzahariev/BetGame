@@ -1,11 +1,10 @@
 import { Input, InputNumber, notification, Select, Space, Table } from "antd";
 import Column from "antd/lib/table/Column";
 import ColumnGroup from "antd/lib/table/ColumnGroup";
-import axios, { AxiosRequestConfig } from "axios";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { selectedCompetition, selectedApiVersion } from "../App";
-import { calcScore, UsersType, MatchType, renderP2, isGroup } from "../helpers/OtherHelpers";
+import { UsersType, MatchType, renderP2, isGroup, getAllMatches, getAllUsers } from "../helpers/OtherHelpers";
 import { translateTeamsName } from "../helpers/Translate";
 
 const { Option } = Select;
@@ -17,110 +16,31 @@ export default function AddNewBet() {
   const [usersNames, setUsersNames] = useState<string[]>([]);
 
   useEffect(() => {
-    getAllUsersNames();
-    getAllMatches();
+    // getAllUsersNames();
+    getAllUsersNames2()
+    getAllMatchesAndRemovePass()
   }, []);
 
-  const getAllMatches = () => {
-    var config: AxiosRequestConfig = {
-      method: "GET",
-      url: `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`,
-      headers: {
-        "X-Auth-Token": "35261f5a038d45029fa4ae0abc1f2f7a",
-      },
-    };
+  const getAllMatchesAndRemovePass = () => {
+    getAllMatches((matches: MatchType[]) => setMatches(matches.filter((match) => match.status !== "FINISHED")));
+  }
 
-    axios(config)
-      .then(function (response) {
-        let data: MatchType[] = response.data.matches;
-        data = data.slice(0, data.length);
-        let matches: MatchType[] = [];
-
-        data.forEach((el: any, index) => {
-          if (el.id === 325091) {
-          }
-          let score = el.score;
-
-          let calculatedScore = calcScore(el, score);
-
-          let matchToAdd: MatchType = {
-            status: el.status,
-            number: index + 1,
-            key: matches.length || 0,
-            id: el.id,
-            homeTeam: el.homeTeam,
-            awayTeam: el.awayTeam,
-            utcDate: el.utcDate,
-            group: el.group || el.stage,
-            winner: score?.winner || "",
-            homeTeamScore: calculatedScore.ht,
-            awayTeamScore: calculatedScore.at,
-          };
-          let ss = el.status;
-          if (ss !== "FINISHED") {
-            matches.push(matchToAdd);
-          }
-        });
-        setMatches(matches);
-      })
-      .catch((error) => console.error(error));
-  };
-
-  const getAllUsers = (selectedUserName: string) => {
-    axios({
-      method: "GET",
-      withCredentials: true,
-      url: "/api",
+  const getAllUsersNames2 = () => {
+    getAllUsers((users: UsersType[]) => {
+      let onlyNames: string[] = []
+      users.forEach(element => {
+        onlyNames.push(element.name)
+      });
+      setUsersNames(onlyNames)
     })
-      .then((res) => {
-        let users = [...res.data] as UsersType[];
-        let newUsers: UsersType[] = [];
-        users.forEach((el) => {
-          let userToAdd: UsersType = {
-            name: el.name,
-            bets: el.bets,
-            index: el.index,
-            finalWinner: el.finalWinner,
-            colorTable: el.colorTable,
-            totalPoints: 0,
-          };
-          if (el._id) {
-            userToAdd.id = el._id;
-          }
-          if (userToAdd.name === selectedUserName) {
-            newUsers.push(userToAdd);
-          }
-        });
-
-        setUsers(newUsers);
-      })
-      .catch((err) => { });
-  };
-
-  const getAllUsersNames = () => {
-    axios({
-      method: "GET",
-      withCredentials: true,
-      url: "/api",
-    })
-      .then((res) => {
-        let users = [...res.data] as UsersType[];
-        let newUsers: string[] = [];
-        users.forEach((el) => {
-          newUsers.push(el.name);
-        });
-
-        setUsersNames(newUsers);
-      })
-      .catch((err) => { });
-  };
+  }
 
   const handleChangeForSelector = (value: any) => {
     setSelectedUserName(value);
   };
 
   useEffect(() => {
-    getAllUsers(selectedUserName);
+    getAllUsers((users: UsersType[]) => setUsers(users.filter((user) => user.name === selectedUserName)));
   }, [selectedUserName]);
 
   const checkDisabledInput = (fullMatch: MatchType, user: UsersType) => {
