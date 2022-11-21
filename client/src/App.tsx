@@ -19,7 +19,7 @@ import AddNewBet from "./components/AddNewBet";
 import Chat from "./components/chat/Chat";
 import Scheme from "./components/scheme/Scheme";
 import Ranking from "./components/ranking/Ranking";
-import AllMatches from "./components/AllMatches2";
+import AllMatches from "./components/AllMatches";
 
 const competitionsIds = {
   Uefa: 2018,

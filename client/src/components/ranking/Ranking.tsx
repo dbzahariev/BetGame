@@ -8,7 +8,7 @@ import {
   getAllUsers,
   getPoints
 } from "../../helpers/OtherHelpers";
-import { getMatchesForView } from "../AllMatches2";
+import { getMatchesForView } from "../AllMatches";
 import OneMatchTable from "../OneMatchTable";
 import rankingImg4 from "./rankingImg_4_ranks.svg";
 import rankingImg5 from "./rankingImg_5_ranks.svg";
