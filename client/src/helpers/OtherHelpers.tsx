@@ -189,17 +189,19 @@ export const renderP2 = (el: string, plainText = false) => {
 
 export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
   const getPointForEvent = (selectedMatch: MatchType, user: UsersType) => {
-
     let bet = user.bets.find((el) => el.matchId === selectedMatch.id);
     let res = 0;
 
     if (bet) {
       const R1 = selectedMatch.homeTeamScore;
-      const R2 = selectedMatch.awayTeamScore;
       const P1 = bet.homeTeamScore;
+
+      const R2 = selectedMatch.awayTeamScore;
       const P2 = bet.awayTeamScore;
+
       const R3 = selectedMatch.winner;
       const P3 = bet.winner;
+
       if (
         R1 === undefined ||
         R2 === undefined ||
@@ -225,6 +227,7 @@ export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
         res = 1;
       }
 
+      // Plus one point for winer in current match
       if (
         isGroup(selectedMatch) &&
         selectedMatch.status === "FINISHED" &&
