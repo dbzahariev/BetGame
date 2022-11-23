@@ -39,44 +39,6 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
   let intervalRef = useRef<any>();
 
   useEffect(() => {
-    const data = JSON.stringify({
-      "Messages": [{
-        "From": { "Email": "dbzahariev@gmail.com", "Name": "Dimitar Zahariev" },
-        "To": [{ "Email": "ramsess90@gmail.com", "Name": "mitaka" }],
-        "Subject": "Notify for match",
-        "TextPart": "Notify for match in 22.11.2022 y."
-      }]
-    });
-
-    const config: AxiosRequestConfig = {
-      method: 'post',
-      url: 'https://api.mailjet.com/v3.1/send',
-      data: data,
-      // withCredentials: true,
-      headers: {
-        'Content-Type': 'application/json',
-        "Access-Control-Allow-Origin": "*",
-        'Access-Control-Allow-Credentials': true
-      },
-      auth: { username: 'cfdbb1155dca944f524c0af25a5fab94', password: '3d6f3db2290d8011d4f9c199f420035b' },
-    };
-
-    const kk: AxiosRequestConfig = {
-      method: "GET",
-      withCredentials: true,
-      url: "/api/users3",
-    }
-
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, [])
-
-  useEffect(() => {
     if (AutoRefreshInterval >= 1 && AutoRefreshInterval !== "disable") {
       intervalRef.current = setInterval(() => {
         reloadData(setMatches, getAllUsers, setUsers, users, matches);
