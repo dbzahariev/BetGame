@@ -16,8 +16,7 @@ export default function AddNewBet() {
   const [usersNames, setUsersNames] = useState<string[]>([]);
 
   useEffect(() => {
-    // getAllUsersNames();
-    getAllUsersNames2()
+    getAllUsersNames()
     getAllMatchesAndRemovePass()
   }, []);
 
@@ -25,7 +24,7 @@ export default function AddNewBet() {
     getAllMatches((matches: MatchType[]) => setMatches(matches.filter((match) => match.status !== "FINISHED")));
   }
 
-  const getAllUsersNames2 = () => {
+  const getAllUsersNames = () => {
     getAllUsers((users: UsersType[]) => {
       let onlyNames: string[] = []
       users.forEach(element => {
