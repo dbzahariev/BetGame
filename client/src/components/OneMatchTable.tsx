@@ -7,12 +7,18 @@ import ColumnGroup from "antd/lib/table/ColumnGroup";
 import { MatchType, renderP, UsersType } from "../helpers/OtherHelpers";
 import { translateTeamsName } from "../helpers/Translate";
 
+oneMatchTable.defaultProps = { usersColumns: undefined }
+
 export default function oneMatchTable({
   AllMatches,
   users,
+  result,
+  usersColumns
 }: {
   AllMatches: MatchType[];
   users: UsersType[];
+  result: Boolean;
+  usersColumns: any[] | undefined
 }) {
   let columnWidth = 50;
 
@@ -117,7 +123,10 @@ export default function oneMatchTable({
         key="group"
         // width={100}
         render={(el: any) => {
-          return <span>{translateTeamsName(el || "") || "Ще се реши"}</span>;
+          return <div style={!result ? { height: "2.6rem", display: "flex", alignItems: "center" } : {}}>
+            <span>{translateTeamsName(el || "") || "Ще се реши"}</span>
+          </div>
+          // return <span>{translateTeamsName(el || "") || "Ще се реши"}</span>;
         }}
       />
       <Column
@@ -129,7 +138,7 @@ export default function oneMatchTable({
           <span style={{ justifyContent: "center" }}>{translateTeamsName(el.name) || "Ще се реши"}</span>
         )}
       />
-      <ColumnGroup title="Резултат">
+      {result ? <ColumnGroup title="Резултат">
         <Column
           title="Д"
           dataIndex="homeTeamScore"
@@ -174,6 +183,7 @@ export default function oneMatchTable({
           render={(el, match: MatchType) => renderP(el, null, match)}
         />
       </ColumnGroup>
+        : <div></div>}
       <Column
         title="Гост"
         dataIndex="awayTeam"
@@ -183,76 +193,78 @@ export default function oneMatchTable({
           <span>{translateTeamsName(el.name) || "Ще се реши"}</span>
         )}
       />
-      {users.map((user: UsersType) => {
-        return (
-          <ColumnGroup
-            key={user.name}
-            title={`${user.name} (${user.totalPoints || 0})`}
-          >
-            <Column
-              title="Д"
-              dataIndex="homeTeamScore"
-              key="homeTeamScore"
-              width={40}
-              render={(el: any, fullMatch: MatchType) =>
-                renderColumnForUser(el, fullMatch, user, "homeTeamScore")
-              }
-            />
-            <Column
-              title="Г"
-              dataIndex="awayTeamScore"
-              key="awayTeamScore"
-              width={40}
-              render={(el: any, fullMatch: MatchType) =>
-                renderColumnForUser(el, fullMatch, user, "awayTeamScore")
-              }
-            />
-            <Column
-              title="П"
-              dataIndex="winner"
-              key="winner"
-              width={40}
-              render={(_, record: MatchType) => {
-                let selectedMatchWinner =
-                  user.bets.find((el) => el.matchId === record.id)?.winner ||
-                  "";
-                return renderP(selectedMatchWinner, user, record);
-              }}
-            />
-            <Column
-              title="Т"
-              dataIndex=""
-              key="points"
-              width={40}
-              render={(_, record: MatchType) => {
-                const getCurrentPoints = () => {
-                  let res = "";
-                  let selectedMatchBet = user.bets.find(
-                    (el) => el.matchId === record.id
-                  );
-                  if (record.status === "FINISHED") {
-                    res = (selectedMatchBet?.point || 0).toString();
-                  } else if (
-                    record.status === "IN_PLAY" ||
-                    record.status === "PAUSED"
-                  ) {
-                    res = "?";
-                  } else {
-                    let fff = user.bets.find((el) => el.matchId === record.id);
-                    if (fff !== undefined) {
+      {usersColumns ? usersColumns :
+        users.map((user: UsersType) => {
+          return (
+            <ColumnGroup
+              key={user.name}
+              title={`${user.name} (${user.totalPoints || 0})`}
+            >
+              <Column
+                title="Д"
+                dataIndex="homeTeamScore"
+                key="homeTeamScore"
+                width={40}
+                render={(el: any, fullMatch: MatchType) =>
+                  renderColumnForUser(el, fullMatch, user, "homeTeamScore")
+                }
+              />
+              <Column
+                title="Г"
+                dataIndex="awayTeamScore"
+                key="awayTeamScore"
+                width={40}
+                render={(el: any, fullMatch: MatchType) =>
+                  renderColumnForUser(el, fullMatch, user, "awayTeamScore")
+                }
+              />
+              <Column
+                title="П"
+                dataIndex="winner"
+                key="winner"
+                width={40}
+                render={(_, record: MatchType) => {
+                  let selectedMatchWinner =
+                    user.bets.find((el) => el.matchId === record.id)?.winner ||
+                    "";
+                  return renderP(selectedMatchWinner, user, record);
+                }}
+              />
+              <Column
+                title="Т"
+                dataIndex=""
+                key="points"
+                width={40}
+                render={(_, record: MatchType) => {
+                  const getCurrentPoints = () => {
+                    let res = "";
+                    let selectedMatchBet = user.bets.find(
+                      (el) => el.matchId === record.id
+                    );
+                    if (record.status === "FINISHED") {
+                      res = (selectedMatchBet?.point || 0).toString();
+                    } else if (
+                      record.status === "IN_PLAY" ||
+                      record.status === "PAUSED"
+                    ) {
                       res = "?";
+                    } else {
+                      let fff = user.bets.find((el) => el.matchId === record.id);
+                      if (fff !== undefined) {
+                        res = "?";
+                      }
                     }
-                  }
 
-                  return res;
-                };
+                    return res;
+                  };
 
-                return getCurrentPoints();
-              }}
-            />
-          </ColumnGroup>
-        );
-      })}
+                  return getCurrentPoints();
+                }}
+              />
+            </ColumnGroup>
+          );
+        })
+      }
     </Table>
   );
 }

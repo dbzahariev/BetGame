@@ -306,7 +306,7 @@ export const getAllFinalWinner = (users: UsersType[]) => {
   });
 };
 
-export const stylingTable = (users: UsersType[]) => {
+export const stylingTable = (users: UsersType[], kk?: Boolean) => {
   const getSelector1 = (index: number) => {
     let res = "";
     res += `tr:nth-child(1) > th:nth-child(${index + 7}), `;
@@ -346,6 +346,7 @@ export const stylingTable = (users: UsersType[]) => {
     $(selector2).css("border-right", "1px solid");
     $(selector2).css("border-color", `hsl(${users[i].colorTable}, 100%, 50%)`);
   }
+
 
   const getForBorders = () => {
     let res = { sel3: "", sel4: "", sel5: "", sel6: "", sel7: "" };
@@ -457,6 +458,31 @@ export const stylingTable = (users: UsersType[]) => {
 
   // Center text
   $(`table > tbody > tr:nth-child(1n) > td:nth-child(6), table > tbody > tr:nth-child(1n) > td:nth-child(7), table > tbody > tr:nth-child(1n) > td:nth-child(8)`).css("text-align", "center")
+
+  $(`#newBetTable > div > div > div > div > div > div > div > div > table > thead > tr > th:nth-child(7)`).css("height", "6.9rem")
+
+
+
+  if (users.length > 0 && kk) {
+    $(`#newBetTable > div > div > div > div > div > div > div > div > table > thead > tr:nth-child(2) > th`).css(
+      "background-color",
+      `hsl(${users[0].colorTable}, 100%, 92%)`
+    );
+    $(`#newBetTable > div > div > div > div > div > div > div > div > table > tbody > tr > td:nth-child(10)`).css("border", "0")
+    $(`#newBetTable > div > div > div > div > div > div > div > div > table > thead > tr:nth-child(2) > th:nth-child(1)`).css("border-left", "2px solid black")
+    $(`#newBetTable > div > div > div > div > div > div > div > div > table > thead > tr:nth-child(1) > th:nth-child(8)`).css("border-right", "2px solid black")
+    $(`#newBetTable > div > div > div > div > div > div > div > div > table > thead > tr:nth-child(2) > th:nth-child(3)`).css("border-right", "2px solid black")
+
+    for (let i = 8; i <= 10; i++) {
+      $(`#newBetTable > div > div > div > div > div > div > div > div > table > tbody > tr > td:nth-child(${i})`).css("border-bottom", "1px solid");
+      $(`#newBetTable > div > div > div > div > div > div > div > div > table > tbody > tr > td:nth-child(${i})`).css("border-left", "1px solid");
+      $(`#newBetTable > div > div > div > div > div > div > div > div > table > tbody > tr > td:nth-child(${i})`).css("border-right", "1px solid");
+      $(`#newBetTable > div > div > div > div > div > div > div > div > table > tbody > tr > td:nth-child(${i})`).css("border-color", `hsl(${users[0].colorTable}, 100%, 50%)`);
+    }
+
+    $(`#newBetTable > div > div > div > div > div > div > div > div > table > tbody > tr > td:nth-child(8)`).css("border-left", "2px solid black")
+    $(`#newBetTable > div > div > div > div > div > div > div > div > table > tbody > tr > td:nth-child(10)`).css("border-right", "2px solid black")
+  }
 };
 
 export const getFinalStats = (afterThat: Function) => {

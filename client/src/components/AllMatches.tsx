@@ -16,7 +16,6 @@ import {
   UsersType,
   isGroup,
 } from "../helpers/OtherHelpers";
-import axios, { AxiosRequestConfig } from "axios";
 
 export const getMatchesForView = (
   matches: MatchType[],
@@ -129,12 +128,12 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
           />
         </Space>
       </div>
-      {/* <div style={{ width: 4000 }}>  */}
       <div>
         <Space direction={"horizontal"}>
           <OneMatchTable
             AllMatches={getMatchesForView(matches, showGroups)}
             users={users}
+            result={true}
           />
         </Space>
       </div>

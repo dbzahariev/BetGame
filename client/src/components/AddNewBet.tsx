@@ -1,19 +1,26 @@
-import { Input, InputNumber, notification, Select, Space, Table } from "antd";
+import { Input, InputNumber, notification, Select, Space } from "antd";
 import Column from "antd/lib/table/Column";
 import ColumnGroup from "antd/lib/table/ColumnGroup";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { UsersType, MatchType, renderP2, isGroup, getAllMatches, getAllUsers } from "../helpers/OtherHelpers";
-import { translateTeamsName } from "../helpers/Translate";
+// import { Link } from "react-router-dom";
+import { UsersType, MatchType, renderP2, isGroup, getAllMatches, getAllUsers, stylingTable } from "../helpers/OtherHelpers";
+// import { translateTeamsName } from "../helpers/Translate";
+import OneMatchTable from "./OneMatchTable";
 
 const { Option } = Select;
+
 
 export default function AddNewBet() {
   const [users, setUsers] = useState<UsersType[]>([]);
   const [matches, setMatches] = useState<MatchType[]>([]);
   const [selectedUserName, setSelectedUserName] = useState("");
   const [usersNames, setUsersNames] = useState<string[]>([]);
+
+
+  useEffect(() => {
+    stylingTable(users, true);
+  }, [matches, selectedUserName, users])
 
   useEffect(() => {
     getAllUsersNames()
@@ -166,25 +173,25 @@ export default function AddNewBet() {
       };
 
       if (type === "winner") {
-        let kk = el1.target.value.toString().toLowerCase();
+        let winerPred = el1.target.value.toString().toLowerCase();
         if (
-          kk === "1" ||
-          kk === "h" ||
-          kk === "home" ||
-          kk === "домакин" ||
-          kk === "д"
+          winerPred === "1" ||
+          winerPred === "h" ||
+          winerPred === "home" ||
+          winerPred === "домакин" ||
+          winerPred === "д"
         ) {
           newValue = 1;
         } else if (
-          kk === "2" ||
-          kk === "a" ||
-          kk === "away" ||
-          kk === "гост" ||
-          kk === "г"
+          winerPred === "2" ||
+          winerPred === "a" ||
+          winerPred === "away" ||
+          winerPred === "гост" ||
+          winerPred === "г"
         ) {
           newValue = 2;
         } else {
-          console.log("Грешка при въвеждане!!!", kk);
+          console.log("Грешка при въвеждане!!!", winerPred);
         }
 
         newBet.winner = calcWinner(
@@ -204,25 +211,25 @@ export default function AddNewBet() {
       }
 
       if (type === "winner") {
-        let kk = el1.target.value.toString().toLowerCase();
+        let winerPred = el1.target.value.toString().toLowerCase();
         if (
-          kk === "1" ||
-          kk === "h" ||
-          kk === "home" ||
-          kk === "домакин" ||
-          kk === "д"
+          winerPred === "1" ||
+          winerPred === "h" ||
+          winerPred === "home" ||
+          winerPred === "домакин" ||
+          winerPred === "д"
         ) {
           newValue = 1;
         } else if (
-          kk === "2" ||
-          kk === "a" ||
-          kk === "away" ||
-          kk === "гост" ||
-          kk === "г"
+          winerPred === "2" ||
+          winerPred === "a" ||
+          winerPred === "away" ||
+          winerPred === "гост" ||
+          winerPred === "г"
         ) {
           newValue = 2;
         } else {
-          console.log("Грешка при въвеждане!!!", kk);
+          console.log("Грешка при въвеждане!!!", winerPred);
         }
 
         bet.winner = calcWinner(
@@ -266,7 +273,6 @@ export default function AddNewBet() {
   };
 
   const oneMatchTable = (AllMatches: MatchType[]) => {
-    let columnWidth = 150;
 
     const renderColumnForUser = (
       el: any,
@@ -329,6 +335,55 @@ export default function AddNewBet() {
       );
       return res;
     };
+
+    return (
+      <div>
+        <div id={"newBetTable"}>
+          <Space direction={"horizontal"}>
+            <OneMatchTable
+              AllMatches={matches}
+              users={users}
+              result={false}
+              usersColumns={users.map((user: UsersType) => {
+                return (
+                  <ColumnGroup key={user.name} title={user.name}>
+                    <Column
+                      title="Д"
+                      dataIndex="homeTeamScore"
+                      key="homeTeamScore"
+                      width={80}
+                      render={(el: any, fullMatch: MatchType) =>
+                        renderColumnForUser(el, fullMatch, user, "homeTeamScore")
+                      }
+                    />
+                    <Column
+                      title="Г"
+                      dataIndex="awayTeamScore"
+                      key="awayTeamScore"
+                      width={80}
+                      render={(el: any, fullMatch: MatchType) =>
+                        renderColumnForUser(el, fullMatch, user, "awayTeamScore")
+                      }
+                    />
+                    <Column
+                      title="П"
+                      dataIndex="winner"
+                      key="winner"
+                      width={40}
+                      render={(_, record: MatchType) => {
+                        return renderWinner(user, record);
+                      }}
+                    />
+                  </ColumnGroup>
+                );
+              })}
+            />
+          </Space>
+        </div>
+      </div>)
+
+    /*
+    let columnWidth = 150;
 
     return (
       <Table
@@ -415,7 +470,7 @@ export default function AddNewBet() {
           );
         })}
       </Table>
-    );
+    );*/
   };
 
   return (
@@ -437,6 +492,14 @@ export default function AddNewBet() {
       <div style={{ width: 4000 }}>
         <Space direction={"horizontal"}>{oneMatchTable(matches)}</Space>
       </div>
+      {/* <div>
+        <Space direction={"horizontal"}>
+          <OneMatchTable
+            AllMatches={matches}
+            users={users}
+          />
+        </Space>
+      </div> */}
     </div>
   );
 }

@@ -371,6 +371,7 @@ export default function Ranking() {
         <OneMatchTable
           AllMatches={getMatchesForView(matches, showGroups)}
           users={users}
+          result={true}
         />
       </div>
     </div>
