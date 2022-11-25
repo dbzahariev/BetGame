@@ -394,33 +394,8 @@ export const stylingTable = (users: UsersType[], kk?: Boolean) => {
     borderSize
   );
 
-  $(
-    `#root > div:nth-child(3) > div > div > div > div > div > div > div > div > table > thead`
-  ).css("position", "sticky");
-
-  $(
-    `#root > div:nth-child(3) > div > div > div > div > div > div > div > div > table > thead`
-  ).css("position", "-webkit-sticky");
-
-  $(
-    `#root > div:nth-child(3) > div > div > div > div > div > div > div > div > table > thead`
-  ).css("z-index", "1");
-
-  $(
-    `#root > div:nth-child(3) > div > div > div > div > div > div > div > div > table > thead`
-  ).css("top", "28px");
-
-  $(
-    `#root > div:nth-child(2) > div:nth-child(2) > div.ant-table-wrapper > div > div > div > div > div > table > thead`
-  ).css("position", "sticky");
-
-  $(
-    `#root > div:nth-child(2) > div:nth-child(2) > div.ant-table-wrapper > div > div > div > div > div > table > thead`
-  ).css("position", "-webkit-sticky");
-
-  $(
-    `#root > div:nth-child(2) > div:nth-child(2) > div.ant-table-wrapper > div > div > div > div > div > table > thead`
-  ).css("z-index", "1");
+  $(`table > thead`).css("position", "sticky");
+  $(`table > thead`).css("position", "-webkit-sticky");
 
   $(`#root > div:nth-child(1)`).css("background-color", "white");
 
