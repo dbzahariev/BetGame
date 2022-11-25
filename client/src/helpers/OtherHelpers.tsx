@@ -53,6 +53,7 @@ export interface MatchType {
   homeTeamScore?: number | undefined;
   awayTeamScore?: number | undefined;
   status: string;
+  round?: string | undefined
 }
 
 export interface UsersType {
@@ -485,6 +486,20 @@ export const stylingTable = (users: UsersType[], kk?: Boolean) => {
   }
 };
 
+export const getDefSettings = () => {
+  let showGroupsFromStorage = sessionStorage.getItem("showGroups")
+
+  let showRound1FromStorage = sessionStorage.getItem("showRound1")
+  let showGroups = showGroupsFromStorage === null ? true : showGroupsFromStorage === "true" ? true : false
+  let showRound1 = showRound1FromStorage === null ? true : showRound1FromStorage === "true" ? true : false
+
+  return { showGroups, showRound1 }
+}
+
+export const setDefSettings = (settings: string, value: string) => {
+  sessionStorage.setItem(settings, value)
+}
+
 export const getFinalStats = (afterThat: Function) => {
   var config: AxiosRequestConfig = {
     method: "GET",
@@ -563,6 +578,33 @@ export const calcScore = (match: MatchType, score: any) => {
   return res;
 };
 
+export const calcRound = (match: MatchType) => {
+  let round1 = {
+    startDate: new Date("2022-11-20").getTime(),
+    endDate: new Date("2022-11-24").getTime()
+  }
+  let round2 = {
+    startDate: new Date("2022-11-25").getTime(),
+    endDate: new Date("2022-11-28").getTime()
+  }
+  let round3 = {
+    startDate: new Date("2022-11-29").getTime(),
+    endDate: new Date("2022-12-02").getTime()
+  }
+
+  let matchDate = new Date((match.utcDate).toString().slice(0, 10)).getTime()
+  let matchRound: number = -1
+  if (matchDate >= round1.startDate && matchDate <= round1.endDate) {
+    matchRound = 1
+  } else if (matchDate >= round2.startDate && matchDate <= round2.endDate) {
+    matchRound = 2
+  } else if (matchDate >= round3.startDate && matchDate <= round3.endDate) {
+    matchRound = 3
+  }
+
+  return `ROUND_${matchRound}`
+}
+
 export const getAllMatches = (setMatches: Function) => {
   var config: AxiosRequestConfig = {
     method: "GET",
@@ -579,11 +621,11 @@ export const getAllMatches = (setMatches: Function) => {
       let matches: MatchType[] = [];
 
       data.forEach((el: MatchType, index) => {
-        if (el.id === 325091) {
-        }
         let score = el.score;
 
         let calculatedScore = calcScore(el, score);
+
+        let calculatedRound = calcRound(el)
 
         let matchToAdd: MatchType = {
           number: index + 1,
@@ -598,6 +640,7 @@ export const getAllMatches = (setMatches: Function) => {
           awayTeamScore: calculatedScore.at,
           status: el.status,
           score: el.score,
+          round: calculatedRound
         };
         matches.push(matchToAdd);
       });

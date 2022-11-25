@@ -15,15 +15,26 @@ import {
   MatchType,
   UsersType,
   isGroup,
+  getDefSettings,
+  setDefSettings,
 } from "../helpers/OtherHelpers";
 
 export const getMatchesForView = (
   matches: MatchType[],
-  showGroups: boolean
+  showGroups: boolean,
+  showRound1: boolean = true
 ) => {
   let res = [...matches];
   if (showGroups === false) {
     res = res.filter((el) => !isGroup(el))
+  }
+  if (!showRound1) {
+    res = res.filter((el) => {
+      if (el.round && el.round !== "ROUND_1") {
+        // debugger
+      }
+      return (el.round !== "ROUND_1")
+    })
   }
 
   return res;
@@ -33,7 +44,8 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
   const [matches, setMatches] = useState<MatchType[]>([]);
   const [users, setUsers] = useState<UsersType[]>([]);
   const [loading, setLoading] = useState(false);
-  const [showGroups, setShowGroups] = useState(true);
+  const [showGroups, setShowGroups] = useState(getDefSettings().showGroups);
+  const [showRound1, setShowRound1] = useState(getDefSettings().showRound1);
 
   let intervalRef = useRef<any>();
 
@@ -78,7 +90,7 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
 
   useEffect(() => {
     stylingTable(users);
-  }, [showGroups, users]);
+  }, [showGroups, showRound1, users]);
 
   if (loading) {
     return (
@@ -121,17 +133,32 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
             Показване на групова фаза
           </span>
           <Switch
-            onChange={(newValue: any) => setShowGroups(newValue)}
+            onChange={(newValue: any) => {
+              setDefSettings("showGroups", (newValue || false).toString())
+              return setShowGroups(newValue)
+            }}
             checkedChildren={<CheckOutlined />}
             unCheckedChildren={<CloseOutlined />}
             checked={showGroups}
+          />
+          <span style={{ width: `${window.innerWidth * 0.4}px` }}>
+            Показване на кръг 1
+          </span>
+          <Switch
+            onChange={(newValue: any) => {
+              setDefSettings("showRound1", (newValue || false).toString())
+              return setShowRound1(newValue)
+            }}
+            checkedChildren={<CheckOutlined />}
+            unCheckedChildren={<CloseOutlined />}
+            checked={showRound1}
           />
         </Space>
       </div>
       <div>
         <Space direction={"horizontal"}>
           <OneMatchTable
-            AllMatches={getMatchesForView(matches, showGroups)}
+            AllMatches={getMatchesForView(matches, showGroups, showRound1)}
             users={users}
             result={true}
           />
