@@ -20,6 +20,7 @@ import Chat from "./components/chat/Chat";
 import Scheme from "./components/scheme/Scheme";
 import Ranking from "./components/ranking/Ranking";
 import AllMatches from "./components/AllMatches";
+import ModalSettings from "./components/ModalSettings";
 
 const competitionsIds = {
   Uefa: 2018,
@@ -36,14 +37,14 @@ function MatchWithParams() {
   return <OneMatch matchId={params.matchId} />;
 }
 
+export const fontSize = "20px";
+
 export default function App() {
   const [reload, setReload] = useState(0);
 
   const refresh = () => {
     setReload(reload + 1);
   };
-
-  let fontSize = "20px";
 
   const [dimensions, setDimensions] = useState({
     widthI: window.innerWidth,
@@ -105,6 +106,7 @@ export default function App() {
           <Link to="/ranking" style={{ fontSize: fontSize }}>
             Класиране
           </Link>
+          <ModalSettings refresh={refresh} />
         </Space>
       </div>
       <Switch>

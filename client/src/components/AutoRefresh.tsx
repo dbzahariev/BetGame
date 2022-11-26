@@ -51,7 +51,7 @@ export default function AutoRefresh({ refresh }: { refresh: Function }) {
               </Checkbox>
               <InputNumber
                 disabled={newInterval === "disable"}
-                min={30}
+                min={3}
                 step={5}
                 max={5 * 60}
                 defaultValue={30}

@@ -369,7 +369,7 @@ export default function Ranking() {
           />
         </Space>
         <OneMatchTable
-          AllMatches={getMatchesForView(matches, showGroups)}
+          AllMatches={getMatchesForView(matches)}
           users={users}
           result={true}
         />

@@ -102,7 +102,7 @@ export const getAllUsers = (setUsers: Function) => {
 
         newUsers.push(userToAdd);
       });
-
+      
       setUsers(newUsers);
     })
     .catch((err) => console.error(err));
@@ -116,10 +116,13 @@ export const reloadData = (
   matches: MatchType[]
 ) => {
   getAllMatches(setMatches);
-  getAllUsers();
-  let res = getPoints(users, matches);
-  res.sort((a, b) => (b.totalPoints || 0) - (a.totalPoints || 0));
-  setUsers(res);
+  getAllUsers((foo: any) => {
+  });
+  getAllUsers((users: any) => {
+    let res = getPoints(users, matches);
+    res.sort((a, b) => (b.totalPoints || 0) - (a.totalPoints || 0));
+    setUsers(res);
+  })
 };
 
 export const renderP = (
@@ -263,6 +266,7 @@ export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
   for (let i = 0; i < res.length; i++) {
     let oneUser = res[i];
     let rowUserBets = oneUser.bets.slice()
+    oneUser.totalPoints = 0
     for (let j = 0; j < oneUser.bets.length; j++) {
       let oneBet = oneUser.bets[j];
       let selectedMatch = matches.find((el) => el.id === oneBet.matchId);

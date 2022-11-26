@@ -1,10 +1,9 @@
-import { Space, Spin, Switch } from "antd";
+import { Space, Spin } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import AutoRefresh, { AutoRefreshInterval } from "./AutoRefresh";
 import { LoadingOutlined } from "@ant-design/icons";
 import OneMatchTable from "./OneMatchTable";
 
-import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
 import {
   getAllFinalWinner,
   getAllMatches,
@@ -15,24 +14,20 @@ import {
   MatchType,
   UsersType,
   isGroup,
-  getDefSettings,
-  setDefSettings,
 } from "../helpers/OtherHelpers";
+import { showGroupsGlobal, showRound1Global } from "./ModalSettings";
 
 export const getMatchesForView = (
   matches: MatchType[],
-  showGroups: boolean,
-  showRound1: boolean = true
+  // showGroups: boolean,
+  // showRound1: boolean = true
 ) => {
   let res = [...matches];
-  if (showGroups === false) {
+  if (showGroupsGlobal === false) {
     res = res.filter((el) => !isGroup(el))
   }
-  if (!showRound1) {
+  if (!showRound1Global) {
     res = res.filter((el) => {
-      if (el.round && el.round !== "ROUND_1") {
-        // debugger
-      }
       return (el.round !== "ROUND_1")
     })
   }
@@ -44,21 +39,32 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
   const [matches, setMatches] = useState<MatchType[]>([]);
   const [users, setUsers] = useState<UsersType[]>([]);
   const [loading, setLoading] = useState(false);
-  const [showGroups, setShowGroups] = useState(getDefSettings().showGroups);
-  const [showRound1, setShowRound1] = useState(getDefSettings().showRound1);
+  // const [showRound1, setShowRound1] = useState(getDefSettings().showRound1);
 
   let intervalRef = useRef<any>();
 
   useEffect(() => {
     if (AutoRefreshInterval >= 1 && AutoRefreshInterval !== "disable") {
       intervalRef.current = setInterval(() => {
-        reloadData(setMatches, getAllUsers, setUsers, users, matches);
+        reloadData(setMatches, getAllUsers, (reloadedUsers: UsersType[]) => {
+          return setUsers([...reloadedUsers])
+        }, users, matches);
       }, AutoRefreshInterval * 1000);
     }
 
     return () => clearInterval(intervalRef.current);
     // eslint-disable-next-line
   }, [AutoRefreshInterval]);
+
+  useEffect(() => {
+    console.log('refresh from modal')
+    if (matches.length > 0) {
+      reloadData(setMatches, getAllUsers, (reloadedUsers: UsersType[]) => {
+        return setUsers([...reloadedUsers])
+      }, users, matches);
+    }
+    // eslint-disable-next-line
+  }, [refresh])
 
   useEffect(() => {
     if (matches.length === 0) {
@@ -72,7 +78,6 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
 
   useEffect(() => {
     getAllFinalWinner(users);
-    stylingTable(users);
     // eslint-disable-next-line
   }, [users]);
 
@@ -89,8 +94,12 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
   }, [users.length, matches.length]);
 
   useEffect(() => {
-    stylingTable(users);
-  }, [showGroups, showRound1, users]);
+    if (matches.length !== 0 && users.length !== 0) {
+      stylingTable(users);
+    }
+  }, [matches, users])
+
+  console.log("reloading")
 
   if (loading) {
     return (
@@ -119,7 +128,7 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
 
   return (
     <>
-      <AutoRefresh refresh={refresh} />
+      
       <div>
         <Space
           direction={"horizontal"}
@@ -129,10 +138,10 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
             width: `${window.innerWidth * 0.4}px`,
           }}
         >
-          <span style={{ width: `${window.innerWidth * 0.4}px` }}>
+          {/* <span style={{ width: `${window.innerWidth * 0.4}px` }}>
             Показване на групова фаза
-          </span>
-          <Switch
+          </span> */}
+          {/* <Switch
             onChange={(newValue: any) => {
               setDefSettings("showGroups", (newValue || false).toString())
               return setShowGroups(newValue)
@@ -140,8 +149,8 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
             checkedChildren={<CheckOutlined />}
             unCheckedChildren={<CloseOutlined />}
             checked={showGroups}
-          />
-          <span style={{ width: `${window.innerWidth * 0.4}px` }}>
+          /> */}
+          {/* <span style={{ width: `${window.innerWidth * 0.4}px` }}>
             Показване на кръг 1
           </span>
           <Switch
@@ -152,13 +161,13 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
             checkedChildren={<CheckOutlined />}
             unCheckedChildren={<CloseOutlined />}
             checked={showRound1}
-          />
+          /> */}
         </Space>
       </div>
       <div>
         <Space direction={"horizontal"}>
           <OneMatchTable
-            AllMatches={getMatchesForView(matches, showGroups, showRound1)}
+            AllMatches={getMatchesForView(matches)}
             users={users}
             result={true}
           />
