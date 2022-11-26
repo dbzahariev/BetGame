@@ -58,7 +58,6 @@ export default function OneMessage({
   };
 
   const like = () => {
-    console.log("ok");
     likeMessage(message.user, message, ifLiked());
   };
 

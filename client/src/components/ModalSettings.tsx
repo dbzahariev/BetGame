@@ -20,7 +20,6 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
     showGroupsGlobal = showGroups
     showRound1Global = showRound1
     refresh()
-    console.log("ok")
   }
 
   return (

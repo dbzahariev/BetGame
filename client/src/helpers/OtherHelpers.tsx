@@ -102,19 +102,14 @@ export const getAllUsers = (setUsers: Function) => {
 
         newUsers.push(userToAdd);
       });
-
       setUsers(newUsers);
     })
     .catch((err) => console.error(err));
 };
 
 export const reloadData = (
-  setMatches: Function,
-  getAllUsers: Function,
-  setUsers: Function
+  setUsers: Function,
 ) => {
-  getAllMatches(setMatches);
-  getAllUsers();
   getAllMatches((matches: MatchType[]) => {
     getAllUsers((users: UsersType[]) => {
       let res = getPoints(users, matches);

@@ -180,8 +180,6 @@ export default function InputBackup() {
     }
   };
 
-  useEffect(() => {}, [input]);
-
   const genRecord = () => {
     let kk1: MatchFromBackup = {
       number: input.number,

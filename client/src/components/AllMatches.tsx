@@ -46,7 +46,7 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
   useEffect(() => {
     if (AutoRefreshInterval >= 1 && AutoRefreshInterval !== "disable") {
       intervalRef.current = setInterval(() => {
-        reloadData(setMatches, getAllUsers, (reloadedUsers: UsersType[]) => {
+        reloadData((reloadedUsers: UsersType[]) => {
           return setUsers([...reloadedUsers])
         });
       }, AutoRefreshInterval * 1000);
@@ -57,9 +57,8 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
   }, [AutoRefreshInterval]);
 
   useEffect(() => {
-    console.log('refresh from modal')
     if (matches.length > 0) {
-      reloadData(setMatches, getAllUsers, (reloadedUsers: UsersType[]) => {
+      reloadData((reloadedUsers: UsersType[]) => {
         return setUsers([...reloadedUsers])
       });
     }
@@ -98,8 +97,6 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
       stylingTable(users);
     }
   }, [matches, users])
-
-  console.log("reloading")
 
   if (loading) {
     return (
