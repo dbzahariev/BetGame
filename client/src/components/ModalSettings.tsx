@@ -28,7 +28,7 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
       <Button type="link" style={{ fontSize: fontSize, margin: "0px", padding: "0px" }} onClick={() => {
         setIsModalOpen(true)
       }}>
-        Open Modal
+        Настройки
       </Button>
       <Modal title="Настройки" open={isModalOpen}
         onOk={hendleOk}

@@ -83,7 +83,7 @@ export default function App() {
           style={{ height: `${dimensions.heightO * 0.06}px` }}
         >
           <Link
-            style={{ fontSize: fontSize, width: 150, display: "block" }}
+            style={{ fontSize: fontSize, display: "block" }}
             to="/allMatches"
           >
             Всички мачове

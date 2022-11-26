@@ -259,14 +259,14 @@ export default function AddNewBet() {
 
     let res: string | number = "";
     if (selectedMatch) {
-      let foo = selectedMatch[type];
-      if (foo !== -1) {
-        res = foo;
+      let selectedMatchType = selectedMatch[type];
+      if (selectedMatchType !== -1) {
+        res = selectedMatchType;
       }
     }
     if (isWinner && selectedMatch !== undefined) {
-      let foo = selectedMatch.winner;
-      res = foo;
+      let selectedMatchWiner = selectedMatch.winner;
+      res = selectedMatchWiner;
     }
 
     return res;

@@ -261,8 +261,8 @@ export default function Chat() {
     }
   };
 
-  const onInput = (foo1: any) => {
-    let newValue = returnedEmojiText(foo1.target.value);
+  const onInput = (event: any) => {
+    let newValue = returnedEmojiText(event.target.value);
 
     setNewMsg({ ...newMsg, message: newValue, date: new Date() });
   };

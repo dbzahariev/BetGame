@@ -1,6 +1,6 @@
-import { Space, Spin } from "antd";
 import React, { useEffect, useRef, useState } from "react";
-import AutoRefresh, { AutoRefreshInterval } from "./AutoRefresh";
+import { Space, Spin } from "antd";
+import { AutoRefreshInterval } from "./AutoRefresh";
 import { LoadingOutlined } from "@ant-design/icons";
 import OneMatchTable from "./OneMatchTable";
 
@@ -48,7 +48,7 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
       intervalRef.current = setInterval(() => {
         reloadData(setMatches, getAllUsers, (reloadedUsers: UsersType[]) => {
           return setUsers([...reloadedUsers])
-        }, users, matches);
+        });
       }, AutoRefreshInterval * 1000);
     }
 
@@ -61,7 +61,7 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
     if (matches.length > 0) {
       reloadData(setMatches, getAllUsers, (reloadedUsers: UsersType[]) => {
         return setUsers([...reloadedUsers])
-      }, users, matches);
+      });
     }
     // eslint-disable-next-line
   }, [refresh])
@@ -127,52 +127,12 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
   }
 
   return (
-    <>
-      
-      <div>
-        <Space
-          direction={"horizontal"}
-          style={{
-            margin: 5,
-            paddingTop: 10,
-            width: `${window.innerWidth * 0.4}px`,
-          }}
-        >
-          {/* <span style={{ width: `${window.innerWidth * 0.4}px` }}>
-            Показване на групова фаза
-          </span> */}
-          {/* <Switch
-            onChange={(newValue: any) => {
-              setDefSettings("showGroups", (newValue || false).toString())
-              return setShowGroups(newValue)
-            }}
-            checkedChildren={<CheckOutlined />}
-            unCheckedChildren={<CloseOutlined />}
-            checked={showGroups}
-          /> */}
-          {/* <span style={{ width: `${window.innerWidth * 0.4}px` }}>
-            Показване на кръг 1
-          </span>
-          <Switch
-            onChange={(newValue: any) => {
-              setDefSettings("showRound1", (newValue || false).toString())
-              return setShowRound1(newValue)
-            }}
-            checkedChildren={<CheckOutlined />}
-            unCheckedChildren={<CloseOutlined />}
-            checked={showRound1}
-          /> */}
-        </Space>
-      </div>
-      <div>
-        <Space direction={"horizontal"}>
-          <OneMatchTable
-            AllMatches={getMatchesForView(matches)}
-            users={users}
-            result={true}
-          />
-        </Space>
-      </div>
-    </>
+    <Space direction={"horizontal"}>
+      <OneMatchTable
+        AllMatches={getMatchesForView(matches)}
+        users={users}
+        result={true}
+      />
+    </Space>
   );
 }

@@ -125,10 +125,10 @@ export default function OneMatch({ matchId }: { matchId: string }) {
     };
 
     axios(config).then((response) => {
-      let foo = response.data;
-      let newScore = foo.match.score as ScoreType;
-      newScore.homeTeam = foo.match.homeTeam;
-      newScore.awayTeam = foo.match.awayTeam;
+      let dataFromDb = response.data;
+      let newScore = dataFromDb.match.score as ScoreType;
+      newScore.homeTeam = dataFromDb.match.homeTeam;
+      newScore.awayTeam = dataFromDb.match.awayTeam;
 
       setScore(newScore);
     });

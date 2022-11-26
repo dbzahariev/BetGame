@@ -64,14 +64,11 @@ export default function OneMessage({
 
   const ifLiked = () => {
     let res = false;
-    let kk = message;
-    if (kk?.likes !== undefined) {
-      kk.likes.forEach((like) => {
-        let foo = selectedUser;
-        if (foo.length > 0) {
-          if (like === foo) {
-            res = true;
-          }
+    let newMessage = message;
+    if (newMessage?.likes !== undefined) {
+      newMessage.likes.forEach((like) => {
+        if (selectedUser.length > 0 && like === selectedUser) {
+          res = true;
         }
       });
     }
@@ -87,10 +84,10 @@ export default function OneMessage({
 
     let likedFrom = "(";
 
-    let kk = message;
-    if (kk?.likes !== undefined && kk.likes.length > 0) {
-      kk.likes.sort();
-      likedFrom += kk.likes.join(", ");
+    let newMessage = message;
+    if (newMessage?.likes !== undefined && newMessage.likes.length > 0) {
+      newMessage.likes.sort();
+      likedFrom += newMessage.likes.join(", ");
     }
 
     likedFrom += ")";

@@ -102,7 +102,7 @@ export const getAllUsers = (setUsers: Function) => {
 
         newUsers.push(userToAdd);
       });
-      
+
       setUsers(newUsers);
     })
     .catch((err) => console.error(err));
@@ -111,17 +111,16 @@ export const getAllUsers = (setUsers: Function) => {
 export const reloadData = (
   setMatches: Function,
   getAllUsers: Function,
-  setUsers: Function,
-  users: UsersType[],
-  matches: MatchType[]
+  setUsers: Function
 ) => {
   getAllMatches(setMatches);
-  getAllUsers((foo: any) => {
-  });
-  getAllUsers((users: any) => {
-    let res = getPoints(users, matches);
-    res.sort((a, b) => (b.totalPoints || 0) - (a.totalPoints || 0));
-    setUsers(res);
+  getAllUsers();
+  getAllMatches((matches: MatchType[]) => {
+    getAllUsers((users: UsersType[]) => {
+      let res = getPoints(users, matches);
+      res.sort((a, b) => (b.totalPoints || 0) - (a.totalPoints || 0));
+      setUsers(res);
+    })
   })
 };
 
@@ -192,7 +191,7 @@ export const renderP2 = (el: string, plainText = false) => {
 };
 
 export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
-  const getPointForEvent = (selectedMatch: MatchType, user: UsersType) => {
+  const getPointsForEvent = (selectedMatch: MatchType, user: UsersType) => {
     let bet = user.bets.find((el) => el.matchId === selectedMatch.id);
     let res = 0;
 
@@ -271,9 +270,9 @@ export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
       let oneBet = oneUser.bets[j];
       let selectedMatch = matches.find((el) => el.id === oneBet.matchId);
       if (selectedMatch && selectedMatch.status === "FINISHED") {
-        let kk = getPointForEvent(selectedMatch, oneUser);
-        oneUser.totalPoints = (oneUser.totalPoints || 0) + kk;
-        oneBet.point = kk;
+        let pointsForEvent = getPointsForEvent(selectedMatch, oneUser);
+        oneUser.totalPoints = (oneUser.totalPoints || 0) + pointsForEvent;
+        oneBet.point = pointsForEvent;
       } else {
         oneBet.point = 0;
       }
@@ -311,7 +310,7 @@ export const getAllFinalWinner = (users: UsersType[]) => {
   });
 };
 
-export const stylingTable = (users: UsersType[], kk?: Boolean) => {
+export const stylingTable = (users: UsersType[], isFromNewBet?: Boolean) => {
   const getSelector1 = (index: number) => {
     let res = "";
     res += `tr:nth-child(1) > th:nth-child(${index + 7}), `;
@@ -441,9 +440,8 @@ export const stylingTable = (users: UsersType[], kk?: Boolean) => {
 
   $(`#newBetTable > div > div > div > div > div > div > div > div > table > thead > tr > th:nth-child(7)`).css("height", "6.9rem")
 
-
-
-  if (users.length > 0 && kk) {
+  // New bet table
+  if (users.length > 0 && isFromNewBet) {
     $(`#newBetTable > div > div > div > div > div > div > div > div > table > thead > tr:nth-child(2) > th`).css(
       "background-color",
       `hsl(${users[0].colorTable}, 100%, 92%)`
