@@ -41,6 +41,7 @@ export const fontSize = "20px";
 
 export default function App() {
   const [reload, setReload] = useState(0);
+  const [tableWitdh, setTableWidth] = useState(0);
 
   const refresh = () => {
     setReload(reload + 1);
@@ -64,7 +65,16 @@ export default function App() {
     };
 
     window.addEventListener("resize", updateWindowDimensions);
+    window.addEventListener("scroll", onScroll);
   }, []);
+
+  const onScroll = () => {
+    setTableWidth(document.getElementById("oneMatchTable")?.clientWidth || (window.innerWidth*0.989))
+  };
+
+  useEffect(() => {
+    onScroll()
+  }, [dimensions])
 
   return (
     <Router>
@@ -74,6 +84,8 @@ export default function App() {
           position: "sticky",
           zIndex: 2,
           top: 0,
+          backgroundColor: "white",
+          width: `${tableWitdh * 1}px`
         }}
       >
         <Space

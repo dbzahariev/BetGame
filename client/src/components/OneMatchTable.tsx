@@ -67,6 +67,7 @@ export default function oneMatchTable({
 
   return (
     <Table
+      id="oneMatchTable"
       dataSource={AllMatches}
       pagination={false}
       bordered

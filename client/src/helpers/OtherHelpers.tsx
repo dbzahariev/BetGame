@@ -453,10 +453,6 @@ export const stylingTable = (users: UsersType[], isFromNewBet?: Boolean) => {
     $(`#newBetTable > div > div > div > div > div > div > div > div > table > tbody > tr > td:nth-child(8)`).css("border-left", "2px solid black")
     $(`#newBetTable > div > div > div > div > div > div > div > div > table > tbody > tr > td:nth-child(10)`).css("border-right", "2px solid black")
   }
-
-  $(`#root > div:nth-child(1)`).css("background-color", "white");
-
-  $(`#root > div:nth-child(1)`).css("width", `${($(`.ant-space`).width() || 1) * 1.83}px`);
 };
 
 export const getDefSettings = () => {
