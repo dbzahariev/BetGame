@@ -34,7 +34,7 @@ export default function Rules() {
 
   return (
     <div>
-      <Space direction={"vertical"} size={0}>
+      <Space style={{ width: "100%" }} direction={"vertical"} size={0}>
         <p style={styleHeader}>Регламент</p>
         <p style={styleNormal}>
           Прогнози за всички мачове се дават на сайта{" "}
