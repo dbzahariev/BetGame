@@ -422,7 +422,7 @@ export const stylingTable = (users: UsersType[], isFromNewBet?: Boolean) => {
   $(`table > thead > tr:nth-child(1) > th:nth-child(7)`).css("min-width", "100px")
 
   // all padding (default 16px)
-  $(`.ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th`).css("padding", "0.7em")
+  $(`.ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th`).css("padding", "0.8em")
 
 
   $(`table > thead > tr:nth-child(2) > th`).css("text-align", "center")

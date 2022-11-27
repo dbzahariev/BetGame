@@ -85,8 +85,8 @@ export default function App() {
           zIndex: 2,
           top: 0,
           backgroundColor: "white",
-          width: `${tableWitdh * 1}px`,
           minWidth: "850px",
+          width: `${tableWitdh * 1}px`,
         }}
       >
         <Space
