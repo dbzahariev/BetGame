@@ -92,13 +92,13 @@ export default function App() {
         <Space
           direction={"horizontal"}
           size={"large"}
-          style={{ height: `${dimensions.heightO * 0.06}px` }}
+          style={{ height: `${dimensions.heightO * 0.06}px`, whiteSpace: "nowrap" }}
         >
           <Link
             style={{ fontSize: fontSize, display: "block" }}
             to="/allMatches"
           >
-            <p style={{ width: `${Math.min(window.innerWidth * 0.59, 140)}px`, margin: "0px", padding: "0px" }}>Всички мачове</p>
+            <span>Всички мачове</span>
           </Link>
           <Link style={{ fontSize: fontSize }} to="/addbet">
             Прогнози
