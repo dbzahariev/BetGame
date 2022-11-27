@@ -69,7 +69,7 @@ export default function App() {
   }, []);
 
   const onScroll = () => {
-    setTableWidth(document.getElementById("oneMatchTable")?.clientWidth || (window.innerWidth*0.989))
+    setTableWidth(document.getElementById("oneMatchTable")?.clientWidth || (window.innerWidth * 0.989))
   };
 
   useEffect(() => {
@@ -85,7 +85,8 @@ export default function App() {
           zIndex: 2,
           top: 0,
           backgroundColor: "white",
-          width: `${tableWitdh * 1}px`
+          width: `${tableWitdh * 1}px`,
+          minWidth: "850px",
         }}
       >
         <Space
