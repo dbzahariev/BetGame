@@ -1,22 +1,10 @@
 import React, { useState } from "react";
-import { Button, Checkbox, InputNumber, Modal, Space } from "antd";
+import { Checkbox, InputNumber, Space } from "antd";
 
 export let AutoRefreshInterval: number | "disable" = "disable";
 
-export default function AutoRefresh({ refresh }: { refresh: Function }) {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [newInterval, setNewInterval] =
-    useState<number | "disable">(AutoRefreshInterval);
-
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-
-  const handleOk = () => {
-    setIsModalVisible(false);
-    AutoRefreshInterval = newInterval;
-    refresh();
-  };
+export default function AutoRefresh() {
+  const [newInterval, setNewInterval] = useState<number | "disable">(AutoRefreshInterval);
 
   const onChangeAllowRefresh = (event: any) => {
     let newValue = event.target.checked;
@@ -30,41 +18,27 @@ export default function AutoRefresh({ refresh }: { refresh: Function }) {
   };
 
   return (
-    <div>
+    <Space direction={"horizontal"}>
       <Space direction={"horizontal"}>
-        <>
-          <Button onClick={showModal}>
-            Автоматично презареждане на страницата
-          </Button>
-          <Modal
-            title="Basic Modal"
-            open={isModalVisible}
-            onOk={handleOk}
-            onCancel={() => setIsModalVisible(false)}
-          >
-            <Space direction={"horizontal"}>
-              <Checkbox
-                onChange={onChangeAllowRefresh}
-                defaultChecked={newInterval !== "disable"}
-              >
-                Автоматично презареждане
-              </Checkbox>
-              <InputNumber
-                disabled={newInterval === "disable"}
-                min={3}
-                step={5}
-                max={5 * 60}
-                defaultValue={30}
-                value={newInterval === "disable" ? 30 : newInterval}
-                onChange={(value: number | null) => {
-                  if (value) setNewInterval(value);
-                }}
-                bordered={false}
-              />
-            </Space>
-          </Modal>
-        </>
+        <Checkbox
+          onChange={onChangeAllowRefresh}
+          defaultChecked={newInterval !== "disable"}
+        >
+          Автоматично презареждане
+        </Checkbox>
+        <InputNumber
+          disabled={newInterval === "disable"}
+          min={3}
+          step={5}
+          max={5 * 60}
+          defaultValue={30}
+          value={newInterval === "disable" ? 30 : newInterval}
+          onChange={(value: number | null) => {
+            if (value) setNewInterval(value);
+          }}
+          bordered={false}
+        />
       </Space>
-    </div>
+    </Space>
   );
 }

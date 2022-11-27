@@ -38,33 +38,35 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
             Ок
           </Button>]}
       >
-        <AutoRefresh refresh={refresh} />
+        <AutoRefresh />
         <Space direction={"horizontal"}>
           <Space direction="vertical">
             <span>Показване на групова фаза:</span>
             <span>Показване на кръг 1:</span>
           </Space>
-          <Space direction="vertical">
-            <Switch
-              onChange={(newValue: boolean) => {
-                setShowGroups(newValue)
-                setDefSettings("showGroups", (newValue || false).toString())
-                return null
-              }}
-              checkedChildren={<CheckOutlined />}
-              unCheckedChildren={<CloseOutlined />}
-              checked={showGroups}
-            />
-            <Switch
-              onChange={(newValue: any) => {
-                setDefSettings("showRound1", (newValue || false).toString())
-                return setShowRound1(newValue)
-              }}
-              checkedChildren={<CheckOutlined />}
-              unCheckedChildren={<CloseOutlined />}
-              checked={showRound1}
-            />
-          </Space>
+          <div style={{ paddingLeft: "80%", paddingTop: "30%" }} >
+            <Space direction="vertical">
+              <Switch
+                onChange={(newValue: boolean) => {
+                  setShowGroups(newValue)
+                  setDefSettings("showGroups", (newValue || false).toString())
+                  return null
+                }}
+                checkedChildren={<CheckOutlined />}
+                unCheckedChildren={<CloseOutlined />}
+                checked={showGroups}
+              />
+              <Switch
+                onChange={(newValue: any) => {
+                  setDefSettings("showRound1", (newValue || false).toString())
+                  return setShowRound1(newValue)
+                }}
+                checkedChildren={<CheckOutlined />}
+                unCheckedChildren={<CloseOutlined />}
+                checked={showRound1}
+              />
+            </Space>
+          </div>
         </Space>
       </Modal>
     </Space>
