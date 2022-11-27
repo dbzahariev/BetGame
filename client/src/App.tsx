@@ -98,7 +98,7 @@ export default function App() {
             style={{ fontSize: fontSize, display: "block" }}
             to="/allMatches"
           >
-            <p style={{ width: `${140}px`, margin:"0px", padding:"0px" }}>Всички мачове</p>
+            <p style={{ width: `${Math.min(140, window.innerWidth * 0.4)}px`, margin: "0px", padding: "0px" }}>Всички мачове</p>
           </Link>
           <Link style={{ fontSize: fontSize }} to="/addbet">
             Прогнози
