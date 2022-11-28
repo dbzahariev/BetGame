@@ -434,24 +434,29 @@ export const stylingTable = (users: UsersType[], isFromNewBet?: Boolean) => {
 
   // New bet table
   if (users.length > 0 && isFromNewBet) {
-    $(`#newBetTable > div > div > div > div > div > div > div > div > table > thead > tr:nth-child(2) > th`).css(
-      "background-color",
-      `hsl(${users[0].colorTable}, 100%, 92%)`
-    );
-    $(`#newBetTable > div > div > div > div > div > div > div > div > table > tbody > tr > td:nth-child(10)`).css("border", "0")
-    $(`#newBetTable > div > div > div > div > div > div > div > div > table > thead > tr:nth-child(2) > th:nth-child(1)`).css("border-left", "2px solid black")
-    $(`#newBetTable > div > div > div > div > div > div > div > div > table > thead > tr:nth-child(1) > th:nth-child(8)`).css("border-right", "2px solid black")
-    $(`#newBetTable > div > div > div > div > div > div > div > div > table > thead > tr:nth-child(2) > th:nth-child(3)`).css("border-right", "2px solid black")
+    $(`#oneMatchTable > div > div > table > thead > tr:nth-child(1) > th:nth-child(7)`).css("background-color", `hsl(${users[0].colorTable}, 100%, 92%)`)
+    $(`#oneMatchTable > div > div > table > thead > tr:nth-child(2) > th:nth-child(1)`).css("background-color", `hsl(${users[0].colorTable}, 100%, 92%)`)
+    $(`#oneMatchTable > div > div > table > thead > tr:nth-child(2) > th:nth-child(2)`).css("background-color", `hsl(${users[0].colorTable}, 100%, 92%)`)
+    $(`#oneMatchTable > div > div > table > thead > tr:nth-child(2) > th:nth-child(3)`).css("background-color", `hsl(${users[0].colorTable}, 100%, 92%)`)
 
-    for (let i = 8; i <= 10; i++) {
+    $(`#oneMatchTable > div > div > table > thead > tr:nth-child(1) > th:nth-child(7)`).css("border-top", "2px solid black")
+    $(`#oneMatchTable > div > div > table > thead > tr:nth-child(1) > th:nth-child(7)`).css("border-right", "2px solid black")
+    $(`#oneMatchTable > div > div > table > thead > tr:nth-child(1) > th:nth-child(7)`).css("border-left", "2px solid black")
+
+    $(`#oneMatchTable > div > div > table > thead > tr:nth-child(2) > th:nth-child(1)`).css("border-left", "2px solid black")
+    $(`#oneMatchTable > div > div > table > thead > tr:nth-child(2) > th:nth-child(3)`).css("border-right", "2px solid black")
+
+    $(`#oneMatchTable > div > div > table > tbody > tr:nth-child(1) > td:nth-child(8)`).css("border-left", "0px")
+
+    for (let i = 7; i <= 10; i++) {
       $(`#newBetTable > div > div > div > div > div > div > div > div > table > tbody > tr > td:nth-child(${i})`).css("border-bottom", "1px solid");
       $(`#newBetTable > div > div > div > div > div > div > div > div > table > tbody > tr > td:nth-child(${i})`).css("border-left", "1px solid");
       $(`#newBetTable > div > div > div > div > div > div > div > div > table > tbody > tr > td:nth-child(${i})`).css("border-right", "1px solid");
       $(`#newBetTable > div > div > div > div > div > div > div > div > table > tbody > tr > td:nth-child(${i})`).css("border-color", `hsl(${users[0].colorTable}, 100%, 50%)`);
     }
 
-    $(`#newBetTable > div > div > div > div > div > div > div > div > table > tbody > tr > td:nth-child(8)`).css("border-left", "2px solid black")
-    $(`#newBetTable > div > div > div > div > div > div > div > div > table > tbody > tr > td:nth-child(10)`).css("border-right", "2px solid black")
+    $(`#newBetTable > div > div > div > div > div > div > div > div > table > tbody > tr > td:nth-child(7)`).css("border-left", "2px solid black")
+    $(`#newBetTable > div > div > div > div > div > div > div > div > table > tbody > tr > td:nth-child(9)`).css("border-right", "2px solid black")
   }
 };
 
