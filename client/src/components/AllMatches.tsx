@@ -15,12 +15,10 @@ import {
   UsersType,
   isGroup,
 } from "../helpers/OtherHelpers";
-import { showGroupsGlobal, showRound1Global } from "./ModalSettings";
+import ModalSettings, { showGroupsGlobal, showRound1Global, showRound2Global, showRound3Global } from "./ModalSettings";
 
 export const getMatchesForView = (
   matches: MatchType[],
-  // showGroups: boolean,
-  // showRound1: boolean = true
 ) => {
   let res = [...matches];
   if (showGroupsGlobal === false) {
@@ -29,6 +27,16 @@ export const getMatchesForView = (
   if (!showRound1Global) {
     res = res.filter((el) => {
       return (el.round !== "ROUND_1")
+    })
+  }
+  if (!showRound2Global) {
+    res = res.filter((el) => {
+      return (el.round !== "ROUND_2")
+    })
+  }
+  if (!showRound3Global) {
+    res = res.filter((el) => {
+      return (el.round !== "ROUND_3")
     })
   }
 
@@ -124,12 +132,15 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
   }
 
   return (
-    <Space direction={"horizontal"}>
-      <OneMatchTable
-        AllMatches={getMatchesForView(matches)}
-        users={users}
-        result={true}
-      />
+    <Space direction="vertical">
+      <ModalSettings refresh={refresh} />
+      <Space direction={"horizontal"}>
+        <OneMatchTable
+          AllMatches={getMatchesForView(matches)}
+          users={users}
+          result={true}
+        />
+      </Space>
     </Space>
   );
 }

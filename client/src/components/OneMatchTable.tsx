@@ -9,6 +9,12 @@ import { translateTeamsName } from "../helpers/Translate";
 
 oneMatchTable.defaultProps = { usersColumns: undefined }
 
+// export const styling = {
+//   padding: "0.7em"
+// }
+
+// export const styleText = { padding: styling.padding }
+
 export default function oneMatchTable({
   AllMatches,
   users,
@@ -115,7 +121,7 @@ export default function oneMatchTable({
           let newEl = new Date(el)
           let res = `${newEl.getHours()}.0${newEl.getUTCMinutes()}`
 
-          return <span>{res}</span>;
+          return <span style={{}}>{res}</span>;
         }}
       />
       <Column
@@ -152,9 +158,11 @@ export default function oneMatchTable({
                   width: "30px",
                 }}
               >
-                {record.status === "IN_PLAY" || record.status === "PAUSED"
-                  ? "?"
-                  : `${getFullScore(record, "homeTeam", el)}`}
+                <span style={{}}>
+                  {record.status === "IN_PLAY" || record.status === "PAUSED"
+                    ? "?"
+                    : `${getFullScore(record, "homeTeam", el)}`}
+                </span>
               </div>
             );
           }}
@@ -170,9 +178,11 @@ export default function oneMatchTable({
                 width: "30px",
               }}
             >
-              {record.status === "IN_PLAY" || record.status === "PAUSED"
-                ? "?"
-                : `${getFullScore(record, "awayTeam", el)}`}
+              <span style={{}}>
+                {record.status === "IN_PLAY" || record.status === "PAUSED"
+                  ? "?"
+                  : `${getFullScore(record, "awayTeam", el)}`}
+              </span>
             </div>
           )}
         />
@@ -184,7 +194,7 @@ export default function oneMatchTable({
           render={(el, match: MatchType) => renderP(el, null, match)}
         />
       </ColumnGroup>
-        : <div></div>}
+        : <></>}
       <Column
         title="Гост"
         dataIndex="awayTeam"

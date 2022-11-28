@@ -20,7 +20,6 @@ import Chat from "./components/chat/Chat";
 import Scheme from "./components/scheme/Scheme";
 import Ranking from "./components/ranking/Ranking";
 import AllMatches from "./components/AllMatches";
-import ModalSettings from "./components/ModalSettings";
 
 const competitionsIds = {
   Uefa: 2018,
@@ -118,7 +117,6 @@ export default function App() {
           <Link to="/ranking" style={{ fontSize: fontSize }}>
             Класиране
           </Link>
-          <ModalSettings refresh={refresh} />
         </Space>
       </div>
       <Switch>

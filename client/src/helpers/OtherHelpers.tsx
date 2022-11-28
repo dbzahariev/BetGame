@@ -11,6 +11,7 @@ import {
 } from "../components/Rules";
 import { Key } from "react";
 import compare from 'just-compare';
+// import { styleText } from "../components/OneMatchTable";
 
 export interface ScoreType {
   duration: string;
@@ -121,8 +122,8 @@ export const reloadData = (
 
 export const renderP = (
   el: string,
-  user?: UsersType | null,
-  fullMatch?: MatchType | null
+  user: UsersType | null,
+  fullMatch: MatchType | null
 ) => {
   let result = "";
   if (el === "HOME_TEAM") {
@@ -141,7 +142,7 @@ export const renderP = (
     ) {
       result = "?";
     }
-    return <span>{result}</span>;
+    return <span style={{}}>{result}</span>;
   } else {
     if (fullMatch) {
       let matchDate = new Date(fullMatch.utcDate);
@@ -162,7 +163,7 @@ export const renderP = (
         }
       }
     }
-    return <span>{result}</span>;
+    return <span style={{}}>{result}</span>;
   }
 };
 
@@ -171,7 +172,7 @@ export const renderP2 = (el: string, plainText = false) => {
     return el
   }
 
-  let result = renderP(el)
+  let result = renderP(el, null, null)
   if (typeof result === "object") {
     if (result.props.children && plainText) {
       return result.props.children
@@ -182,7 +183,7 @@ export const renderP2 = (el: string, plainText = false) => {
   if (plainText) {
     return result;
   }
-  return <span>{result}</span>;
+  return <span style={{}}>{result}</span>;
 };
 
 export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
@@ -464,10 +465,14 @@ export const getDefSettings = () => {
   let showGroupsFromStorage = sessionStorage.getItem("showGroups")
 
   let showRound1FromStorage = sessionStorage.getItem("showRound1")
+  let showRound2FromStorage = sessionStorage.getItem("showRound2")
+  let showRound3FromStorage = sessionStorage.getItem("showRound3")
   let showGroups = showGroupsFromStorage === null ? true : showGroupsFromStorage === "true" ? true : false
   let showRound1 = showRound1FromStorage === null ? true : showRound1FromStorage === "true" ? true : false
+  let showRound2 = showRound1FromStorage === null ? true : showRound2FromStorage === "true" ? true : false
+  let showRound3 = showRound1FromStorage === null ? true : showRound3FromStorage === "true" ? true : false
 
-  return { showGroups, showRound1 }
+  return { showGroups, showRound1, showRound2, showRound3 }
 }
 
 export const setDefSettings = (settings: string, value: string) => {
