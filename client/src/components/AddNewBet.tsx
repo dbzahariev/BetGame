@@ -5,6 +5,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 // import { Link } from "react-router-dom";
 import { UsersType, MatchType, renderP2, isGroup, getAllMatches, getAllUsers, stylingTable } from "../helpers/OtherHelpers";
+import { translateTeamsName } from "../helpers/Translate";
 // import { translateTeamsName } from "../helpers/Translate";
 import OneMatchTable from "./OneMatchTable";
 
@@ -34,7 +35,7 @@ export default function AddNewBet() {
     getAllUsers((users: UsersType[]) => {
       let onlyNames: string[] = []
       users.forEach(element => {
-        onlyNames.push(element.name)
+        onlyNames.push(translateTeamsName(element.name))
       });
       setUsersNames(onlyNames)
     })
@@ -347,7 +348,7 @@ export default function AddNewBet() {
                 return (
                   <ColumnGroup key={user.name} title={user.name}>
                     <Column
-                      title="Д"
+                      title={translateTeamsName("Д")}
                       dataIndex="homeTeamScore"
                       key="homeTeamScore"
                       width={80}
@@ -356,7 +357,7 @@ export default function AddNewBet() {
                       }
                     />
                     <Column
-                      title="Г"
+                      title={translateTeamsName("Г")}
                       dataIndex="awayTeamScore"
                       key="awayTeamScore"
                       width={80}
@@ -365,7 +366,7 @@ export default function AddNewBet() {
                       }
                     />
                     <Column
-                      title="П"
+                      title={translateTeamsName("П")}
                       dataIndex="winner"
                       key="winner"
                       width={40}
@@ -401,7 +402,7 @@ export default function AddNewBet() {
                 </span>
 
                 <Link to={`/groups/${record.group}`}>
-                  {translateTeamsName(record.group || "") || "Ще се реши"}
+                  {translateTeamsName(record.group || "") || translateTeamsName("Ще се реши")}
                 </Link>
               </>
             );
@@ -411,7 +412,7 @@ export default function AddNewBet() {
         }}
       >
         <Column
-          title="Н"
+          title={translateTeamsName("N")}
           dataIndex="number"
           key="number"
           width={56}
@@ -423,7 +424,7 @@ export default function AddNewBet() {
           key="homeTeam"
           width={columnWidth}
           render={(el: any) => {
-            return <span>{translateTeamsName(el.name) || "Ще се реши"}</span>;
+            return <span>{translateTeamsName(el.name) || translateTeamsName("Ще се реши")}</span>;
           }}
         />
         <Column
@@ -432,7 +433,7 @@ export default function AddNewBet() {
           key="awayTeam"
           width={columnWidth}
           render={(el: any) => (
-            <span>{translateTeamsName(el.name) || "Ще се реши"}</span>
+            <span>{translateTeamsName(el.name) || translateTeamsName("Ще се реши")}</span>
           )}
         />
         {users.map((user: UsersType) => {
@@ -475,15 +476,17 @@ export default function AddNewBet() {
   return (
     <div>
       <Select
-        defaultValue={"Избери играч"}
+        defaultValue={translateTeamsName("Chose plear")}
         style={{ width: 140 }}
         onChange={handleChangeForSelector}
       >
-        <Option value="">Избери играч</Option>
+        <Option value="">{translateTeamsName("Chose plear")}</Option>
         {usersNames.map((user) => {
+          let kk = translateTeamsName(user)
+          // debugger
           return (
             <Option key={user} value={user}>
-              {user}
+              {kk}
             </Option>
           );
         })}

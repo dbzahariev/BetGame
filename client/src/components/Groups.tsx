@@ -189,7 +189,7 @@ export default function Groups() {
     const oneGroupTable = (oneGroup: OneGroup) => {
       const columns = [
         {
-          title: "Поз",
+          title: translateTeamsName("Position"),
           dataIndex: "position",
           key: "position",
           render: (el: number) => (
@@ -208,38 +208,38 @@ export default function Groups() {
           ),
         },
         {
-          title: "Name",
+          title: translateTeamsName("Name"),
           dataIndex: "name",
           key: "name",
           width: window.screen.width * 0.2,
         },
         {
-          title: "ИИ",
+          title: translateTeamsName("PG"),
           dataIndex: "playedGames",
           key: "playedGames",
         },
         {
-          title: "П",
+          title: translateTeamsName("W"),
           dataIndex: "won",
           key: "won",
         },
         {
-          title: "Р",
+          title: translateTeamsName("D"),
           dataIndex: "draw",
           key: "draw",
         },
         {
-          title: "З",
+          title: translateTeamsName("L"),
           dataIndex: "lost",
           key: "lost",
         },
         {
-          title: "ГР",
+          title: translateTeamsName("GD"),
           dataIndex: "goalDifference",
           key: "goalDifference",
         },
         {
-          title: "Т",
+          title: translateTeamsName("P"),
           dataIndex: "points",
           key: "points",
         },
@@ -248,7 +248,7 @@ export default function Groups() {
         <Table
           key={`Group ${oneGroup.name}`}
           title={() => (
-            <p style={{ textAlign: "center" }}>{`Група ${oneGroup.name}`}</p>
+            <p style={{ textAlign: "center" }}>{`${translateTeamsName("Group")} ${oneGroup.name}`}</p>
           )}
           dataSource={oneGroup.table}
           columns={columns}

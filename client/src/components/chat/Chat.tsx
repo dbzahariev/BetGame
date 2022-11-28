@@ -8,6 +8,7 @@ import OneMessage, { MessageType } from "./OneMessage";
 import $ from "jquery";
 import EmojiPopup from "./EmojiPopup";
 import { UsersType } from "../../helpers/OtherHelpers";
+import { translateTeamsName } from "../../helpers/Translate";
 
 const { Option } = Select;
 
@@ -123,7 +124,7 @@ export default function Chat() {
         let users = [...res.data] as UsersType[];
         let newUsers: string[] = [];
         users.forEach((el) => {
-          newUsers.push(el.name);
+          newUsers.push(translateTeamsName(el.name));
         });
 
         setUsersNames(newUsers);
@@ -367,10 +368,10 @@ export default function Chat() {
           marginTop: 10,
           marginBottom: 10,
         }}
-        defaultValue={"Избери играч"}
+        defaultValue={translateTeamsName("Chose plear")}
         onChange={handleChangeForSelector}
       >
-        <Option value="">Избери играч</Option>
+        <Option value="">{translateTeamsName("Chose plear")}</Option>
         {usersNames.map((user) => {
           return (
             <Option key={user} value={user}>

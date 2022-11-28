@@ -20,6 +20,7 @@ import Chat from "./components/chat/Chat";
 import Scheme from "./components/scheme/Scheme";
 import Ranking from "./components/ranking/Ranking";
 import AllMatches from "./components/AllMatches";
+import { translateTeamsName } from "./helpers/Translate";
 
 const competitionsIds = {
   Uefa: 2018,
@@ -97,25 +98,25 @@ export default function App() {
             style={{ fontSize: fontSize, display: "block" }}
             to="/allMatches"
           >
-            <span>Всички мачове</span>
+            <span>{translateTeamsName("All matches")}</span>
           </Link>
           <Link style={{ fontSize: fontSize }} to="/addbet">
-            Прогнози
+            {translateTeamsName("Predictions")}
           </Link>
           <Link to="/groups/all" style={{ fontSize: fontSize }}>
-            Групи
+            {translateTeamsName("Groups")}
           </Link>
           <Link to="/rules" style={{ fontSize: fontSize }}>
-            Регламент
+            {translateTeamsName("Rules")}
           </Link>
           <Link to="/chatroom" style={{ fontSize: fontSize }}>
-            Чат
+            {translateTeamsName("Chat")}
           </Link>
           <Link to="/scheme" style={{ fontSize: fontSize }}>
-            Схема
+            {translateTeamsName("Scheme")}
           </Link>
           <Link to="/ranking" style={{ fontSize: fontSize }}>
-            Класиране
+            {translateTeamsName("Ranking")}
           </Link>
         </Space>
       </div>

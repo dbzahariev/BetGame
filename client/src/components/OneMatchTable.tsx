@@ -84,7 +84,7 @@ export default function oneMatchTable({
         //     <>
         //       <span>{`Този мач ще се проведе на ${date}. Този мач се играе в `}</span>
         //       <Link to={`/groups/${record.group}`}>
-        //         {translateTeamsName(record.group || "") || "Ще се реши"}
+        //         {translateTeamsName(record.group || "") || translateTeamsName("Ще се реши")}
         //       </Link>
         //     </>
         //   );
@@ -94,14 +94,14 @@ export default function oneMatchTable({
       }}
     >
       <Column
-        title="Н"
+        title={translateTeamsName("N")}
         dataIndex="number"
         key="number"
         width={56}
       // fixed={true}
       />
       <Column
-        title="Дата"
+        title={translateTeamsName("Date")}
         dataIndex="utcDate"
         key="utcDate"
         width={columnWidth}
@@ -113,7 +113,7 @@ export default function oneMatchTable({
         }}
       />
       <Column
-        title="Час"
+        title={translateTeamsName("Time")}
         dataIndex="utcDate"
         key="utcDate"
         width={columnWidth}
@@ -125,29 +125,29 @@ export default function oneMatchTable({
         }}
       />
       <Column
-        title="Група"
+        title={translateTeamsName("Group")}
         dataIndex="group"
         key="group"
         // width={100}
         render={(el: any) => {
           return <div style={!result ? { height: "2.6rem", display: "flex", alignItems: "center" } : {}}>
-            <span>{translateTeamsName(el || "") || "Ще се реши"}</span>
+            <span>{translateTeamsName(el || "") || translateTeamsName("Ще се реши")}</span>
           </div>
-          // return <span>{translateTeamsName(el || "") || "Ще се реши"}</span>;
+          // return <span>{translateTeamsName(el || "") || translateTeamsName("Ще се реши")}</span>;
         }}
       />
       <Column
-        title="Домакин"
+        title={translateTeamsName("Home team")}
         dataIndex="homeTeam"
         key="homeTeam"
         width={columnWidth}
         render={(el: any) => (
-          <span style={{ justifyContent: "center" }}>{translateTeamsName(el.name) || "Ще се реши"}</span>
+          <span style={{ justifyContent: "center" }}>{translateTeamsName(el.name) || translateTeamsName("Ще се реши")}</span>
         )}
       />
-      {result ? <ColumnGroup title="Резултат">
+      {result ? <ColumnGroup title={translateTeamsName("Result")}>
         <Column
-          title="Д"
+          title={translateTeamsName("H")}
           dataIndex="homeTeamScore"
           key="homeTeamScore"
           width={100}
@@ -168,7 +168,7 @@ export default function oneMatchTable({
           }}
         />
         <Column
-          title="Г"
+          title={translateTeamsName("A")}
           dataIndex="awayTeamScore"
           key="awayTeamScore"
           width={100}
@@ -187,7 +187,7 @@ export default function oneMatchTable({
           )}
         />
         <Column
-          title="П"
+          title={translateTeamsName("W")}
           dataIndex="winner"
           key="winner"
           width={40}
@@ -196,12 +196,12 @@ export default function oneMatchTable({
       </ColumnGroup>
         : <></>}
       <Column
-        title="Гост"
+        title={translateTeamsName("Away team")}
         dataIndex="awayTeam"
         key="awayTeam"
         width={columnWidth}
         render={(el: any) => (
-          <span>{translateTeamsName(el.name) || "Ще се реши"}</span>
+          <span>{translateTeamsName(el.name) || translateTeamsName("Ще се реши")}</span>
         )}
       />
       {usersColumns ? usersColumns :
@@ -209,10 +209,10 @@ export default function oneMatchTable({
           return (
             <ColumnGroup
               key={user.name}
-              title={`${user.name} (${user.totalPoints || 0})`}
+              title={`${translateTeamsName(user.name)} (${user.totalPoints || 0})`}
             >
               <Column
-                title="Д"
+                title={translateTeamsName("H")}
                 dataIndex="homeTeamScore"
                 key="homeTeamScore"
                 width={40}
@@ -221,7 +221,7 @@ export default function oneMatchTable({
                 }
               />
               <Column
-                title="Г"
+                title={translateTeamsName("A")}
                 dataIndex="awayTeamScore"
                 key="awayTeamScore"
                 width={40}
@@ -230,7 +230,7 @@ export default function oneMatchTable({
                 }
               />
               <Column
-                title="П"
+                title={translateTeamsName("W")}
                 dataIndex="winner"
                 key="winner"
                 width={40}
@@ -242,7 +242,7 @@ export default function oneMatchTable({
                 }}
               />
               <Column
-                title="Т"
+                title={translateTeamsName("P")}
                 dataIndex=""
                 key="points"
                 width={40}

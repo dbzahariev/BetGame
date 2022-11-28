@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Checkbox, InputNumber, Modal, Space } from "antd";
+import { translateTeamsName } from "../helpers/Translate";
 
 export let AutoRefreshInterval: number | "disable" = "disable";
 
@@ -33,9 +34,9 @@ export default function AutoRefresh() {
   return (
     <>
       <Button onClick={showModal}>
-        Автоматично презареждане
+        {translateTeamsName("Auto reload")}
       </Button>
-      <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}
+      <Modal title={translateTeamsName("Auto reload")} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}
         footer={[
           <Button style={{ borderRadius: "10px" }} type="primary" key="ok"
             onClick={handleOk}>
@@ -47,7 +48,7 @@ export default function AutoRefresh() {
               onChange={onChangeAllowRefresh}
               defaultChecked={newInterval !== "disable"}
             >
-              Автоматично презареждане
+              {translateTeamsName("Auto reload")}
             </Checkbox>
             <InputNumber
               disabled={newInterval === "disable"}

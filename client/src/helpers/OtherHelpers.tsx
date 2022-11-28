@@ -11,6 +11,7 @@ import {
 } from "../components/Rules";
 import { Key } from "react";
 import compare from 'just-compare';
+import { translateTeamsName } from "./Translate";
 // import { styleText } from "../components/OneMatchTable";
 
 export interface ScoreType {
@@ -127,11 +128,11 @@ export const renderP = (
 ) => {
   let result = "";
   if (el === "HOME_TEAM") {
-    result = "Д";
+    result = translateTeamsName("H");
   } else if (el === "AWAY_TEAM") {
-    result = "Г";
+    result = translateTeamsName("A");
   } else if (el === "DRAW") {
-    result = "Р";
+    result = translateTeamsName("D");
   } else {
     result = "";
   }
@@ -467,12 +468,17 @@ export const getDefSettings = () => {
   let showRound1FromStorage = sessionStorage.getItem("showRound1")
   let showRound2FromStorage = sessionStorage.getItem("showRound2")
   let showRound3FromStorage = sessionStorage.getItem("showRound3")
+
+  let isEnglishFromStorage = sessionStorage.getItem("isEnglish")
+
   let showGroups = showGroupsFromStorage === null ? true : showGroupsFromStorage === "true" ? true : false
   let showRound1 = showRound1FromStorage === null ? true : showRound1FromStorage === "true" ? true : false
-  let showRound2 = showRound1FromStorage === null ? true : showRound2FromStorage === "true" ? true : false
-  let showRound3 = showRound1FromStorage === null ? true : showRound3FromStorage === "true" ? true : false
+  let showRound2 = showRound2FromStorage === null ? true : showRound2FromStorage === "true" ? true : false
+  let showRound3 = showRound3FromStorage === null ? true : showRound3FromStorage === "true" ? true : false
 
-  return { showGroups, showRound1, showRound2, showRound3 }
+  let isEnglish = isEnglishFromStorage === null ? false : isEnglishFromStorage === "true" ? true : false
+
+  return { showGroups, showRound1, showRound2, showRound3, isEnglish }
 }
 
 export const setDefSettings = (settings: string, value: string) => {

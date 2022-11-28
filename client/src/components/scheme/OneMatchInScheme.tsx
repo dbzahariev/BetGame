@@ -3,30 +3,30 @@ import { translateTeamsName } from "../../helpers/Translate";
 import { getFlag } from "../../helpers/GetFlags";
 import { MatchType } from "../../helpers/OtherHelpers";
 
+export let months = [
+  "Януари",
+  "Февруари",
+  "Март",
+  "Април",
+  "Май",
+  "Юни",
+  "Юли",
+  "Август",
+  "Септември",
+  "Октомври",
+  "Ноември",
+  "Декември",
+];
+
 export default function OneMatchInScheme({ match }: { match: MatchType }) {
-  let months = [
-    "Януари",
-    "Февруари",
-    "Март",
-    "Април",
-    "Май",
-    "Юни",
-    "Юли",
-    "Август",
-    "Септември",
-    "Октомври",
-    "Ноември",
-    "Декември",
-  ];
-  
   if (match === undefined) {
     return <div></div>
   }
 
   let header = (
     <div style={{ color: "blue" }}>
-      {`${new Date(match.utcDate).getDate()} ${months[new Date(match.utcDate).getMonth() - 0]
-        } - ${new Date(match.utcDate).toLocaleTimeString("bg-bg")}`}
+      {`${new Date(match.utcDate).getDate()} ${translateTeamsName(months[new Date(match.utcDate).getMonth() - 0])}
+       - ${new Date(match.utcDate).toLocaleTimeString("bg-bg")}`}
     </div>
   );
 

@@ -22,6 +22,7 @@ import backup2018 from "./Backup2018.json";
 import backup2016 from "./Backup2016.json";
 import { Select, Space, Switch } from "antd";
 import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
+import { translateTeamsName } from "../../helpers/Translate";
 
 const { Option } = Select;
 
@@ -359,7 +360,7 @@ export default function Ranking() {
           }}
         >
           <span style={{ width: `${window.innerWidth * 0.4}px` }}>
-            Показване на групова фаза
+            {translateTeamsName("Show group phase")}
           </span>
           <Switch
             onChange={(newValue: any) => setShowGroups(newValue)}
