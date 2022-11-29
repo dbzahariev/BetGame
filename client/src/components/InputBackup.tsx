@@ -205,7 +205,6 @@ export default function InputBackup() {
         penalties: { homeTeam: null, awayTeam: null },
       },
     };
-    console.log(kk1);
     setInput({
       otbor1: "",
       otbor2: "",

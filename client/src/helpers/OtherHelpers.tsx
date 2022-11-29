@@ -600,7 +600,6 @@ export const calcRound = (match: MatchType) => {
 }
 
 export const getAllMatches = (setMatches: Function) => {
-  console.log("get All Matches")
   var config: AxiosRequestConfig = {
     method: "GET",
     url: `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`,

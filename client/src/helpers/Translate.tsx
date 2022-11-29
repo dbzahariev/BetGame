@@ -30,21 +30,13 @@ export const translateTeamsName = (team: string): string => {
       return team
     }
   }
-  // if (["Група A", "Група B", "Група C", "Група D", "Група F", "Група E", "Група G", "Група H"].includes(team)) {
-  //   let kk = team.split(" ")
-  //   if (isEnglish) {
-  //     return `Group ${kk[1]}`
-  //   } else {
-  //     return team
-  //   }
-  // }
 
   if (team !== undefined) {
     if (team !== "") {
       if (teamsToShow === undefined) {
         if (team?.toLowerCase()?.indexOf("group") === -1) {
           if (team !== "Ще се реши") {
-            // debugger
+            debugger
           }
         }
       }
@@ -68,7 +60,12 @@ export const translateTeamsName = (team: string): string => {
     let englishTeam = ""
     if (team !== undefined && teamsToShow !== null && teamsToShow !== undefined) {
 
+      // if ((team || "") === "GROUP_A") {
+      //   debugger
+      // }
       englishTeam = team.replace("_", " ")
+      englishTeam = team.replace("GROUP_", "Group ")
+      // englishTeam = team.replace("LAST_16", "Last 16")
 
       if (englishTeam.indexOf("Groups") > -1) {
         // debugger
@@ -88,12 +85,27 @@ export const translateTeamsName = (team: string): string => {
       englishTeam = "Will be decided"
     }
 
+    if (team === "LAST_16") {
+      englishTeam = "1/8 Final"
+    }
+    if (team === "QUARTER_FINALS") {
+      englishTeam = "1/4 Final"
+    }
+
+    if (["SEMI_FINALS", "THIRD_PLACE", "FINAL"].includes(team)) {
+      if (isEnglish) {
+        englishTeam = englishTeam.replace("_", " ")
+        englishTeam = `${englishTeam.slice(0, 1).toUpperCase()}${englishTeam.slice(1,).toLowerCase()}`
+      }
+    }
+
     return englishTeam
   }
 
   if (teamsToShow !== undefined) {
     teamsToShow = teamsToShow.replace(" undefined", "")
   }
+
 
   return teamsToShow ? teamsToShow : team;
 };
