@@ -5,7 +5,9 @@ import { Button, Space, Table } from "antd";
 import { translateTeamsName } from "../helpers/Translate";
 import { useParams } from "react-router-dom";
 import { selectedCompetition, selectedApiVersion } from "../App";
-import { calcScore, MatchType } from "../helpers/OtherHelpers";
+import { calcScore, getAllMatches, MatchType, stylingTable } from "../helpers/OtherHelpers";
+import OneMatchTable from "./OneMatchTable";
+import { getMatchesForView } from "./AllMatches";
 
 type OneRow = {
   key: string;
@@ -28,6 +30,7 @@ export default function Groups() {
   const [groups, setGroups] = useState<OneGroup[]>([]);
   const [matches, setMatches] = useState<MatchType[]>([]);
 
+  /*
   const getAllMatches = () => {
     var config: AxiosRequestConfig = {
       method: "GET",
@@ -69,6 +72,7 @@ export default function Groups() {
       })
       .catch((error) => console.error(error));
   };
+  */
 
   let params: any = useParams();
 
@@ -80,7 +84,7 @@ export default function Groups() {
   }, [matches.length]);
 
   useEffect(() => {
-    getAllMatches();
+    getAllMatches(setMatches);
   }, []);
 
   const getNamesMatches = () => {
@@ -247,9 +251,9 @@ export default function Groups() {
       return (
         <Table
           key={`Group ${oneGroup.name}`}
-          title={() => (
-            <p style={{ textAlign: "center" }}>{`${translateTeamsName("Group")} ${oneGroup.name}`}</p>
-          )}
+          // title={() => (
+          //   <p style={{ textAlign: "center" }}>{`${translateTeamsName("Group")} ${oneGroup.name}`}</p>
+          // )}
           dataSource={oneGroup.table}
           columns={columns}
           pagination={false}
@@ -258,13 +262,35 @@ export default function Groups() {
       );
     };
 
+    const oneGroupMatches = (group: OneGroup) => {
+      let filteredMatches = matches.filter((el: MatchType) => {
+        return (el.group || "") === `GROUP_${group.name}`
+      })
+
+      return (
+        <div style={{ padding: "0px" }}>
+          <OneMatchTable
+            AllMatches={getMatchesForView(filteredMatches)}
+            users={[]}
+            result={true}
+          />
+        </div>)
+    }
+
     return (
       <div>
         {groups.map((group) => {
           return (
-            <div key={`Group ${group.name}`} id={`Group ${group.name}`}>
-              <Space direction={"horizontal"}>{oneGroupTable(group)}</Space>
+            // <div key={group.name}>
+            <div key={`Group ${group.name}`} id={`Group ${group.name}`}
+              style={{ width: "760px", border: "2px solid black" }}>
+              <p style={{ textAlign: "center", padding: "10px", margin: "0px", fontWeight: "bold", fontSize: "20px" }}>{`${translateTeamsName("Group")} ${group.name}`}</p>
+              {oneGroupMatches(group)}
+              <Space style={{
+                display: "flex", justifyContent: "center", alignItems: "center", padding: "10px",
+              }} direction={"horizontal"}>{oneGroupTable(group)}</Space>
             </div>
+            // </div>
           );
         })}
         <Button onClick={() => window.scrollTo(0, 0)}>Начало</Button>
