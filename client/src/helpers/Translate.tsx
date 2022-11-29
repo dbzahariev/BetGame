@@ -28,6 +28,15 @@ export const translateTeamsName = (team: string): string => {
     }
   }
 
+  if (team === "Chose group") {
+    if (isEnglish) {
+      return team
+    }
+    else {
+      return teamsToShow
+    }
+  }
+
   if (team !== "Show group phase:") {
     if ((team || "").toLocaleLowerCase().indexOf("group") > -1) {
       let teamNameArr = team.split("_");

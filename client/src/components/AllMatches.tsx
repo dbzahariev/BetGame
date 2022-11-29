@@ -15,7 +15,7 @@ import {
   UsersType,
   isGroup,
 } from "../helpers/OtherHelpers";
-import ModalSettings, { showGroupsGlobal, showRound1Global, showRound2Global, showRound3Global } from "./ModalSettings";
+import ModalSettings, { showGroupsGlobal, showRound1Global, showRound2Global, showRound3Global, filterGroupGlobal } from "./ModalSettings";
 
 export const getMatchesForView = (
   matches: MatchType[],
@@ -45,6 +45,7 @@ export const getMatchesForView = (
 
 export default function AllMatches2({ refresh }: { refresh: Function }) {
   const [matches, setMatches] = useState<MatchType[]>([]);
+  const [filteredMatches, setFilteredMatches] = useState<MatchType[]>([]);
   const [users, setUsers] = useState<UsersType[]>([]);
   const [loading, setLoading] = useState(false);
   // const [showRound1, setShowRound1] = useState(getDefSettings().showRound1);
@@ -56,7 +57,13 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
       intervalRef.current = setInterval(() => {
         reloadData((reloadedUsers: UsersType[]) => {
           return setUsers([...reloadedUsers])
-        });
+        }, (reloadedMatches: MatchType[]) => {
+          let fiteredMatches: MatchType[] = [...reloadedMatches]
+          if (filterGroupGlobal !== "") {
+            fiteredMatches = fiteredMatches.filter((el) => el.group === filterGroupGlobal)
+          }
+          setFilteredMatches(fiteredMatches)
+        }, filteredMatches);
       }, AutoRefreshInterval * 1000);
     }
 
@@ -68,14 +75,23 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
     if (matches.length > 0) {
       reloadData((reloadedUsers: UsersType[]) => {
         return setUsers([...reloadedUsers])
-      });
+      }, (reloadedMatches: MatchType[]) => {
+        let fiteredMatches: MatchType[] = [...reloadedMatches]
+        if (filterGroupGlobal !== "") {
+          fiteredMatches = fiteredMatches.filter((el) => el.group === filterGroupGlobal)
+        }
+        setFilteredMatches(fiteredMatches)
+      }, filteredMatches);
     }
     // eslint-disable-next-line
   }, [refresh])
 
   useEffect(() => {
     if (matches.length === 0) {
-      getAllMatches(setMatches);
+      getAllMatches((matches: MatchType[]) => {
+        setMatches(matches)
+        setFilteredMatches(matches)
+      });
     }
   }, [matches.length]);
 
@@ -104,7 +120,8 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
     if (matches.length !== 0 && users.length !== 0) {
       stylingTable(users);
     }
-  }, [matches, users])
+    // eslint-disable-next-line
+  }, [filteredMatches, users])
 
   if (loading) {
     return (
@@ -136,7 +153,7 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
       <ModalSettings refresh={refresh} />
       <Space direction={"horizontal"}>
         <OneMatchTable
-          AllMatches={getMatchesForView(matches)}
+          AllMatches={getMatchesForView(filteredMatches)}
           users={users}
           result={true}
         />

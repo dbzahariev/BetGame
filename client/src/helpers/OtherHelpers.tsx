@@ -111,14 +111,18 @@ export const getAllUsers = (setUsers: Function) => {
 
 export const reloadData = (
   setUsers: Function,
+  setMatches: Function,
+  oldMatches: MatchType[]
 ) => {
-  getAllMatches((matches: MatchType[]) => {
-    getAllUsers((users: UsersType[]) => {
-      let res = getPoints(users, matches);
-      res.sort((a, b) => (b.totalPoints || 0) - (a.totalPoints || 0));
-      setUsers(res);
-    })
+  let matches = [...oldMatches]
+  // getAllMatches((matches: MatchType[]) => {
+  getAllUsers((users: UsersType[]) => {
+    let res = getPoints(users, matches);
+    res.sort((a, b) => (b.totalPoints || 0) - (a.totalPoints || 0));
+    setUsers(res);
+    setMatches(matches)
   })
+  // })
 };
 
 export const renderP = (
@@ -348,7 +352,6 @@ export const stylingTable = (users: UsersType[], isFromNewBet?: Boolean) => {
     $(selector2).css("border-color", `hsl(${users[i].colorTable}, 100%, 50%)`);
   }
 
-
   const getForBorders = () => {
     let res = { sel3: "", sel4: "", sel5: "", sel6: "", sel7: "" };
 
@@ -460,6 +463,10 @@ export const stylingTable = (users: UsersType[], isFromNewBet?: Boolean) => {
     $(`#newBetTable > div > div > div > div > div > div > div > div > table > tbody > tr > td:nth-child(7)`).css("border-left", "2px solid black")
     $(`#newBetTable > div > div > div > div > div > div > div > div > table > tbody > tr > td:nth-child(9)`).css("border-right", "2px solid black")
   }
+
+  for (let i = 10; i < 100; i++) {
+    $(`#oneMatchTable > div > div > table > tbody > tr:nth-last-child(1) > td:nth-child(${i})`).css("border-bottom", "1px solid black")
+  }
 };
 
 export const getDefSettings = () => {
@@ -470,6 +477,7 @@ export const getDefSettings = () => {
   let showRound3FromStorage = sessionStorage.getItem("showRound3")
 
   let isEnglishFromStorage = sessionStorage.getItem("isEnglish")
+  let filterGroupFromStorage = sessionStorage.getItem("filterGroup")
 
   let showGroups = showGroupsFromStorage === null ? true : showGroupsFromStorage === "true" ? true : false
   let showRound1 = showRound1FromStorage === null ? true : showRound1FromStorage === "true" ? true : false
@@ -477,8 +485,9 @@ export const getDefSettings = () => {
   let showRound3 = showRound3FromStorage === null ? true : showRound3FromStorage === "true" ? true : false
 
   let isEnglish = isEnglishFromStorage === null ? false : isEnglishFromStorage === "true" ? true : false
+  let filterGroup = filterGroupFromStorage || ""
 
-  return { showGroups, showRound1, showRound2, showRound3, isEnglish }
+  return { showGroups, showRound1, showRound2, showRound3, isEnglish, filterGroup }
 }
 
 export const setDefSettings = (settings: string, value: string) => {
@@ -591,6 +600,7 @@ export const calcRound = (match: MatchType) => {
 }
 
 export const getAllMatches = (setMatches: Function) => {
+  console.log("get All Matches")
   var config: AxiosRequestConfig = {
     method: "GET",
     url: `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`,
