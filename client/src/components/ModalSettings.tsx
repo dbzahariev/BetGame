@@ -19,7 +19,7 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
   const [showRound1, setShowRound1] = useState(getDefSettings().showRound1);
   const [showRound2, setShowRound2] = useState(getDefSettings().showRound2);
   const [showRound3, setShowRound3] = useState(getDefSettings().showRound3);
-  const [groupsName, setGroupsName] = useState<{ value: string; label: string; }[]>([])
+  const [groupsName, setGroupsName] = useState<{ value: string, label: string }[]>([])
   const [selctedGroupState, setSelectedGropState] = useState(getDefSettings().filterGroup)
 
   const [isEnglishState, setIsEnglishState] = useState(getDefSettings().isEnglish);
@@ -35,24 +35,6 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
   }
 
   useEffect(() => {
-    getAllMatches((matches: MatchType[]) => {
-      let allGroupsName: string[] = []
-      for (let i = 0; i < matches.length; i++) {
-        let matchGroup: string = matches[i].group || ""
-        if ((allGroupsName.includes(matchGroup) === false) && (matchGroup.indexOf("GROUP") !== -1)) {
-          allGroupsName.push(matchGroup)
-        }
-      }
-
-      let optinsAllGroups = allGroupsName.map((el) => {
-        return { value: el, label: translateTeamsName(el) }
-      })
-      optinsAllGroups.unshift({ value: "", label: translateTeamsName("Chose group") })
-      setGroupsName(optinsAllGroups)
-    })
-  }, [])
-
-  useEffect(() => {
     hendleOk()
     // eslint-disable-next-line 
   }, [showGroups, showRound1, showRound2, showRound3, isEnglishState, selctedGroupState])
@@ -60,6 +42,35 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
   const hendleChangeGroup = (event: any) => {
     setSelectedGropState(event)
   }
+
+  useEffect(() => {
+    getAllMatches((matches: MatchType[]) => {
+      let groupsNameOptions: { value: string, label: string }[] = []
+      let groupNames: string[] = [""]
+
+      for (let index = 0; index < matches.length; index++) {
+        let elToAll = matches[index].group || ""
+        if (!groupNames.includes(elToAll) && elToAll.toLowerCase().indexOf("group") !== -1) {
+          groupNames.push(elToAll)
+        }
+      }
+      for (let index = 0; index < groupNames.length; index++) {
+        const groupName = groupNames[index];
+        let elToAdd: {
+          value: string;
+          label: string;
+        } = { value: "", label: "" }
+        if (groupName === "") {
+          elToAdd = { value: "", label: translateTeamsName("Chose group") }
+        } else {
+          elToAdd = { value: groupName, label: translateTeamsName(groupName) }
+        }
+        groupsNameOptions.push(elToAdd)
+      }
+      setGroupsName(groupsNameOptions)
+    })
+    // eslint-disable-next-line 
+  }, [isEnglish])
 
   return (
     <Space direction="horizontal" style={{ width: '100%' }}>
@@ -81,7 +92,6 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
         <Select
           defaultValue={""}
           style={{ width: window.innerWidth * 0.085 }}
-          // allowClear
           options={groupsName}
           onChange={hendleChangeGroup}
         />

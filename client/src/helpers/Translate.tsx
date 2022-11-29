@@ -16,24 +16,38 @@ export const translateTeamsName = (team: string): string => {
     }
   }
 
+  if (team === "Chose group") {
+    if (isEnglish) {
+      return team
+    } else {
+      return teamsToShow
+    }
+  }
+  if (team === "Избери група") {
+    if (isEnglish) {
+      return "Chose group"
+    } else {
+      return team
+    }
+  }
+  // if (["Група A", "Група B", "Група C", "Група D", "Група F", "Група E", "Група G", "Група H"].includes(team)) {
+  //   let kk = team.split(" ")
+  //   if (isEnglish) {
+  //     return `Group ${kk[1]}`
+  //   } else {
+  //     return team
+  //   }
+  // }
+
   if (team !== undefined) {
     if (team !== "") {
       if (teamsToShow === undefined) {
         if (team?.toLowerCase()?.indexOf("group") === -1) {
           if (team !== "Ще се реши") {
-            debugger
+            // debugger
           }
         }
       }
-    }
-  }
-
-  if (team === "Chose group") {
-    if (isEnglish) {
-      return team
-    }
-    else {
-      return teamsToShow
     }
   }
 
