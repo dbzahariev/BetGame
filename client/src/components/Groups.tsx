@@ -5,7 +5,7 @@ import { Button, Space, Table } from "antd";
 import { translateTeamsName } from "../helpers/Translate";
 import { useParams } from "react-router-dom";
 import { selectedCompetition, selectedApiVersion } from "../App";
-import { calcScore, getAllMatches, MatchType, stylingTable } from "../helpers/OtherHelpers";
+import { getAllMatches, MatchType } from "../helpers/OtherHelpers";
 import OneMatchTable from "./OneMatchTable";
 import { getMatchesForView } from "./AllMatches";
 
@@ -29,50 +29,6 @@ type OneGroup = {
 export default function Groups() {
   const [groups, setGroups] = useState<OneGroup[]>([]);
   const [matches, setMatches] = useState<MatchType[]>([]);
-
-  /*
-  const getAllMatches = () => {
-    var config: AxiosRequestConfig = {
-      method: "GET",
-      url: `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`,
-      headers: {
-        "X-Auth-Token": "35261f5a038d45029fa4ae0abc1f2f7a",
-      },
-    };
-
-    axios(config)
-      .then(function (response) {
-        let data: MatchType[] = response.data.matches;
-        data = data.slice(0, data.length);
-        let matches: MatchType[] = [];
-
-        data.forEach((el: any, index) => {
-          if (el.id === 325091) {
-          }
-          let score = el.score;
-
-          let calculatedScore = calcScore(el, score);
-
-          let matchToAdd: MatchType = {
-            number: index + 1,
-            key: matches.length || 0,
-            id: el.id,
-            homeTeam: el.homeTeam,
-            awayTeam: el.awayTeam,
-            utcDate: el.utcDate,
-            group: el.group || el.stage,
-            winner: score?.winner || "",
-            homeTeamScore: calculatedScore.ht,
-            awayTeamScore: calculatedScore.at,
-            status: el.status,
-          };
-          matches.push(matchToAdd);
-        });
-        setMatches(matches);
-      })
-      .catch((error) => console.error(error));
-  };
-  */
 
   let params: any = useParams();
 
