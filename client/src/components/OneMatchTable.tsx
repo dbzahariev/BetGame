@@ -159,9 +159,10 @@ export default function oneMatchTable({
                 }}
               >
                 <span style={{}}>
-                  {record.status === "IN_PLAY" || record.status === "PAUSED"
+                  {`${getFullScore(record, "homeTeam", el)}`}
+                  {/* {record.status === "IN_PLAY" || record.status === "PAUSED"
                     ? "?"
-                    : `${getFullScore(record, "homeTeam", el)}`}
+                    : `${getFullScore(record, "homeTeam", el)}`} */}
                 </span>
               </div>
             );
@@ -179,9 +180,10 @@ export default function oneMatchTable({
               }}
             >
               <span style={{}}>
-                {record.status === "IN_PLAY" || record.status === "PAUSED"
+                {`${getFullScore(record, "awayTeam", el)}`}
+                {/* {record.status === "IN_PLAY" || record.status === "PAUSED"
                   ? "?"
-                  : `${getFullScore(record, "awayTeam", el)}`}
+                  : `${getFullScore(record, "awayTeam", el)}`} */}
               </span>
             </div>
           )}

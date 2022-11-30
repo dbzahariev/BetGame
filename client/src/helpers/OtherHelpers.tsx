@@ -141,12 +141,12 @@ export const renderP = (
     result = "";
   }
   if (!user) {
-    if (
-      fullMatch &&
-      (fullMatch.status === "IN_PLAY" || fullMatch.status === "PAUSED")
-    ) {
-      result = "?";
-    }
+    // if (
+    //   fullMatch &&
+    //   (fullMatch.status === "IN_PLAY" || fullMatch.status === "PAUSED")
+    // ) {
+    //   result = "?";
+    // }
     return <span style={{}}>{result}</span>;
   } else {
     if (fullMatch) {
@@ -270,12 +270,15 @@ export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
     for (let j = 0; j < oneUser.bets.length; j++) {
       let oneBet = oneUser.bets[j];
       let selectedMatch = matches.find((el) => el.id === oneBet.matchId);
-      if (selectedMatch && selectedMatch.status === "FINISHED") {
+
+      if (selectedMatch) {
+        // if (selectedMatch && selectedMatch.status === "FINISHED") {
         let pointsForEvent = getPointsForEvent(selectedMatch, oneUser);
         oneUser.totalPoints = (oneUser.totalPoints || 0) + pointsForEvent;
         oneBet.point = pointsForEvent;
-      } else {
-        oneBet.point = 0;
+        // } else {
+        //   oneBet.point = 0;
+        // }
       }
     }
     const getMatchDate = (bet: any) => {

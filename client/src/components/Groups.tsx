@@ -43,6 +43,7 @@ export default function Groups() {
     getAllMatches(setMatches);
   }, []);
 
+  /*
   const getNamesMatches = () => {
     let fullMatches = [...matches];
 
@@ -68,6 +69,7 @@ export default function Groups() {
     });
     return namesMatches;
   };
+  */
 
   const getAllStandings = () => {
     var config: AxiosRequestConfig = {
@@ -107,7 +109,7 @@ export default function Groups() {
             groupToAdd.table.push(teamsToAdd);
           }
 
-          groupToAdd = convertGroup(groupToAdd);
+          // groupToAdd = convertGroup(groupToAdd);
           allGroups.push(groupToAdd);
         }
         setGroups(allGroups);
@@ -126,6 +128,7 @@ export default function Groups() {
     // eslint-disable-next-line
   }, [groups]);
 
+  /*
   const convertGroup = (oneGroup: OneGroup) => {
     let result: OneGroup = { ...oneGroup };
     result.table.forEach((gamesInGroup) => {
@@ -144,6 +147,7 @@ export default function Groups() {
     });
     return result;
   };
+  */
 
   const renderGroups = () => {
     const oneGroupTable = (oneGroup: OneGroup) => {
