@@ -43,7 +43,7 @@ export const getMatchesForView = (
   return res;
 };
 
-export default function AllMatches2({ refresh }: { refresh: Function }) {
+export default function AllMatches({ refresh }: { refresh: Function }) {
   const [matches, setMatches] = useState<MatchType[]>([]);
   const [filteredMatches, setFilteredMatches] = useState<MatchType[]>([]);
   const [users, setUsers] = useState<UsersType[]>([]);
@@ -81,7 +81,7 @@ export default function AllMatches2({ refresh }: { refresh: Function }) {
           fiteredMatches = fiteredMatches.filter((el) => el.group === filterGroupGlobal)
         }
         setFilteredMatches(fiteredMatches)
-      }, filteredMatches);
+      }, matches);
     }
     // eslint-disable-next-line
   }, [refresh])
