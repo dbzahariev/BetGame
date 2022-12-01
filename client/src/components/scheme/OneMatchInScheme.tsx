@@ -43,7 +43,7 @@ export default function OneMatchInScheme({ match, teams }: { match: MatchType, t
   let header = (
     <div style={{ color: "blue" }}>
       {`${new Date(match.utcDate).getDate()} ${translateTeamsName(months[new Date(match.utcDate).getMonth() - 0])}
-       - ${new Date(match.utcDate).toLocaleTimeString("bg-bg")}`}
+       - ${new Date(match.utcDate).getHours()}:${new Date(match.utcDate).getMinutes() <= 10 ? "0" : ""}${new Date(match.utcDate).getMinutes()}`}
     </div>
   );
 
