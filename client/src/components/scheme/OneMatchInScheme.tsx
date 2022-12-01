@@ -30,6 +30,9 @@ export default function OneMatchInScheme({ match, teams }: { match: MatchType, t
         res = element.flag
       }
     }
+    if (name === null) {
+      return <></>
+    }
     return <img
       style={{ width: 15, height: 15, margin: 3 }}
       src={res}
