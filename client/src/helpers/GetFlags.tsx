@@ -25,6 +25,7 @@ import Turkey from "./flags/Euro/Turkey.svg";
 import Ukraine from "./flags/Euro/Ukraine.svg";
 import Wales from "./flags/Euro/Wales.svg";
 
+//TODO: Remove
 export const getFlag = (country: string) => {
   let res: any = country;
   let srcForFlag = "";

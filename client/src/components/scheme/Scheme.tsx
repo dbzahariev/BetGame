@@ -1,14 +1,22 @@
 import React from "react"
 import { useEffect, useState } from "react";
-import { MatchType, getAllMatches } from "../../helpers/OtherHelpers";
+import { MatchType, getAllMatches, getAllTeams } from "../../helpers/OtherHelpers";
 import OneMatchInScheme from "./OneMatchInScheme";
 import Separator from "./separator.svg";
 
 export default function Scheme() {
   const [matches, setMatches] = useState<MatchType[]>([]);
+  const [teams, setTeams] = useState<{
+    name: string;
+    flag: string;
+  }[]>([])
 
   useEffect(() => {
     getAllMatches(setMatches);
+
+    getAllTeams((teams: any[]) => {
+      setTeams(teams)
+    })
   }, []);
 
   const renderLast16 = () => {
@@ -16,14 +24,14 @@ export default function Scheme() {
 
     return (
       <div>
-        <OneMatchInScheme match={matchesIn16[0]} /> {/* 1 */}
-        <OneMatchInScheme match={matchesIn16[1]} /> {/* 2 */}
-        <OneMatchInScheme match={matchesIn16[4]} /> {/* 3 */}
-        <OneMatchInScheme match={matchesIn16[5]} /> {/* 4 */}
-        <OneMatchInScheme match={matchesIn16[2]} /> {/* 5 */}
-        <OneMatchInScheme match={matchesIn16[3]} /> {/* 6 */}
-        <OneMatchInScheme match={matchesIn16[6]} /> {/* 7 */}
-        <OneMatchInScheme match={matchesIn16[7]} /> {/* 8 */}
+        <OneMatchInScheme teams={teams} match={matchesIn16[0]} /> {/* 1 */}
+        <OneMatchInScheme teams={teams} match={matchesIn16[1]} /> {/* 2 */}
+        <OneMatchInScheme teams={teams} match={matchesIn16[4]} /> {/* 3 */}
+        <OneMatchInScheme teams={teams} match={matchesIn16[5]} /> {/* 4 */}
+        <OneMatchInScheme teams={teams} match={matchesIn16[2]} /> {/* 5 */}
+        <OneMatchInScheme teams={teams} match={matchesIn16[3]} /> {/* 6 */}
+        <OneMatchInScheme teams={teams} match={matchesIn16[6]} /> {/* 7 */}
+        <OneMatchInScheme teams={teams} match={matchesIn16[7]} /> {/* 8 */}
       </div>
     );
   };
@@ -34,16 +42,16 @@ export default function Scheme() {
     return (
       <div>
         <div style={{ marginTop: "18.8%" }}>
-          <OneMatchInScheme match={matchesIn8[1]} /> {/* 1 */}
+          <OneMatchInScheme teams={teams} match={matchesIn8[1]} /> {/* 1 */}
         </div>
         <div style={{ marginTop: "38%" }}>
-          <OneMatchInScheme match={matchesIn8[0]} /> {/* 2 */}
+          <OneMatchInScheme teams={teams} match={matchesIn8[0]} /> {/* 2 */}
         </div>
         <div style={{ marginTop: "38%" }}>
-          <OneMatchInScheme match={matchesIn8[3]} /> {/* 3 */}
+          <OneMatchInScheme teams={teams} match={matchesIn8[3]} /> {/* 3 */}
         </div>
         <div style={{ marginTop: "38%" }}>
-          <OneMatchInScheme match={matchesIn8[2]} /> {/* 4 */}
+          <OneMatchInScheme teams={teams} match={matchesIn8[2]} /> {/* 4 */}
         </div>
       </div>
     );
@@ -55,10 +63,10 @@ export default function Scheme() {
     return (
       <div>
         <div style={{ marginTop: "55.5%" }}>
-          <OneMatchInScheme match={matchesIn8[0]} /> {/* 1 */}
+          <OneMatchInScheme teams={teams} match={matchesIn8[0]} /> {/* 1 */}
         </div>
         <div style={{ marginTop: "112.5%" }}>
-          <OneMatchInScheme match={matchesIn8[1]} /> {/* 2 */}
+          <OneMatchInScheme teams={teams} match={matchesIn8[1]} /> {/* 2 */}
         </div>
       </div>
     );
@@ -70,7 +78,7 @@ export default function Scheme() {
     return (
       <div style={{ height: "680px" }}>
         <div style={{ marginTop: "129%" }}>
-          <OneMatchInScheme match={matchesIn24[0]} /> {/* 1 */}
+          <OneMatchInScheme teams={teams} match={matchesIn24[0]} /> {/* 1 */}
         </div>
       </div>
     );

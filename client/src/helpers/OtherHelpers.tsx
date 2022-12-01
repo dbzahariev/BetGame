@@ -645,3 +645,21 @@ export const getAllMatches = (setMatches: Function) => {
     })
     .catch((error) => console.error(error));
 };
+
+export const getAllTeams = (setTeams: Function) => {
+  var config: AxiosRequestConfig = {
+    method: "GET",
+    url: `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/teams`,
+    headers: {
+      "X-Auth-Token": "35261f5a038d45029fa4ae0abc1f2f7a",
+    },
+  };
+
+  axios(config)
+    .then(function (response) {
+      let data: any[] = response.data.teams
+      let teams: { name: string, flag: string }[] = data.map((el: any) => ({ name: el.name, flag: el.crestUrl }))
+      setTeams(teams);
+    })
+    .catch((error) => console.error(error));
+};

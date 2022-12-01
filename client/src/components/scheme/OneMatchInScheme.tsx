@@ -1,6 +1,5 @@
 import React from "react";
 import { translateTeamsName } from "../../helpers/Translate";
-import { getFlag } from "../../helpers/GetFlags";
 import { MatchType } from "../../helpers/OtherHelpers";
 
 export let months = [
@@ -18,9 +17,24 @@ export let months = [
   "Декември",
 ];
 
-export default function OneMatchInScheme({ match }: { match: MatchType }) {
+export default function OneMatchInScheme({ match, teams }: { match: MatchType, teams: { name: string, flag: string }[] }) {
   if (match === undefined) {
     return <div></div>
+  }
+
+  const getFlag = (name: string) => {
+    let res = ""
+    for (let index = 0; index < teams.length; index++) {
+      const element = teams[index];
+      if (element.name === name) {
+        res = element.flag
+      }
+    }
+    return <img
+      style={{ width: 15, height: 15, margin: 3 }}
+      src={res}
+      alt={name}
+    />
   }
 
   let header = (
