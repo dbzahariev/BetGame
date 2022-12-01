@@ -277,12 +277,14 @@ export default function oneMatchTable({
                     );
                     if (record.status === "FINISHED") {
                       res = (selectedMatchBet?.point || 0).toString();
-                    } else if (
-                      record.status === "IN_PLAY" ||
-                      record.status === "PAUSED"
-                    ) {
-                      res = "?";
-                    } else {
+                    }
+                    // else if (
+                    //   record.status === "IN_PLAY" ||
+                    //   record.status === "PAUSED"
+                    // ) {
+                    //   res = "?";
+                    // }
+                    else {
                       let fff = user.bets.find((el) => el.matchId === record.id);
                       if (fff !== undefined) {
                         res = "?";
