@@ -132,19 +132,22 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
           />
         </Space>
         <Space direction="horizontal">
-          <span>{translateTeamsName("English language:")}</span>
-          <Switch
-            onChange={(newValue: any) => {
-              setDefSettings("isEnglish", (newValue || false).toString())
-              return setIsEnglishState(newValue)
-            }}
-            checkedChildren={<CheckOutlined />}
-            unCheckedChildren={<CloseOutlined />}
-            checked={isEnglishState}
-          />
+          <img onClick={() => {
+            let newValue = true
+            setDefSettings("isEnglish", (newValue || false).toString())
+            return setIsEnglishState(newValue)
+          }}
+            style={{ width: "30px", height: "30px", borderRadius: "50%", cursor: "pointer" }} alt="eng" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Flag_of_the_United_Kingdom_%283-5%29.svg/1200px-Flag_of_the_United_Kingdom_%283-5%29.svg.png?20220422075617">
+          </img>
+          <img onClick={() => {
+            let newValue = false
+            setDefSettings("isEnglish", (newValue || false).toString())
+            return setIsEnglishState(newValue)
+          }}
+            style={{ width: "30px", height: "30px", borderRadius: "50%", cursor: "pointer" }} alt="eng" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Bulgaria_Flag.svg/768px-Bulgaria_Flag.svg.png?20161026151841">
+          </img>
         </Space>
       </Space>
-      {/* </Modal> */}
     </Space >
   );
 }
