@@ -287,8 +287,12 @@ export default function oneMatchTable({
                     else {
                       let fff = user.bets.find((el) => el.matchId === record.id);
                       if (fff !== undefined) {
-                        res = "?";
+                        res = (selectedMatchBet?.point || 0).toString();
                       }
+                    }
+
+                    if (record.status === "SCHEDULED" && selectedMatchBet !== undefined) {
+                      res = "?"
                     }
 
                     return res;
