@@ -7,7 +7,6 @@ import { useParams } from "react-router-dom";
 import { selectedCompetition, selectedApiVersion } from "../App";
 import { MatchType } from "../helpers/OtherHelpers";
 import OneMatchTable from "./OneMatchTable";
-import { getMatchesForView } from "./AllMatches";
 import { useGlobalState } from "../GlobalStateProvider";
 
 type OneRow = {
@@ -227,7 +226,7 @@ export default function Groups() {
       return (
         <div style={{ padding: "0px" }}>
           <OneMatchTable
-            AllMatches={getMatchesForView(filteredMatches)}
+            AllMatches={filteredMatches}
             users={[]}
             result={true}
           />

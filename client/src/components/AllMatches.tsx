@@ -143,6 +143,9 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
   if (matches.length === 0) {
     return null;
   }
+  if (filteredMatches.length === 0) {
+    return null
+  }
 
   return (
     <Space direction="vertical">

@@ -7,7 +7,6 @@ import {
   getAllUsers,
   getPoints
 } from "../../helpers/OtherHelpers";
-import { getMatchesForView } from "../AllMatches";
 import OneMatchTable from "../OneMatchTable";
 import rankingImg4 from "./rankingImg_4_ranks.svg";
 import rankingImg5 from "./rankingImg_5_ranks.svg";
@@ -373,7 +372,7 @@ export default function Ranking() {
           />
         </Space>
         <OneMatchTable
-          AllMatches={getMatchesForView(matches)}
+          AllMatches={matches}
           users={users}
           result={true}
         />
