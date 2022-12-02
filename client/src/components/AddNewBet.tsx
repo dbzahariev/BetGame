@@ -3,8 +3,9 @@ import Column from "antd/lib/table/Column";
 import ColumnGroup from "antd/lib/table/ColumnGroup";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useGlobalState } from "../GlobalStateProvider";
 // import { Link } from "react-router-dom";
-import { UsersType, MatchType, renderP2, isGroup, getAllMatches, getAllUsers, stylingTable } from "../helpers/OtherHelpers";
+import { UsersType, MatchType, renderP2, isGroup, getAllUsers, stylingTable } from "../helpers/OtherHelpers";
 import { translateTeamsName } from "../helpers/Translate";
 // import { translateTeamsName } from "../helpers/Translate";
 import OneMatchTable from "./OneMatchTable";
@@ -14,9 +15,12 @@ const { Option } = Select;
 
 export default function AddNewBet() {
   const [users, setUsers] = useState<UsersType[]>([]);
-  const [matches, setMatches] = useState<MatchType[]>([]);
+  // const [matches, setMatches] = useState<MatchType[]>([]);
   const [selectedUserName, setSelectedUserName] = useState("");
   const [usersNames, setUsersNames] = useState<string[]>([]);
+
+  const { state } = useGlobalState();
+  const matches = state.matches
 
   useEffect(() => {
     stylingTable(users, true);
@@ -24,12 +28,7 @@ export default function AddNewBet() {
 
   useEffect(() => {
     getAllUsersNames()
-    getAllMatchesAndRemovePass()
   }, []);
-
-  const getAllMatchesAndRemovePass = () => {
-    getAllMatches((matches: MatchType[]) => setMatches(matches.filter((match) => match.status !== "FINISHED")));
-  }
 
   const getAllUsersNames = () => {
     getAllUsers((users: UsersType[]) => {
@@ -341,7 +340,7 @@ export default function AddNewBet() {
         <div id={"newBetTable"}>
           <Space direction={"horizontal"}>
             <OneMatchTable
-              AllMatches={matches}
+              AllMatches={matches.filter((match) => match.status !== "FINISHED")}
               users={users}
               result={false}
               usersColumns={users.map((user: UsersType) => {

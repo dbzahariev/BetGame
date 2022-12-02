@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Select, Space, Switch } from 'antd';
 
 import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
-import { getAllMatches, getDefSettings, MatchType, setDefSettings } from '../helpers/OtherHelpers';
+import { getDefSettings, setDefSettings } from '../helpers/OtherHelpers';
 import AutoRefresh from './AutoRefresh';
 import { translateTeamsName } from '../helpers/Translate';
+import { useGlobalState } from '../GlobalStateProvider';
 
 export let showGroupsGlobal = getDefSettings().showGroups
 export let showRound1Global = getDefSettings().showRound1
@@ -21,8 +22,8 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
   const [showRound3, setShowRound3] = useState(getDefSettings().showRound3);
   const [groupsName, setGroupsName] = useState<{ value: string, label: string }[]>([])
   const [selctedGroupState, setSelectedGropState] = useState(getDefSettings().filterGroup)
-
   const [isEnglishState, setIsEnglishState] = useState(getDefSettings().isEnglish);
+  const { state } = useGlobalState();
 
   const hendleOk = () => {
     showGroupsGlobal = showGroups
@@ -43,32 +44,35 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
     setSelectedGropState(event)
   }
 
-  useEffect(() => {
-    getAllMatches((matches: MatchType[]) => {
-      let groupsNameOptions: { value: string, label: string }[] = []
-      let groupNames: string[] = [""]
+  const fixDate = () => {
+    const matches = state.matches
+    let groupsNameOptions: { value: string, label: string }[] = []
+    let groupNames: string[] = [""]
 
-      for (let index = 0; index < matches.length; index++) {
-        let elToAll = matches[index].group || ""
-        if (!groupNames.includes(elToAll) && elToAll.toLowerCase().indexOf("group") !== -1) {
-          groupNames.push(elToAll)
-        }
+    for (let index = 0; index < matches.length; index++) {
+      let elToAll = matches[index].group || ""
+      if (!groupNames.includes(elToAll) && elToAll.toLowerCase().indexOf("group") !== -1) {
+        groupNames.push(elToAll)
       }
-      for (let index = 0; index < groupNames.length; index++) {
-        const groupName = groupNames[index];
-        let elToAdd: {
-          value: string;
-          label: string;
-        } = { value: "", label: "" }
-        if (groupName === "") {
-          elToAdd = { value: "", label: translateTeamsName("Chose group") }
-        } else {
-          elToAdd = { value: groupName, label: translateTeamsName(groupName) }
-        }
-        groupsNameOptions.push(elToAdd)
+    }
+    for (let index = 0; index < groupNames.length; index++) {
+      const groupName = groupNames[index];
+      let elToAdd: {
+        value: string;
+        label: string;
+      } = { value: "", label: "" }
+      if (groupName === "") {
+        elToAdd = { value: "", label: translateTeamsName("Chose group") }
+      } else {
+        elToAdd = { value: groupName, label: translateTeamsName(groupName) }
       }
-      setGroupsName(groupsNameOptions)
-    })
+      groupsNameOptions.push(elToAdd)
+    }
+    setGroupsName(groupsNameOptions)
+  }
+
+  useEffect(() => {
+    fixDate()
     // eslint-disable-next-line 
   }, [isEnglish])
 

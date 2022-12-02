@@ -4,7 +4,6 @@ import {
   ScoreType,
   stylingTable,
   UsersType,
-  getAllMatches,
   getAllUsers,
   getPoints
 } from "../../helpers/OtherHelpers";
@@ -23,6 +22,7 @@ import backup2016 from "./Backup2016.json";
 import { Select, Space, Switch } from "antd";
 import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
 import { translateTeamsName } from "../../helpers/Translate";
+import { useGlobalState } from "../../GlobalStateProvider";
 
 const { Option } = Select;
 
@@ -43,16 +43,19 @@ export default function Ranking() {
     users: any[];
   }>({ matches: [], users: [] })
 
+  const { state } = useGlobalState()
+
   const genBackup2022 = () => {
-    getAllMatches((matches: any) => {
-      getAllUsers((users: any) => {
-        setBackup2022({ matches, users: getPoints(users, matches) })
-      })
+    getAllUsers((users: any) => {
+      setBackup2022({ matches: state.matches, users: getPoints(users, state.matches) })
     })
   }
 
   useEffect(() => {
-    getAllMatches(setMatches)
+    setTimeout(() => {
+      setMatches(state.matches || [])
+    }, 1);
+    // getAllMatches(setMatches)
     genBackup2022()
     // eslint-disable-next-line
   }, []);

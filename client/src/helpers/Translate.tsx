@@ -36,7 +36,7 @@ export const translateTeamsName = (team: string): string => {
       if (teamsToShow === undefined) {
         if (team?.toLowerCase()?.indexOf("group") === -1) {
           if (team !== "Ще се реши") {
-            debugger
+            // debugger
           }
         }
       }

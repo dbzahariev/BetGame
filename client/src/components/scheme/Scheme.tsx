@@ -1,19 +1,19 @@
 import React from "react"
 import { useEffect, useState } from "react";
-import { MatchType, getAllMatches, getAllTeams } from "../../helpers/OtherHelpers";
+import { useGlobalState } from "../../GlobalStateProvider";
+import { getAllTeams } from "../../helpers/OtherHelpers";
 import OneMatchInScheme from "./OneMatchInScheme";
 import Separator from "./separator.svg";
 
 export default function Scheme() {
-  const [matches, setMatches] = useState<MatchType[]>([]);
   const [teams, setTeams] = useState<{
     name: string;
     flag: string;
   }[]>([])
+  const { state } = useGlobalState()
+  const matches = state.matches
 
   useEffect(() => {
-    getAllMatches(setMatches);
-
     getAllTeams((teams: any[]) => {
       setTeams(teams)
     })

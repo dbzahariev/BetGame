@@ -115,7 +115,6 @@ export const reloadData = (
   oldMatches: MatchType[]
 ) => {
   let matches = [...oldMatches]
-  // getAllMatches((matches: MatchType[]) => {
   getAllUsers((users: UsersType[]) => {
     let res = getPoints(users, matches);
     res.sort((a, b) => (b.totalPoints || 0) - (a.totalPoints || 0));
@@ -603,6 +602,13 @@ export const calcRound = (match: MatchType) => {
 }
 
 export const getAllMatches = (setMatches: Function) => {
+  getAllMatches3().then((matches: MatchType[]) => {
+    setMatches(matches)
+  })
+}
+
+export const getAllMatches3 = async () => {
+  console.log("get from APi")
   var config: AxiosRequestConfig = {
     method: "GET",
     url: `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`,
@@ -611,40 +617,41 @@ export const getAllMatches = (setMatches: Function) => {
     },
   };
 
-  axios(config)
-    .then(function (response) {
-      let data: MatchType[] = response.data.matches;
-      data = data.slice(0, data.length);
-      let matches: MatchType[] = [];
+  let response = await axios(config)
+  if (response.status !== 200) {
+    debugger
+  }
 
-      data.forEach((el: MatchType, index) => {
-        let score = el.score;
+  let data: MatchType[] = response.data.matches;
+  data = data.slice(0, data.length);
+  let matches: MatchType[] = [];
 
-        let calculatedScore = calcScore(el, score);
+  data.forEach((el: MatchType, index) => {
+    let score = el.score;
 
-        let calculatedRound = calcRound(el)
+    let calculatedScore = calcScore(el, score);
 
-        let matchToAdd: MatchType = {
-          number: index + 1,
-          key: matches.length || 0,
-          id: el.id,
-          homeTeam: el.homeTeam,
-          awayTeam: el.awayTeam,
-          utcDate: el.utcDate,
-          group: el.group || el.stage,
-          winner: score?.winner || "",
-          homeTeamScore: calculatedScore.ht,
-          awayTeamScore: calculatedScore.at,
-          status: el.status,
-          score: el.score,
-          round: calculatedRound
-        };
-        matches.push(matchToAdd);
-      });
-      setMatches(matches);
-    })
-    .catch((error) => console.error(error));
-};
+    let calculatedRound = calcRound(el)
+
+    let matchToAdd: MatchType = {
+      number: index + 1,
+      key: matches.length || 0,
+      id: el.id,
+      homeTeam: el.homeTeam,
+      awayTeam: el.awayTeam,
+      utcDate: el.utcDate,
+      group: el.group || el.stage,
+      winner: score?.winner || "",
+      homeTeamScore: calculatedScore.ht,
+      awayTeamScore: calculatedScore.at,
+      status: el.status,
+      score: el.score,
+      round: calculatedRound
+    };
+    matches.push(matchToAdd);
+  });
+  return matches
+}
 
 export const getAllTeams = (setTeams: Function) => {
   var config: AxiosRequestConfig = {

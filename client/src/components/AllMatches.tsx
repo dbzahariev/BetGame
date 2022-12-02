@@ -6,7 +6,6 @@ import OneMatchTable from "./OneMatchTable";
 
 import {
   getAllFinalWinner,
-  getAllMatches,
   getPoints,
   stylingTable,
   reloadData,
@@ -16,6 +15,7 @@ import {
   isGroup,
 } from "../helpers/OtherHelpers";
 import ModalSettings, { showGroupsGlobal, showRound1Global, showRound2Global, showRound3Global, filterGroupGlobal } from "./ModalSettings";
+import { useGlobalState } from "../GlobalStateProvider";
 
 export const getMatchesForView = (
   matches: MatchType[],
@@ -44,13 +44,23 @@ export const getMatchesForView = (
 };
 
 export default function AllMatches({ refresh }: { refresh: Function }) {
-  const [matches, setMatches] = useState<MatchType[]>([]);
+  // const [matches, setMatches] = useState<MatchType[]>([]);
   const [filteredMatches, setFilteredMatches] = useState<MatchType[]>([]);
   const [users, setUsers] = useState<UsersType[]>([]);
   const [loading, setLoading] = useState(false);
   // const [showRound1, setShowRound1] = useState(getDefSettings().showRound1);
 
+  const { state } = useGlobalState();
+  const matches = state.matches
+
   let intervalRef = useRef<any>();
+
+  useEffect(() => {
+    getAllUsers(setUsers);
+    stylingTable(users)
+    setFilteredMatches(matches)
+    // eslint-disable-next-line
+  }, [])
 
   useEffect(() => {
     if (AutoRefreshInterval >= 1 && AutoRefreshInterval !== "disable") {
@@ -72,7 +82,7 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
   }, [AutoRefreshInterval]);
 
   useEffect(() => {
-    if (matches.length > 0) {
+    if (state.matches.length > 0) {
       reloadData((reloadedUsers: UsersType[]) => {
         return setUsers([...reloadedUsers])
       }, (reloadedMatches: MatchType[]) => {
@@ -87,21 +97,7 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
   }, [refresh])
 
   useEffect(() => {
-    if (matches.length === 0) {
-      getAllMatches((matches: MatchType[]) => {
-        setMatches(matches)
-        setFilteredMatches(matches)
-      });
-    }
-  }, [matches.length]);
-
-  useEffect(() => {
-    getAllUsers(setUsers);
-  }, []);
-
-  useEffect(() => {
     getAllFinalWinner(users);
-    // eslint-disable-next-line
   }, [users]);
 
   useEffect(() => {

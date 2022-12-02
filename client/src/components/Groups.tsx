@@ -5,9 +5,10 @@ import { Button, Space, Table } from "antd";
 import { translateTeamsName } from "../helpers/Translate";
 import { useParams } from "react-router-dom";
 import { selectedCompetition, selectedApiVersion } from "../App";
-import { getAllMatches, MatchType } from "../helpers/OtherHelpers";
+import { MatchType } from "../helpers/OtherHelpers";
 import OneMatchTable from "./OneMatchTable";
 import { getMatchesForView } from "./AllMatches";
+import { useGlobalState } from "../GlobalStateProvider";
 
 type OneRow = {
   key: string;
@@ -28,8 +29,8 @@ type OneGroup = {
 
 export default function Groups() {
   const [groups, setGroups] = useState<OneGroup[]>([]);
-  const [matches, setMatches] = useState<MatchType[]>([]);
-
+  const { state } = useGlobalState()
+  const matches = state.matches
   let params: any = useParams();
 
   useEffect(() => {
@@ -38,10 +39,6 @@ export default function Groups() {
     }
     // eslint-disable-next-line
   }, [matches.length]);
-
-  useEffect(() => {
-    getAllMatches(setMatches);
-  }, []);
 
   /*
   const getNamesMatches = () => {
