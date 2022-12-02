@@ -60,24 +60,16 @@ export const translateTeamsName = (team: string): string => {
     let englishTeam = ""
     if (team !== undefined && teamsToShow !== null && teamsToShow !== undefined) {
 
-      // if ((team || "") === "GROUP_A") {
-      //   debugger
-      // }
       englishTeam = team.replace("_", " ")
       englishTeam = team.replace("GROUP_", "Group ")
-      // englishTeam = team.replace("LAST_16", "Last 16")
 
-      if (englishTeam.indexOf("Groups") > -1) {
-        // debugger
-      } else {
-        if (englishTeam.indexOf("Group") > -1) {
-          let groupEnglishTeamGroup = englishTeam.split(" ");
-          if (groupEnglishTeamGroup.length > 1) {
-            englishTeam = `${groupEnglishTeamGroup[0]} ${groupEnglishTeamGroup[1].toUpperCase()}`
-          }
-          else {
-            englishTeam = groupEnglishTeamGroup[0]
-          }
+      if (englishTeam.indexOf("Group") > -1) {
+        let groupEnglishTeamGroup = englishTeam.split(" ");
+        if (groupEnglishTeamGroup.length > 1) {
+          englishTeam = `${groupEnglishTeamGroup[0]} ${groupEnglishTeamGroup[1].toUpperCase()}`
+        }
+        else {
+          englishTeam = groupEnglishTeamGroup[0]
         }
       }
     }

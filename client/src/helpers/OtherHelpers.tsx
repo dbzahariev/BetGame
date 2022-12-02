@@ -80,48 +80,31 @@ export const isGroup = (fullMatch: MatchType) => {
   return (fullMatch.group || "").includes("GROUP")
 }
 
-export const getAllUsers = (setUsers: Function) => {
-  axios({
+export const getAllUsersAsync = async () => {
+  console.log("get Users")
+  let res = await axios({
     method: "GET",
     withCredentials: true,
     url: "/api/users",
   })
-    .then((res) => {
-      let users = [...res.data] as UsersType[];
-      let newUsers: UsersType[] = [];
-      users.forEach((el) => {
-        let userToAdd: UsersType = {
-          name: el.name,
-          bets: el.bets,
-          index: el.index,
-          finalWinner: el.finalWinner,
-          colorTable: el.colorTable,
-          totalPoints: 0,
-        };
-        if (el._id) {
-          userToAdd.id = el._id;
-        }
+  let users = [...res.data] as UsersType[];
+  let newUsers: UsersType[] = [];
+  users.forEach((el) => {
+    let userToAdd: UsersType = {
+      name: el.name,
+      bets: el.bets,
+      index: el.index,
+      finalWinner: el.finalWinner,
+      colorTable: el.colorTable,
+      totalPoints: 0,
+    };
+    if (el._id) {
+      userToAdd.id = el._id;
+    }
 
-        newUsers.push(userToAdd);
-      });
-      setUsers(newUsers);
-    })
-    .catch((err) => console.error(err));
-};
-
-export const reloadData = (
-  setUsers: Function,
-  setMatches: Function,
-  oldMatches: MatchType[]
-) => {
-  let matches = [...oldMatches]
-  getAllUsers((users: UsersType[]) => {
-    let res = getPoints(users, matches);
-    res.sort((a, b) => (b.totalPoints || 0) - (a.totalPoints || 0));
-    setUsers(res);
-    setMatches(matches)
-  })
-  // })
+    newUsers.push(userToAdd);
+  });
+  return newUsers
 };
 
 export const renderP = (
@@ -601,13 +584,7 @@ export const calcRound = (match: MatchType) => {
   return `ROUND_${matchRound}`
 }
 
-export const getAllMatches = (setMatches: Function) => {
-  getAllMatches3().then((matches: MatchType[]) => {
-    setMatches(matches)
-  })
-}
-
-export const getAllMatches3 = async () => {
+export const getAllMatchesAsync = async () => {
   console.log("get from APi")
   var config: AxiosRequestConfig = {
     method: "GET",
@@ -618,9 +595,6 @@ export const getAllMatches3 = async () => {
   };
 
   let response = await axios(config)
-  if (response.status !== 200) {
-    debugger
-  }
 
   let data: MatchType[] = response.data.matches;
   data = data.slice(0, data.length);

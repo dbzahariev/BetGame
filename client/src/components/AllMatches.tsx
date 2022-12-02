@@ -1,20 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Space, Spin } from "antd";
+import { Space } from "antd";
 import { AutoRefreshInterval } from "./AutoRefresh";
-import { LoadingOutlined } from "@ant-design/icons";
 import OneMatchTable from "./OneMatchTable";
 
 import {
   getAllFinalWinner,
   getPoints,
   stylingTable,
-  reloadData,
-  getAllUsers,
   MatchType,
-  UsersType,
   isGroup,
+  UsersType,
 } from "../helpers/OtherHelpers";
-import ModalSettings, { showGroupsGlobal, showRound1Global, showRound2Global, showRound3Global, filterGroupGlobal } from "./ModalSettings";
+import ModalSettings, { showGroupsGlobal, showRound1Global, showRound2Global, showRound3Global } from "./ModalSettings";
 import { useGlobalState } from "../GlobalStateProvider";
 
 export const getMatchesForView = (
@@ -46,17 +43,17 @@ export const getMatchesForView = (
 export default function AllMatches({ refresh }: { refresh: Function }) {
   // const [matches, setMatches] = useState<MatchType[]>([]);
   const [filteredMatches, setFilteredMatches] = useState<MatchType[]>([]);
-  const [users, setUsers] = useState<UsersType[]>([]);
-  const [loading, setLoading] = useState(false);
+  // const [users, setUsers] = useState<UsersType[]>([]);
+  // const [loading, setLoading] = useState(false);
   // const [showRound1, setShowRound1] = useState(getDefSettings().showRound1);
 
   const { state } = useGlobalState();
-  const matches = state.matches
+  const matches = state.matches || []
+  const users = state.users || []
 
   let intervalRef = useRef<any>();
 
   useEffect(() => {
-    getAllUsers(setUsers);
     stylingTable(users)
     setFilteredMatches(matches)
     // eslint-disable-next-line
@@ -65,15 +62,13 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
   useEffect(() => {
     if (AutoRefreshInterval >= 1 && AutoRefreshInterval !== "disable") {
       intervalRef.current = setInterval(() => {
-        reloadData((reloadedUsers: UsersType[]) => {
-          return setUsers([...reloadedUsers])
-        }, (reloadedMatches: MatchType[]) => {
-          let fiteredMatches: MatchType[] = [...reloadedMatches]
-          if (filterGroupGlobal !== "") {
-            fiteredMatches = fiteredMatches.filter((el) => el.group === filterGroupGlobal)
-          }
-          setFilteredMatches(fiteredMatches)
-        }, filteredMatches);
+        // getAllUsersAsync().then((users) => {
+        //   setState({ users })
+        // })
+        // getAllMatchesAsync().then((matches) => {
+        //   setState({ matches })
+        //   setFilteredMatches(matches)
+        // })
       }, AutoRefreshInterval * 1000);
     }
 
@@ -82,16 +77,15 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
   }, [AutoRefreshInterval]);
 
   useEffect(() => {
-    if (state.matches.length > 0) {
-      reloadData((reloadedUsers: UsersType[]) => {
-        return setUsers([...reloadedUsers])
-      }, (reloadedMatches: MatchType[]) => {
-        let fiteredMatches: MatchType[] = [...reloadedMatches]
-        if (filterGroupGlobal !== "") {
-          fiteredMatches = fiteredMatches.filter((el) => el.group === filterGroupGlobal)
-        }
-        setFilteredMatches(fiteredMatches)
-      }, matches);
+    stylingTable(users)
+    if ((state.matches || []).length > 0) {
+      // getAllUsersAsync().then((users) => {
+      //   setState({ users })
+      // })
+      // getAllMatchesAsync().then((matches) => {
+      //   setState({ matches })
+      //   setFilteredMatches(matches)
+      // })
     }
     // eslint-disable-next-line
   }, [refresh])
@@ -100,17 +94,9 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
     getAllFinalWinner(users);
   }, [users]);
 
-  useEffect(() => {
-    if (users.length > 0 && matches.length > 0) {
-      setLoading(false);
-      let res = getPoints(users, matches);
-      res.sort((a, b) => (b.totalPoints || 0) - (a.totalPoints || 0));
-      setUsers(res);
-    } else {
-      setLoading(true);
-    }
-    // eslint-disable-next-line
-  }, [users.length, matches.length]);
+  const getResultedUsers = (users: UsersType[]) => {
+    return getPoints(users.slice(), matches).sort((a, b) => (b.totalPoints || 0) - (a.totalPoints || 0))
+  }
 
   useEffect(() => {
     if (matches.length !== 0 && users.length !== 0) {
@@ -119,33 +105,35 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
     // eslint-disable-next-line
   }, [filteredMatches, users])
 
-  if (loading) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          textAlign: "center",
-        }}
-      >
-        <div>
-          <Spin
-            indicator={<LoadingOutlined style={{ fontSize: 80 }} spin />}
-            size="large"
-            style={{ width: "100%", height: "100%", alignItems: "center" }}
-          />
-        </div>
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div
+  //       style={{
+  //         display: "flex",
+  //         justifyContent: "center",
+  //         alignItems: "center",
+  //         textAlign: "center",
+  //       }}
+  //     >
+  //       <div>
+  //         <Spin
+  //           indicator={<LoadingOutlined style={{ fontSize: 80 }} spin />}
+  //           size="large"
+  //           style={{ width: "100%", height: "100%", alignItems: "center" }}
+  //         />
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   if (matches.length === 0) {
-    return null;
+    // debugger
+    // return null;
   }
-  if (filteredMatches.length === 0) {
-    return null
-  }
+  // if (filteredMatches.length === 0) {
+  //   return null
+  // }
+  // debugger
 
   return (
     <Space direction="vertical">
@@ -153,7 +141,7 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
       <Space direction={"horizontal"}>
         <OneMatchTable
           AllMatches={getMatchesForView(filteredMatches)}
-          users={users}
+          users={getResultedUsers(users)}
           result={true}
         />
       </Space>

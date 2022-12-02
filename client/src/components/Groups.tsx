@@ -29,7 +29,7 @@ type OneGroup = {
 export default function Groups() {
   const [groups, setGroups] = useState<OneGroup[]>([]);
   const { state } = useGlobalState()
-  const matches = state.matches
+  const matches = state.matches || []
   let params: any = useParams();
 
   useEffect(() => {

@@ -27,7 +27,7 @@ export default function oneMatchTable({
   users: UsersType[];
   result: Boolean;
   usersColumns: any[]
-}) {
+  }) {
   let columnWidth = 50;
 
   const renderColumnForUser = (

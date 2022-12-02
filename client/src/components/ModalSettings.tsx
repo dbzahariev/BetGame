@@ -45,9 +45,10 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
   }
 
   const fixDate = () => {
-    const matches = state.matches
     let groupsNameOptions: { value: string, label: string }[] = []
     let groupNames: string[] = [""]
+
+    const matches = state.matches || []
 
     for (let index = 0; index < matches.length; index++) {
       let elToAll = matches[index].group || ""

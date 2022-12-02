@@ -4,7 +4,6 @@ import {
   ScoreType,
   stylingTable,
   UsersType,
-  getAllUsers,
   getPoints
 } from "../../helpers/OtherHelpers";
 import OneMatchTable from "../OneMatchTable";
@@ -33,8 +32,8 @@ const years = [
 ];
 
 export default function Ranking() {
-  const [users, setUsers] = useState<UsersType[]>([]);
   const [matches, setMatches] = useState<MatchType[]>([]);
+  const [users, setUsers] = useState<UsersType[]>([]);
   const [showGroups, setShowGroups] = useState(true);
   const [competitionValue, setCompetitionValue] = useState<string>("2022");
   const [backup2022, setBackup2022] = useState<{
@@ -44,25 +43,31 @@ export default function Ranking() {
 
   const { state } = useGlobalState()
 
+  const matchesFromState = state.matches || []
+  const usersrFomState = state.users || []
+
   const genBackup2022 = () => {
-    getAllUsers((users: any) => {
-      setBackup2022({ matches: state.matches, users: getPoints(users, state.matches) })
-    })
+    setBackup2022({ matches: matchesFromState, users: getPoints(usersrFomState, matchesFromState) })
   }
 
   useEffect(() => {
     setTimeout(() => {
-      setMatches(state.matches || [])
+      setMatches(matchesFromState)
     }, 1);
-    // getAllMatches(setMatches)
+
+    setTimeout(() => {
+      setUsers(usersrFomState)
+    }, 1);
+
     genBackup2022()
     // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     if (matches.length !== 0 && users.length === 0) {
-      getAllUsers((users: UsersType[]) => setUsers(getPoints(users, matches)))
+      setUsers(getPoints(usersrFomState, matches))
     }
+    // eslint-disable-next-line 
   }, [matches, users])
 
   useEffect(() => {

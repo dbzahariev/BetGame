@@ -1,13 +1,11 @@
+import React, { useEffect, useState } from "react";
 import { Input, InputNumber, notification, Select, Space } from "antd";
 import Column from "antd/lib/table/Column";
 import ColumnGroup from "antd/lib/table/ColumnGroup";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
 import { useGlobalState } from "../GlobalStateProvider";
-// import { Link } from "react-router-dom";
-import { UsersType, MatchType, renderP2, isGroup, getAllUsers, stylingTable } from "../helpers/OtherHelpers";
+import { UsersType, MatchType, renderP2, isGroup, stylingTable } from "../helpers/OtherHelpers";
 import { translateTeamsName } from "../helpers/Translate";
-// import { translateTeamsName } from "../helpers/Translate";
 import OneMatchTable from "./OneMatchTable";
 
 const { Option } = Select;
@@ -20,7 +18,8 @@ export default function AddNewBet() {
   const [usersNames, setUsersNames] = useState<string[]>([]);
 
   const { state } = useGlobalState();
-  const matches = state.matches
+  const matches = state.matches || []
+  const usersFromState = state.users || []
 
   useEffect(() => {
     stylingTable(users, true);
@@ -28,16 +27,15 @@ export default function AddNewBet() {
 
   useEffect(() => {
     getAllUsersNames()
+    // eslint-disable-next-line
   }, []);
 
   const getAllUsersNames = () => {
-    getAllUsers((users: UsersType[]) => {
-      let onlyNames: string[] = []
-      users.forEach(element => {
-        onlyNames.push(translateTeamsName(element.name))
-      });
-      setUsersNames(onlyNames)
-    })
+    let onlyNames: string[] = []
+    usersFromState.forEach(element => {
+      onlyNames.push(translateTeamsName(element.name))
+    });
+    setUsersNames(onlyNames)
   }
 
   const handleChangeForSelector = (value: any) => {
@@ -45,7 +43,8 @@ export default function AddNewBet() {
   };
 
   useEffect(() => {
-    getAllUsers((users: UsersType[]) => setUsers(users.filter((user) => user.name === selectedUserName)));
+    setUsers(usersFromState.filter((user) => user.name === selectedUserName));
+    // eslint-disable-next-line
   }, [selectedUserName]);
 
   const checkDisabledInput = (fullMatch: MatchType, user: UsersType) => {
@@ -482,7 +481,6 @@ export default function AddNewBet() {
         <Option value="">{translateTeamsName("Chose plear")}</Option>
         {usersNames.map((user) => {
           let kk = translateTeamsName(user)
-          // debugger
           return (
             <Option key={user} value={user}>
               {kk}

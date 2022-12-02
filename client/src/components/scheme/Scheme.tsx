@@ -11,7 +11,7 @@ export default function Scheme() {
     flag: string;
   }[]>([])
   const { state } = useGlobalState()
-  const matches = state.matches
+  const matches = state.matches || []
 
   useEffect(() => {
     getAllTeams((teams: any[]) => {
