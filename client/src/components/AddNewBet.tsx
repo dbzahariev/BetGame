@@ -320,13 +320,14 @@ export default function AddNewBet() {
         record,
         true
       ).toString();
-      
+
       vall = renderP2(vall, true).toString();
 
       let selectedBet = user.bets.find((el) => el.matchId === record.id)
       let isDraw = selectedBet?.awayTeamScore === selectedBet?.homeTeamScore
 
-      if (record.group === "LAST_16" && isDraw && selectedBet?.winner === "DRAW") {
+      if (["LAST_16", "QUARTER_FINALS", "SEMI_FINALS", "THIRD_PLACE", "FINAL"]
+        .includes(record.group || "") && isDraw && selectedBet?.winner === "DRAW") {
         vall = ""
       }
 
