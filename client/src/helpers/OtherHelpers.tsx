@@ -243,11 +243,10 @@ export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
 
       // Plus one point for winer in current match
       if (
-        isGroup(selectedMatch) &&
-        selectedMatch.status === "FINISHED" &&
+        !isGroup(selectedMatch) &&
         R3 === P3
       ) {
-        // res += 1;
+        res += 1;
       }
 
       if (selectedMatch.group === "QUARTER_FINAL") {

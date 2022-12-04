@@ -65,12 +65,8 @@ export default function OneMatchInScheme({ match, teams }: { match: MatchType, t
       }
     }
 
-    if (match.status !== "FINISHED" || res === undefined) {
-      res = "";
-    }
-
-    if (match.status === "IN_PLAY" || match.status === "PAUSED") {
-      res = "?";
+    if (res === "undefined") {
+      res = ""
     }
 
     return res;
