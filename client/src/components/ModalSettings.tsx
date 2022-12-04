@@ -87,6 +87,14 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
             onChange={(newValue: boolean) => {
               setShowGroups(newValue)
               setDefSettings("showGroups", (newValue || false).toString())
+
+              setShowRound1(newValue)
+              setDefSettings("showRound1", (newValue || false).toString())
+              setShowRound2(newValue)
+              setDefSettings("showRound2", (newValue || false).toString())
+              setShowRound3(newValue)
+              setDefSettings("showRound3", (newValue || false).toString())
+
               return null
             }}
             checkedChildren={<CheckOutlined />}
