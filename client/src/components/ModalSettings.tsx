@@ -107,6 +107,7 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
           style={{ width: window.innerWidth * 0.085 }}
           options={groupsName}
           onChange={hendleChangeGroup}
+          disabled={!showGroups}
         />
         <Space direction="horizontal">
           <span>{translateTeamsName("Show round 1:")}</span>
@@ -118,6 +119,7 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
             checkedChildren={<CheckOutlined />}
             unCheckedChildren={<CloseOutlined />}
             checked={showRound1}
+            disabled={!showGroups}
           />
         </Space>
         <Space direction="horizontal">
@@ -130,6 +132,7 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
             checkedChildren={<CheckOutlined />}
             unCheckedChildren={<CloseOutlined />}
             checked={showRound2}
+            disabled={!showGroups}
           />
         </Space>
         <Space direction="horizontal">
@@ -142,6 +145,7 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
             checkedChildren={<CheckOutlined />}
             unCheckedChildren={<CloseOutlined />}
             checked={showRound3}
+            disabled={!showGroups}
           />
         </Space>
         <Space direction="horizontal">
