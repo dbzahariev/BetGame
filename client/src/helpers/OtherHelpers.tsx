@@ -80,11 +80,14 @@ export const isGroup = (fullMatch: MatchType) => {
   return (fullMatch.group || "").includes("GROUP")
 }
 
+const baseUrl = "https://http-nodejs-production-624f.up.railway.app"
+axios.defaults.baseURL = baseUrl
+
 export const getAllUsersAsync = async () => {
   console.log("get Users")
   let res = await axios({
     method: "GET",
-    url: "https://http-nodejs-production-624f.up.railway.app/api/users",
+    url: "/api/users",
   })
   let users = [...res.data] as UsersType[];
   let newUsers: UsersType[] = [];
@@ -300,7 +303,6 @@ export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
       axios({
         method: "POST",
         data: { bets: oneUser.bets },
-        withCredentials: true,
         url: `/api/update?id=${oneUser.id}`,
       })
         .then((res) => { })
