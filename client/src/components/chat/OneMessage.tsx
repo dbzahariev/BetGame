@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 import React from "react"
 import { Button, Popconfirm, Space } from "antd";
 import TextArea from "antd/lib/input/TextArea";

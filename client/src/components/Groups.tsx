@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 import React, { useEffect, useState } from "react";
 import axios, { AxiosRequestConfig } from "axios";
 import { Button, Space, Table } from "antd";
@@ -39,34 +38,6 @@ export default function Groups() {
     // eslint-disable-next-line
   }, [matches.length]);
 
-  /*
-  const getNamesMatches = () => {
-    let fullMatches = [...matches];
-
-    fullMatches = fullMatches.filter(
-      (match) => match.status === "IN_PLAY" || match.status === "PAUSED"
-    );
-
-    let namesMatches: string[] = [];
-    fullMatches.forEach((match) => {
-      let awayTeamName: string = match.awayTeam.name;
-      let homeTeamName: string = match.homeTeam.name;
-
-      if (
-        awayTeamName &&
-        namesMatches.findIndex((el) => el === awayTeamName) === -1
-      )
-        namesMatches.push(awayTeamName);
-      if (
-        homeTeamName &&
-        namesMatches.findIndex((el) => el === homeTeamName) === -1
-      )
-        namesMatches.push(homeTeamName);
-    });
-    return namesMatches;
-  };
-  */
-
   const getAllStandings = () => {
     var config: AxiosRequestConfig = {
       method: "GET",
@@ -105,7 +76,6 @@ export default function Groups() {
             groupToAdd.table.push(teamsToAdd);
           }
 
-          // groupToAdd = convertGroup(groupToAdd);
           allGroups.push(groupToAdd);
         }
         setGroups(allGroups);
@@ -123,27 +93,6 @@ export default function Groups() {
     }
     // eslint-disable-next-line
   }, [groups]);
-
-  /*
-  const convertGroup = (oneGroup: OneGroup) => {
-    let result: OneGroup = { ...oneGroup };
-    result.table.forEach((gamesInGroup) => {
-      let finishedGame = [...getNamesMatches()].findIndex(
-        (el) => el === gamesInGroup.key
-      );
-      if (finishedGame !== -1) {
-        gamesInGroup.points = "?";
-        gamesInGroup.draw = "?";
-        gamesInGroup.playedGames = "?";
-        gamesInGroup.goalDifference = "?";
-        gamesInGroup.lost = "?";
-        gamesInGroup.won = "?";
-        gamesInGroup.name = "?";
-      }
-    });
-    return result;
-  };
-  */
 
   const renderGroups = () => {
     const oneGroupTable = (oneGroup: OneGroup) => {
@@ -237,7 +186,6 @@ export default function Groups() {
       <div>
         {groups.map((group) => {
           return (
-            // <div key={group.name}>
             <div key={`Group ${group.name}`} id={`Group ${group.name}`}
               style={{ width: "760px", border: "2px solid black" }}>
               <p style={{ textAlign: "center", padding: "10px", margin: "0px", fontWeight: "bold", fontSize: "20px" }}>{`${translateTeamsName("Group")} ${group.name}`}</p>
@@ -246,7 +194,6 @@ export default function Groups() {
                 display: "flex", justifyContent: "center", alignItems: "center", padding: "10px",
               }} direction={"horizontal"}>{oneGroupTable(group)}</Space>
             </div>
-            // </div>
           );
         })}
         <Button onClick={() => window.scrollTo(0, 0)}>Начало</Button>

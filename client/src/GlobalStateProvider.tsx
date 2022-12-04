@@ -43,7 +43,7 @@ const GlobalStateProvider = ({
       fetchDate().then((date) => {
         setState({ matches: date.matches, users: date.users })
       }).catch(console.error)
-    }, 6000) // 60000
+    }, 6000) 
     return <div>
       <Spin
         indicator={<LoadingOutlined style={{ fontSize: 80 }} spin />}

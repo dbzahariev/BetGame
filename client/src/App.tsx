@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import Groups from "./components/Groups";

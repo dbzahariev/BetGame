@@ -10,6 +10,7 @@ import {
   MatchType,
   isGroup,
   UsersType,
+  getMatchesAndUsers,
 } from "../helpers/OtherHelpers";
 import ModalSettings, { showGroupsGlobal, showRound1Global, showRound2Global, showRound3Global } from "./ModalSettings";
 import { useGlobalState } from "../GlobalStateProvider";
@@ -41,13 +42,9 @@ export const getMatchesForView = (
 };
 
 export default function AllMatches({ refresh }: { refresh: Function }) {
-  // const [matches, setMatches] = useState<MatchType[]>([]);
   const [filteredMatches, setFilteredMatches] = useState<MatchType[]>([]);
-  // const [users, setUsers] = useState<UsersType[]>([]);
-  // const [loading, setLoading] = useState(false);
-  // const [showRound1, setShowRound1] = useState(getDefSettings().showRound1);
-
   const { state } = useGlobalState();
+
   const matches = state.matches || []
   const users = state.users || []
 
@@ -60,8 +57,12 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
   }, [])
 
   useEffect(() => {
+    //TODO: Fix auto refresh
+
     if (AutoRefreshInterval >= 1 && AutoRefreshInterval !== "disable") {
       intervalRef.current = setInterval(() => {
+        getMatchesAndUsers().then((newState) => {
+        })
         // getAllUsersAsync().then((users) => {
         //   setState({ users })
         // })
@@ -104,34 +105,6 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
     }
     // eslint-disable-next-line
   }, [filteredMatches, users])
-
-  // if (loading) {
-  //   return (
-  //     <div
-  //       style={{
-  //         display: "flex",
-  //         justifyContent: "center",
-  //         alignItems: "center",
-  //         textAlign: "center",
-  //       }}
-  //     >
-  //       <div>
-  //         <Spin
-  //           indicator={<LoadingOutlined style={{ fontSize: 80 }} spin />}
-  //           size="large"
-  //           style={{ width: "100%", height: "100%", alignItems: "center" }}
-  //         />
-  //       </div>
-  //     </div>
-  //   );
-  // }
-
-  if (matches.length === 0) {
-    // return null;
-  }
-  // if (filteredMatches.length === 0) {
-  //   return null
-  // }
 
   return (
     <Space direction="vertical">

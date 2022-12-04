@@ -13,7 +13,6 @@ const { Option } = Select;
 
 export default function AddNewBet() {
   const [users, setUsers] = useState<UsersType[]>([]);
-  // const [matches, setMatches] = useState<MatchType[]>([]);
   const [selectedUserName, setSelectedUserName] = useState("");
   const [usersNames, setUsersNames] = useState<string[]>([]);
 

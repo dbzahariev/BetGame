@@ -1,21 +1,13 @@
-// eslint-disable-next-line
 import React from "react"
 import Table from "antd/lib/table";
 import Column from "antd/lib/table/Column";
 import ColumnGroup from "antd/lib/table/ColumnGroup";
-// import { Link } from "react-router-dom";
 import { MatchType, renderP, UsersType } from "../helpers/OtherHelpers";
 import { translateTeamsName } from "../helpers/Translate";
 
 import $ from "jquery";
 
 oneMatchTable.defaultProps = { usersColumns: undefined }
-
-// export const styling = {
-//   padding: "0.7em"
-// }
-
-// export const styleText = { padding: styling.padding }
 
 export default function oneMatchTable({
   AllMatches,
@@ -27,7 +19,7 @@ export default function oneMatchTable({
   users: UsersType[];
   result: Boolean;
   usersColumns: any[]
-  }) {
+}) {
   let columnWidth = 50;
 
   const renderColumnForUser = (
@@ -98,28 +90,12 @@ export default function oneMatchTable({
       dataSource={AllMatches}
       pagination={false}
       bordered
-      expandable={{
-        // expandedRowRender: (record: MatchType) => {
-        //   let date = new Date(record.utcDate).toLocaleString("bg-bg");
-        //   return (
-        //     <>
-        //       <span>{`Този мач ще се проведе на ${date}. Този мач се играе в `}</span>
-        //       <Link to={`/groups/${record.group}`}>
-        //         {translateTeamsName(record.group || "") || translateTeamsName("Ще се реши")}
-        //       </Link>
-        //     </>
-        //   );
-        // },
-        // rowExpandable: () => true,
-        // defaultExpandedRowKeys: ["1"],
-      }}
     >
       <Column
         title={translateTeamsName("N")}
         dataIndex="number"
         key="number"
         width={56}
-      // fixed={true}
       />
       <Column
         title={translateTeamsName("Date")}
@@ -149,12 +125,10 @@ export default function oneMatchTable({
         title={translateTeamsName("Group")}
         dataIndex="group"
         key="group"
-        // width={100}
         render={(el: any) => {
           return <div style={!result ? { height: "2.6rem", display: "flex", alignItems: "center" } : {}}>
             <span>{translateTeamsName(el || "") || translateTeamsName("Ще се реши")}</span>
           </div>
-          // return <span>{translateTeamsName(el || "") || translateTeamsName("Ще се реши")}</span>;
         }}
       />
       <Column
@@ -181,9 +155,6 @@ export default function oneMatchTable({
               >
                 <span style={{}}>
                   {`${getFullScore(record, "homeTeam", el)}`}
-                  {/* {record.status === "IN_PLAY" || record.status === "PAUSED"
-                    ? "?"
-                    : `${getFullScore(record, "homeTeam", el)}`} */}
                 </span>
               </div>
             );
@@ -202,9 +173,6 @@ export default function oneMatchTable({
             >
               <span style={{}}>
                 {`${getFullScore(record, "awayTeam", el)}`}
-                {/* {record.status === "IN_PLAY" || record.status === "PAUSED"
-                  ? "?"
-                  : `${getFullScore(record, "awayTeam", el)}`} */}
               </span>
             </div>
           )}
@@ -278,12 +246,6 @@ export default function oneMatchTable({
                     if (record.status === "FINISHED") {
                       res = (selectedMatchBet?.point || 0).toString();
                     }
-                    // else if (
-                    //   record.status === "IN_PLAY" ||
-                    //   record.status === "PAUSED"
-                    // ) {
-                    //   res = "?";
-                    // }
                     else {
                       let fff = user.bets.find((el) => el.matchId === record.id);
                       if (fff !== undefined) {

@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 import React from "react"
 import axios, { AxiosRequestConfig } from "axios";
 import { selectedCompetition, selectedApiVersion } from "../App";
@@ -12,7 +11,6 @@ import {
 import { Key } from "react";
 import compare from 'just-compare';
 import { translateTeamsName } from "./Translate";
-// import { styleText } from "../components/OneMatchTable";
 
 export interface ScoreType {
   duration: string;
@@ -83,6 +81,12 @@ export const isGroup = (fullMatch: MatchType) => {
 const baseUrl = "https://http-nodejs-production-624f.up.railway.app"
 axios.defaults.baseURL = baseUrl
 
+export const getMatchesAndUsers = async () => {
+  let matches = await getAllMatchesAsync()
+  let usesers = await getAllUsersAsync()
+  return { matches, usesers }
+}
+
 export const getAllUsersAsync = async () => {
   console.log("get Users")
   let res = await axios({
@@ -150,15 +154,7 @@ export const renderP = (
   } else {
     result = "";
   }
-  if (!user) {
-    // if (
-    //   fullMatch &&
-    //   (fullMatch.status === "IN_PLAY" || fullMatch.status === "PAUSED")
-    // ) {
-    //   result = "?";
-    // }
-    return <span style={{}}>{result}</span>;
-  } else {
+  if (user) {
     if (fullMatch) {
       let matchDate = new Date(fullMatch.utcDate);
       let now = new Date();
@@ -178,8 +174,11 @@ export const renderP = (
         }
       }
     }
+  }
+  else {
     return <span style={{}}>{result}</span>;
   }
+  return <span style={{}}>{result}</span>;
 };
 
 export const renderP2 = (el: string, plainText = false) => {
@@ -281,13 +280,9 @@ export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
       let selectedMatch = matches.find((el) => el.id === oneBet.matchId);
 
       if (selectedMatch) {
-        // if (selectedMatch && selectedMatch.status === "FINISHED") {
         let pointsForEvent = getPointsForEvent(selectedMatch, oneUser);
         oneUser.totalPoints = (oneUser.totalPoints || 0) + pointsForEvent;
         oneBet.point = pointsForEvent;
-        // } else {
-        //   oneBet.point = 0;
-        // }
       }
     }
     const getMatchDate = (bet: any) => {
