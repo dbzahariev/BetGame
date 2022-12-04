@@ -84,6 +84,32 @@ export const getAllUsersAsync = async () => {
   console.log("get Users")
   let res = await axios({
     method: "GET",
+    url: "https://http-nodejs-production-624f.up.railway.app/api/users",
+  })
+  let users = [...res.data] as UsersType[];
+  let newUsers: UsersType[] = [];
+  users.forEach((el) => {
+    let userToAdd: UsersType = {
+      name: el.name,
+      bets: el.bets,
+      index: el.index,
+      finalWinner: el.finalWinner,
+      colorTable: el.colorTable,
+      totalPoints: 0,
+    };
+    if (el._id) {
+      userToAdd.id = el._id;
+    }
+
+    newUsers.push(userToAdd);
+  });
+  return newUsers
+};
+
+export const getAllUsersAsync2 = async () => {
+  console.log("get Users")
+  let res = await axios({
+    method: "GET",
     url: "/api/users",
   })
   let users = [...res.data] as UsersType[];
@@ -236,7 +262,6 @@ export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
       let diffTime = betDate.getTime() - matchDate.getTime();
 
       if (diffTime > 0) {
-        debugger
         res = res / 2;
       }
     }

@@ -127,13 +127,11 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
   // }
 
   if (matches.length === 0) {
-    // debugger
     // return null;
   }
   // if (filteredMatches.length === 0) {
   //   return null
   // }
-  // debugger
 
   return (
     <Space direction="vertical">
