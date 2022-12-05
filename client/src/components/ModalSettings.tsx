@@ -23,19 +23,54 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
   const [groupsName, setGroupsName] = useState<{ value: string, label: string }[]>([])
   const [selctedGroupState, setSelectedGropState] = useState(getDefSettings().filterGroup)
   const [isEnglishState, setIsEnglishState] = useState(getDefSettings().isEnglish);
+  const [isInit, setIsInit] = useState(-1);
   const { state } = useGlobalState();
 
   const hendleOk = () => {
+    checkChange()
     showGroupsGlobal = showGroups
     showRound1Global = showRound1
     showRound2Global = showRound2
     showRound3Global = showRound3
     isEnglish = isEnglishState
     filterGroupGlobal = selctedGroupState
-    refresh()
+  }
+
+  const checkChange = () => {
+    if (showGroupsGlobal !== showGroups) {
+      setIsInit(isInit + 1)
+    }
+
+    if (showRound1Global !== showRound1) {
+      setIsInit(isInit + 1)
+    }
+
+    if (showRound2Global !== showRound2) {
+      setIsInit(isInit + 1)
+    }
+
+    if (showRound3Global !== showRound3) {
+      setIsInit(isInit + 1)
+    }
+
+    if (isEnglish !== isEnglishState) {
+      setIsInit(isInit + 1)
+    }
+
+    if (filterGroupGlobal !== selctedGroupState) {
+      setIsInit(isInit + 1)
+    }
   }
 
   useEffect(() => {
+    if (isInit > -1) {
+      refresh()
+    }
+    // eslint-disable-next-line
+  }, [isInit])
+
+  useEffect(() => {
+    // checkChange()
     hendleOk()
     // eslint-disable-next-line 
   }, [showGroups, showRound1, showRound2, showRound3, isEnglishState, selctedGroupState])
@@ -79,7 +114,7 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
 
   return (
     <Space direction="horizontal" style={{ width: '100%' }}>
-      <AutoRefresh />
+      <AutoRefresh refresh={refresh} />
       <Space direction="horizontal">
         <Space direction="horizontal">
           <span>{translateTeamsName("Show group phase:")}</span>

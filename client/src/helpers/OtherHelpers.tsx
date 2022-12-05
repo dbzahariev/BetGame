@@ -88,7 +88,6 @@ export const getMatchesAndUsers = async () => {
 }
 
 export const getAllUsersAsync = async () => {
-  console.log("get Users")
   let res = await axios({
     method: "GET",
     url: "/api/users",
@@ -114,7 +113,6 @@ export const getAllUsersAsync = async () => {
 };
 
 export const getAllUsersAsync2 = async () => {
-  console.log("get Users")
   let res = await axios({
     method: "GET",
     url: "/api/users",
@@ -606,7 +604,6 @@ export const calcRound = (match: MatchType) => {
 }
 
 export const getAllMatchesAsync = async () => {
-  console.log("get from APi")
   var config: AxiosRequestConfig = {
     method: "GET",
     url: `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`,

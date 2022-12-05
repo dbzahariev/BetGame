@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Checkbox, InputNumber, Modal, Space } from "antd";
 import { translateTeamsName } from "../helpers/Translate";
 
-export let AutoRefreshInterval: number | "disable" = "disable";
+export let AutoRefreshInterval: number | "disable" | "init" = "init";
 
-export default function AutoRefresh() {
-  const [newInterval, setNewInterval] = useState<number | "disable">(AutoRefreshInterval);
+export default function AutoRefresh({ refresh }: { refresh: Function }) {
+  const [newInterval, setNewInterval] = useState(AutoRefreshInterval);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const onChangeAllowRefresh = (event: any) => {
@@ -18,6 +18,21 @@ export default function AutoRefresh() {
     }
     setNewInterval(newInterval2);
   };
+
+  useEffect(() => {
+    if (newInterval !== "disable") {
+      if (newInterval !== "init") {
+        AutoRefreshInterval = newInterval
+      }
+    }
+  }, [newInterval])
+
+  useEffect(() => {
+    if (newInterval !== "init") {
+      refresh()
+    }
+    // eslint-disable-next-line
+  }, [isModalOpen])
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -56,7 +71,7 @@ export default function AutoRefresh() {
               step={5}
               max={5 * 60}
               defaultValue={30}
-              value={newInterval === "disable" ? 30 : newInterval}
+              value={(newInterval === "disable") || (newInterval === "init") ? 30 : newInterval}
               onChange={(value: number | null) => {
                 if (value) setNewInterval(value);
               }}

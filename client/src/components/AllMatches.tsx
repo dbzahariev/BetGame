@@ -14,6 +14,7 @@ import {
 } from "../helpers/OtherHelpers";
 import ModalSettings, { showGroupsGlobal, showRound1Global, showRound2Global, showRound3Global } from "./ModalSettings";
 import { useGlobalState } from "../GlobalStateProvider";
+import justCompare from 'just-compare';
 
 export const getMatchesForView = (
   matches: MatchType[],
@@ -43,7 +44,8 @@ export const getMatchesForView = (
 
 export default function AllMatches({ refresh }: { refresh: Function }) {
   const [filteredMatches, setFilteredMatches] = useState<MatchType[]>([]);
-  const { state } = useGlobalState();
+  const [isInit, setIsint] = useState(-1)
+  const { state, setState } = useGlobalState();
 
   const matches = state.matches || []
   const users = state.users || []
@@ -58,18 +60,9 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
 
   useEffect(() => {
     //TODO: Fix auto refresh
-
-    if (AutoRefreshInterval >= 1 && AutoRefreshInterval !== "disable") {
+    if (AutoRefreshInterval >= 1 && AutoRefreshInterval !== "disable" && AutoRefreshInterval !== "init") {
       intervalRef.current = setInterval(() => {
-        getMatchesAndUsers().then((newState) => {
-        })
-        // getAllUsersAsync().then((users) => {
-        //   setState({ users })
-        // })
-        // getAllMatchesAsync().then((matches) => {
-        //   setState({ matches })
-        //   setFilteredMatches(matches)
-        // })
+        reloadDate()
       }, AutoRefreshInterval * 1000);
     }
 
@@ -77,16 +70,18 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
     // eslint-disable-next-line
   }, [AutoRefreshInterval]);
 
+  const reloadDate = () => {
+    getMatchesAndUsers().then((newState) => {
+      if (!justCompare(newState.matches, state.matches)) {
+        setState(newState)
+      }
+    })
+    stylingTable(state.users || [], undefined)
+  }
+
   useEffect(() => {
-    stylingTable(users)
-    if ((state.matches || []).length > 0) {
-      // getAllUsersAsync().then((users) => {
-      //   setState({ users })
-      // })
-      // getAllMatchesAsync().then((matches) => {
-      //   setState({ matches })
-      //   setFilteredMatches(matches)
-      // })
+    if (isInit > -1) {
+      reloadDate()
     }
     // eslint-disable-next-line
   }, [refresh])
@@ -106,9 +101,16 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
     // eslint-disable-next-line
   }, [filteredMatches, users])
 
+  useEffect(() => {
+    if (isInit !== -1) {
+      refresh()
+    }
+    // eslint-disable-next-line 
+  }, [isInit])
+
   return (
     <Space direction="vertical">
-      <ModalSettings refresh={refresh} />
+      <ModalSettings refresh={() => setIsint(isInit + 1)} />
       <Space direction={"horizontal"}>
         <OneMatchTable
           AllMatches={getMatchesForView(filteredMatches)}
