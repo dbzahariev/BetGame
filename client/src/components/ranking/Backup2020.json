@@ -1059,7 +1059,9 @@
       "utcDate": "2021-07-11T19:00:00Z",
       "group": "FINAL",
       "winner": "HOME_TEAM",
-      "status": "SCHEDULED",
+      "status": "FINISHED",
+      "homeTeamScore": 1,
+      "awayTeamScore": 1,
       "score": {
         "winner": "HOME_TEAM",
         "duration": "PENALTY_SHOOTOUT",
