@@ -75,7 +75,7 @@ export interface UsersType {
 }
 
 export const isGroup = (fullMatch: MatchType) => {
-  return (fullMatch.group || "").includes("GROUP")
+  return (fullMatch.group || "").toLowerCase().includes("group")
 }
 
 const baseUrl = "https://http-nodejs-production-624f.up.railway.app"
