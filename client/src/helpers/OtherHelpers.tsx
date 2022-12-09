@@ -246,9 +246,9 @@ export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
         res += 1;
       }
 
-      if (selectedMatch.group === "QUARTER_FINAL") {
+      if (selectedMatch.group === "QUARTER_FINAL" || selectedMatch.group === "QUARTER_FINALS") {
         res *= coefficientQuarterFinal;
-      } else if (selectedMatch.group === "SEMI_FINAL") {
+      } else if (selectedMatch.group === "SEMI_FINAL" || selectedMatch.group === "SEMI_FINALS") {
         res *= coefficientSemiFinal;
       } else if (selectedMatch.group === "THIRD_PLACE") {
         res *= coefficientThirdPlace
