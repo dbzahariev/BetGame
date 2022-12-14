@@ -483,10 +483,11 @@ export const getDefSettings = () => {
   let isEnglishFromStorage = sessionStorage.getItem("isEnglish")
   let filterGroupFromStorage = sessionStorage.getItem("filterGroup")
 
-  let showGroups = showGroupsFromStorage === null ? true : showGroupsFromStorage === "true" ? true : false
-  let showRound1 = showRound1FromStorage === null ? true : showRound1FromStorage === "true" ? true : false
-  let showRound2 = showRound2FromStorage === null ? true : showRound2FromStorage === "true" ? true : false
-  let showRound3 = showRound3FromStorage === null ? true : showRound3FromStorage === "true" ? true : false
+  let defaulstSetings = false;
+  let showGroups = showGroupsFromStorage === null ? defaulstSetings : showGroupsFromStorage === "true" ? true : false
+  let showRound1 = showRound1FromStorage === null ? defaulstSetings : showRound1FromStorage === "true" ? true : false
+  let showRound2 = showRound2FromStorage === null ? defaulstSetings : showRound2FromStorage === "true" ? true : false
+  let showRound3 = showRound3FromStorage === null ? defaulstSetings : showRound3FromStorage === "true" ? true : false
 
   let isEnglish = isEnglishFromStorage === null ? false : isEnglishFromStorage === "true" ? true : false
   let filterGroup = filterGroupFromStorage || ""
@@ -611,7 +612,6 @@ export const getAllMatchesAsync = async () => {
       "X-Auth-Token": "35261f5a038d45029fa4ae0abc1f2f7a",
     },
   };
-
   let response = await axios(config)
 
   let data: MatchType[] = response.data.matches;

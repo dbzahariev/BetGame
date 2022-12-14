@@ -3,7 +3,7 @@ import { months as MontsInBg } from "../components/scheme/OneMatchInScheme";
 
 let teams = require("./teams.json");
 
-export const translateTeamsName = (team: string): string => {
+export const translateTeamsName = (team: string, many: boolean = false): string => {
   let teamsToShow: string = teams[team];
 
   if (isEnglish) {
@@ -91,6 +91,10 @@ export const translateTeamsName = (team: string): string => {
       }
     }
 
+    if (many) {
+      englishTeam = englishTeam + "s"
+    }
+
     return englishTeam
   }
 
@@ -98,6 +102,9 @@ export const translateTeamsName = (team: string): string => {
     teamsToShow = teamsToShow.replace(" undefined", "")
   }
 
+  if (many) {
+    teamsToShow = teamsToShow + "и"
+  }
 
   return teamsToShow ? teamsToShow : team;
 };
