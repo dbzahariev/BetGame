@@ -94,6 +94,7 @@ export const getAllUsersAsync = async () => {
   })
   let users = [...res.data] as UsersType[];
   let newUsers: UsersType[] = [];
+
   users.forEach((el) => {
     let userToAdd: UsersType = {
       name: el.name,
@@ -624,6 +625,10 @@ export const getAllMatchesAsync = async () => {
     let calculatedScore = calcScore(el, score);
 
     let calculatedRound = calcRound(el)
+
+    if (el.stage === "BRONZE") {
+      el.stage = "THIRD_PLACE"
+    }
 
     let matchToAdd: MatchType = {
       number: index + 1,
