@@ -79,15 +79,14 @@ export const isGroup = (fullMatch: MatchType) => {
 }
 
 
-const baseUrl = "https://world2022-be.up.railway.app"
+const baseUrl = "https://dworld-be.onrender.com"
 axios.defaults.baseURL = baseUrl
-// axios.defaults.headers = {
-//   ...axios.defaults.headers,
-//   ...{
-//     "Access-Control-Allow-Origin": "*",
-//     "Access-Control-Allow-Headers": "*"
-//   }
-// }
+axios.defaults.headers = {
+  ...axios.defaults.headers,
+  ...{
+    "Access-Control-Allow-Origin": "*"
+  }
+}
 
 export const getMatchesAndUsers = async () => {
   let matches = await getAllMatchesAsync()
@@ -98,14 +97,36 @@ export const getMatchesAndUsers = async () => {
 export const getAllUsersAsync = async () => {
   let res = await axios({
     method: "GET",
-    headers: {
-      "Access-Control-Allow-Origin": "*"
-    },
     url: "/api/users",
   })
   let users = [...res.data] as UsersType[];
   let newUsers: UsersType[] = [];
 
+  users.forEach((el) => {
+    let userToAdd: UsersType = {
+      name: el.name,
+      bets: el.bets,
+      index: el.index,
+      finalWinner: el.finalWinner,
+      colorTable: el.colorTable,
+      totalPoints: 0,
+    };
+    if (el._id) {
+      userToAdd.id = el._id;
+    }
+
+    newUsers.push(userToAdd);
+  });
+  return newUsers
+};
+
+export const getAllUsersAsync2 = async () => {
+  let res = await axios({
+    method: "GET",
+    url: "/api/users",
+  })
+  let users = [...res.data] as UsersType[];
+  let newUsers: UsersType[] = [];
   users.forEach((el) => {
     let userToAdd: UsersType = {
       name: el.name,
