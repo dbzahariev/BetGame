@@ -78,7 +78,7 @@ export const isGroup = (fullMatch: MatchType) => {
   return (fullMatch.group || "").toLowerCase().includes("group")
 }
 
-const baseUrl = "https://world2022-be.up.railway.app"
+const baseUrl = "https://dworld-be.onrender.com"
 axios.defaults.baseURL = baseUrl
 
 export const getMatchesAndUsers = async () => {
