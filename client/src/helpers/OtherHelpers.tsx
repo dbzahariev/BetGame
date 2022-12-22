@@ -81,12 +81,6 @@ export const isGroup = (fullMatch: MatchType) => {
 
 const baseUrl = "https://dworld-be.onrender.com"
 axios.defaults.baseURL = baseUrl
-axios.defaults.headers = {
-  ...axios.defaults.headers,
-  ...{
-    "Access-Control-Allow-Origin": "*"
-  }
-}
 
 export const getMatchesAndUsers = async () => {
   let matches = await getAllMatchesAsync()
