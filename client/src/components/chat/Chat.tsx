@@ -116,6 +116,7 @@ export default function Chat() {
   const getAllUsersNames = () => {
     axios({
       method: "GET",
+      withCredentials: true,
       url: "/api",
     })
       .then((res) => {
@@ -175,6 +176,7 @@ export default function Chat() {
     axios({
       method: "POST",
       data: { user: username, messages: [] },
+      withCredentials: true,
       url: "/chat/save",
     })
       .then((res) => { })
@@ -184,6 +186,7 @@ export default function Chat() {
   const getChats = () => {
     axios({
       method: "GET",
+      withCredentials: true,
       url: "/chat",
     })
       .then((res) => {
@@ -237,6 +240,7 @@ export default function Chat() {
       axios({
         method: "POST",
         data: { messages: newMessages },
+        withCredentials: true,
         url: `/chat/update?id=${user}`,
       })
         .then((res) => {
@@ -277,6 +281,7 @@ export default function Chat() {
     axios({
       method: "POST",
       data: { messages: newMessages },
+      withCredentials: true,
       url: `/chat/update?id=${user}`,
     }).then(() => {
       getChats();
@@ -311,6 +316,7 @@ export default function Chat() {
     axios({
       method: "POST",
       data: { messages: newMessages },
+      withCredentials: true,
       url: `/chat/update?id=${user}`,
     }).then(() => {
       getChats();
@@ -327,6 +333,7 @@ export default function Chat() {
     axios({
       method: "POST",
       data: { messages: newMessages.messages },
+      withCredentials: true,
       url: `/chat/update?id=${message.user}`,
     }).then(() => {
       getChats();
