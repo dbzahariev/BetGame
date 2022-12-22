@@ -136,7 +136,6 @@ export default function PlayersPoints() {
     try {
       res = await axios({
         method: "GET",
-        withCredentials: true,
         url: "/api",
       });
       let users = [...res.data] as UsersType[];
