@@ -43,7 +43,7 @@ export default function Groups() {
       method: "GET",
       url: `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/standings`,
       headers: {
-        "X-Auth-Token": "35261f5a038d45029fa4ae0abc1f2f7a",
+        "X-Auth-Token": "c8d23279fec54671a43fcd93068762d1",
       },
     };
 
