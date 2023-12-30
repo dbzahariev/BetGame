@@ -43,7 +43,7 @@ export const translateTeamsName = (team: string, many: boolean = false): string 
     }
   }
 
-  if (team !== "Show group phase:") {
+  if (team !== "Show group phase") {
     if ((team || "").toLocaleLowerCase().indexOf("group") > -1) {
       let teamNameArr = team.split("_");
       if (teamNameArr.length === 1) {

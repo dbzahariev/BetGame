@@ -2,7 +2,7 @@ import React from "react"
 import Table from "antd/lib/table";
 import Column from "antd/lib/table/Column";
 import ColumnGroup from "antd/lib/table/ColumnGroup";
-import { MatchType, renderP, UsersType } from "../helpers/OtherHelpers";
+import { getDefSettings, MatchType, renderP, UsersType } from "../helpers/OtherHelpers";
 import { translateTeamsName } from "../helpers/Translate";
 
 import $ from "jquery";
@@ -84,6 +84,8 @@ export default function oneMatchTable({
     }
   }
 
+  let isEnglish = getDefSettings().isEnglish
+
   return (
     <Table
       id="oneMatchTable"
@@ -91,6 +93,7 @@ export default function oneMatchTable({
       pagination={false}
       bordered
     >
+      
       <Column
         title={translateTeamsName("N")}
         dataIndex="number"
@@ -103,8 +106,7 @@ export default function oneMatchTable({
         key="utcDate"
         width={columnWidth}
         render={(el: any) => {
-          let newEl = new Date(el)
-          let res = `${newEl.getDate()}.${newEl.getMonth() + 1}`
+          const res = new Date(el).toLocaleDateString(isEnglish ? 'en-EN' : 'bg-BG', { day: '2-digit', month: '2-digit' });
 
           return <span>{res}</span>;
         }}

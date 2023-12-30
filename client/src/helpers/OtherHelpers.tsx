@@ -92,7 +92,7 @@ export const getAllUsersAsync = async () => {
     method: "GET",
     url: "/api/users",
   })
-  let users = [...res.data] as UsersType[];
+  let users = [...res.data].sort((a, b) => a.index - b.index) as UsersType[];
   let newUsers: UsersType[] = [];
 
   users.forEach((el) => {
@@ -614,7 +614,6 @@ export const getAllMatchesAsync = async () => {
     },
   };
   let response = await axios(config)
-
   let data: MatchType[] = response.data.matches;
   data = data.slice(0, data.length);
   let matches: MatchType[] = [];

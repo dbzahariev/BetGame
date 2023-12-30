@@ -6,7 +6,7 @@ import { translateTeamsName } from "../../helpers/Translate";
 import OneMatchInScheme from "./OneMatchInScheme";
 import Separator from "./separator.svg";
 
-let kk = 23.5
+let coeficientLength = 23.5
 
 export default function Scheme() {
   const [teams, setTeams] = useState<{
@@ -53,7 +53,7 @@ export default function Scheme() {
     return (
       <div>
         <p style={{ textAlign: "center", fontSize: "25px" }}>{capitalizeText(translateTeamsName("QUARTER_FINAL", true))}</p>
-        <div style={{ marginTop: `${kk + 6.6}%` }}>
+        <div style={{ marginTop: `${coeficientLength + 6.6}%` }}>
           <OneMatchInScheme teams={teams} match={matchesIn8[1]} /> {/* 1 */}
         </div>
         <div style={{ marginTop: "38%" }}>
@@ -75,7 +75,7 @@ export default function Scheme() {
     return (
       <div>
         <p style={{ textAlign: "center", fontSize: "25px" }}>{capitalizeText(translateTeamsName("SEMI_FINAL", true))}</p>
-        <div style={{ marginTop: `${kk + 44}%` }}>
+        <div style={{ marginTop: `${coeficientLength + 44}%` }}>
           <OneMatchInScheme teams={teams} match={matchesIn8[0]} /> {/* 1 */}
         </div>
         <div style={{ marginTop: "112.5%" }}>
@@ -92,7 +92,7 @@ export default function Scheme() {
     return (
       <div>
         <p style={{ textAlign: "center", fontSize: "25px", whiteSpace: "nowrap" }}>{translateTeamsName(matchesTP.length > 0 ? "Third place and final" : "FINAL")}</p>
-        <div style={{ marginTop: `${kk + 35}%` }}>
+        <div style={{ marginTop: `${coeficientLength + 35}%` }}>
           <div style={{ height: "80px" }}>
             {matchesTP.length > 0 ? <OneMatchInScheme teams={teams} match={matchesTP[0]} /> : <></>}
           </div>
@@ -110,7 +110,7 @@ export default function Scheme() {
     return (
       <div
         style={{
-          marginTop: `${kk}%`,
+          marginTop: `${coeficientLength}%`,
           display: "flex",
           flexDirection: "column"
         }}
@@ -122,7 +122,7 @@ export default function Scheme() {
         />
         <img
           style={{
-            marginTop: `${kk + 103}%`,
+            marginTop: `${coeficientLength + 103}%`,
             height: height,
             width: width,
             objectFit: "fill",
@@ -158,7 +158,7 @@ export default function Scheme() {
     return (
       <div
         style={{
-          marginTop: `${kk + 8}%`,
+          marginTop: `${coeficientLength + 8}%`,
           display: "flex",
           flexDirection: "column"
         }}
@@ -186,7 +186,7 @@ export default function Scheme() {
     return (
       <div
         style={{
-          marginTop: `${kk + 24.3}%`,
+          marginTop: `${coeficientLength + 24.3}%`,
           display: "flex",
           flexDirection: "column",
         }}

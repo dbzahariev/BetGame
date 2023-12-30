@@ -27,7 +27,7 @@ const competitionsIds = {
   World: 2000,
 };
 
-export const selectedCompetition = competitionsIds.World;
+export const selectedCompetition = competitionsIds.Uefa;
 export const selectedApiVersion = "v2";
 
 function MatchWithParams() {

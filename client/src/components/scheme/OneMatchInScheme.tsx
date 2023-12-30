@@ -17,28 +17,22 @@ export let months = [
   "Декември",
 ];
 
-export default function OneMatchInScheme({ match, teams }: { match: MatchType, teams: { name: string, flag: string }[] }) {
-  if (match === undefined) {
+export default function OneMatchInScheme({ match, teams = [] }: { match: MatchType, teams: { name: string, flag: string }[] }) {
+  if (match === undefined || teams.length === 0) {
     return <div></div>
   }
 
-  const getFlag = (name: string) => {
-    let res = ""
-    for (let index = 0; index < teams.length; index++) {
-      const element = teams[index];
-      if (element.name === name) {
-        res = element.flag
-      }
-    }
-    if (name === null) {
-      return <></>
-    }
-    return <img
-      style={{ width: 15, height: 15, margin: 3 }}
-      src={res}
-      alt={name}
-    />
-  }
+  const getFlag = (name: string = "") => {
+    const flagSrc = teams.find((element) => element.name === name)?.flag || "";
+
+    return (
+      <img
+        style={{ width: 15, height: 15, margin: 3 }}
+        src={flagSrc}
+        alt={name}
+      />
+    );
+  };
 
   let header = (
     <div style={{ color: "blue" }}>

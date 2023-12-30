@@ -157,7 +157,7 @@ export default function Groups() {
         <Table
           key={`Group ${oneGroup.name}`}
           // title={() => (
-          //   <p style={{ textAlign: "center" }}>{`${translateTeamsName("Group")} ${oneGroup.name}`}</p>
+          //   <p style={{ textAlign: "center" }}>{`${translateTeamsName("GROUP")} ${oneGroup.name}`}</p>
           // )}
           dataSource={oneGroup.table}
           columns={columns}
@@ -188,7 +188,7 @@ export default function Groups() {
           return (
             <div key={`Group ${group.name}`} id={`Group ${group.name}`}
               style={{ width: "760px", border: "2px solid black" }}>
-              <p style={{ textAlign: "center", padding: "10px", margin: "0px", fontWeight: "bold", fontSize: "20px" }}>{`${translateTeamsName("Group")} ${group.name}`}</p>
+              <p style={{ textAlign: "center", padding: "10px", margin: "0px", fontWeight: "bold", fontSize: "20px" }}>{`${translateTeamsName("GROUP")} ${group.name}`}</p>
               {oneGroupMatches(group)}
               <Space style={{
                 display: "flex", justifyContent: "center", alignItems: "center", padding: "10px",

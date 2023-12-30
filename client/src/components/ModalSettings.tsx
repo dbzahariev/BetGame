@@ -117,7 +117,7 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
       <AutoRefresh refresh={refresh} />
       <Space direction="horizontal">
         <Space direction="horizontal">
-          <span>{translateTeamsName("Show group phase:")}</span>
+          <span>{translateTeamsName("Show group phase")}</span>
           <Switch
             onChange={(newValue: boolean) => {
               setShowGroups(newValue)
