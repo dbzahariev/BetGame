@@ -4,7 +4,6 @@ import {
   ScoreType,
   stylingTable,
   UsersType,
-  getPoints
 } from "../../helpers/OtherHelpers";
 import OneMatchTable from "../OneMatchTable";
 import rankingImg4 from "./rankingImg_4_ranks.svg";
@@ -14,13 +13,13 @@ import rankingImg7 from "./rankingImg_7_ranks.svg";
 import rankingImg8 from "./rankingImg_8_ranks.svg";
 import rankingImg9 from "./rankingImg_9_ranks.svg";
 import rankingImg10 from "./rankingImg_10_ranks.svg";
+import backup2022 from "./Backup2022.json";
 import backup2020 from "./Backup2020.json";
 import backup2018 from "./Backup2018.json";
 import backup2016 from "./Backup2016.json";
 import { Select, Space, Switch } from "antd";
 import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
 import { translateTeamsName } from "../../helpers/Translate";
-import { useGlobalState } from "../../GlobalStateProvider";
 
 const { Option } = Select;
 
@@ -36,71 +35,31 @@ export default function Ranking() {
   const [users, setUsers] = useState<UsersType[]>([]);
   const [showGroups, setShowGroups] = useState(true);
   const [competitionValue, setCompetitionValue] = useState<string>("2022");
-  const [backup2022, setBackup2022] = useState<{
-    matches: any[];
-    users: any[];
-  }>({ matches: [], users: [] })
-
-  const { state } = useGlobalState()
-
-  const matchesFromState = state.matches || []
-  const usersrFomState = state.users || []
-
-  const genBackup2022 = () => {
-    setBackup2022({ matches: matchesFromState, users: getPoints(usersrFomState, matchesFromState) })
-  }
-
-  useEffect(() => {
-    setTimeout(() => {
-      setMatches(matchesFromState)
-    }, 1);
-
-    setTimeout(() => {
-      setUsers(usersrFomState)
-    }, 1);
-
-    genBackup2022()
-    // eslint-disable-next-line
-  }, []);
-
-  useEffect(() => {
-    if (matches.length !== 0 && users.length === 0) {
-      setUsers(getPoints(usersrFomState, matches))
-    }
-    // eslint-disable-next-line 
-  }, [matches, users])
 
   useEffect(() => {
     getMatches();
     getUsers();
     // eslint-disable-next-line
-  }, [competitionValue])
+  }, [competitionValue, showGroups])
 
   useEffect(() => {
-    stylingTable(users);
-  }, [showGroups, users]);
+    if (users.length > 0) {
+      stylingTable(users);
+    }
+  }, [users]);
+
+  const getSelectedBackup = () => {
+    if (competitionValue === years[0].value) return backup2022;
+    if (competitionValue === years[1].value) return backup2020;
+    if (competitionValue === years[2].value) return backup2018;
+    if (competitionValue === years[3].value) return backup2016;
+    return backup2020;
+  };
 
   const getMatches = () => {
-    getUsers()
-    let matchesFromBackup: MatchType[] = [];
-
-    let selectedBackup = backup2022;
-
-    if (competitionValue === years[0].value) {
-      selectedBackup = backup2022
-    }
-    if (competitionValue === years[1].value) {
-      selectedBackup = backup2020;
-    }
-    if (competitionValue === years[2].value) {
-      selectedBackup = backup2018;
-    }
-    if (competitionValue === years[3].value) {
-      selectedBackup = backup2016;
-    }
-
-    selectedBackup.matches.forEach((el) => {
-      let matchToAdd: MatchType = {
+    const selectedBackup = getSelectedBackup();
+    const matchesFromBackup: MatchType[] = selectedBackup.matches
+      .map((el: any) => ({
         number: el.number,
         key: el.key,
         id: el.id,
@@ -112,55 +71,40 @@ export default function Ranking() {
         homeTeamScore: el.homeTeamScore,
         awayTeamScore: el.awayTeamScore,
         group: el.group,
-      };
+      }))
+      .filter((matchToAdd) => !(showGroups === false && matchToAdd?.group?.toLowerCase().indexOf("group") === 0));
 
-      matchesFromBackup.push(matchToAdd);
-    });
     setMatches(matchesFromBackup);
   };
 
   const getUsers = () => {
-    let usersFromBackup: UsersType[] = [];
+    const selectedBackup = getSelectedBackup();
+    const usersFromBackup: UsersType[] = selectedBackup.users.map((el) => ({
+      name: el.name,
+      bets: el.bets as any[],
+      index: el.index,
+      finalWinner: el.finalWinner,
+      colorTable: el.colorTable,
+      totalPoints: el.totalPoints,
+    }));
 
-    let selectedBackup = backup2022;
-
-    if (competitionValue === years[0].value) {
-      selectedBackup = backup2022;
-    }
-    if (competitionValue === years[1].value) {
-      selectedBackup = backup2020;
-    }
-    if (competitionValue === years[2].value) {
-      selectedBackup = backup2018;
-    }
-    if (competitionValue === years[3].value) {
-      selectedBackup = backup2016;
-    }
-
-    selectedBackup.users.forEach((el) => {
-      let userToAdd: UsersType = {
-        name: el.name,
-        bets: el.bets as any[],
-        index: el.index,
-        finalWinner: el.finalWinner,
-        colorTable: el.colorTable,
-        totalPoints: el.totalPoints,
-      };
-      usersFromBackup.push(userToAdd);
-    });
     setUsers(usersFromBackup);
   };
 
-  const getPaddingLeft = () => {
-    let res = "38%";
-    if (users.length === 4) {
-      res = "38%";
+  const getPaddingLeft = (index: number) => {
+    const defaultPadding = "9%";
+  
+    if (index === 3 || index === 4) {
+      let res = index === 3 ? defaultPadding : "38%";
+      if (users.length === 5) {
+        res = index === 3 ? "26%" : "75%";
+      }
+      return res;
     }
-    if (users.length === 5) {
-      res = "75%";
-    }
-    return res;
+  
+    return defaultPadding;
   };
+  
 
   const getRankingImg = () => {
     if (users.length === 4) {
@@ -257,7 +201,7 @@ export default function Ranking() {
         <div
           style={{
             position: "absolute",
-            paddingLeft: "9%",
+            paddingLeft: getPaddingLeft(3),
             paddingTop: "68%",
             width: "20%",
             height: "7%",
@@ -270,7 +214,7 @@ export default function Ranking() {
         <div
           style={{
             position: "absolute",
-            paddingLeft: getPaddingLeft(),
+            paddingLeft: getPaddingLeft(4),
             paddingTop: "68%",
             width: "20%",
             height: "7%",
@@ -319,7 +263,7 @@ export default function Ranking() {
             objectFit: "contain",
           }}
         />
-      </div>
+      </div >
     );
   };
 
