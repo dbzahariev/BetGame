@@ -129,7 +129,7 @@ export default function oneMatchTable({
         key="group"
         render={(el: any) => {
           return <div style={!result ? { height: "2.6rem", display: "flex", alignItems: "center" } : {}}>
-            <span>{translateTeamsName(el || "") || translateTeamsName("Ще се реши")}</span>
+            <span>{translateTeamsName(el || "") || translateTeamsName("Will be decided")}</span>
           </div>
         }}
       />
@@ -139,7 +139,7 @@ export default function oneMatchTable({
         key="homeTeam"
         width={columnWidth}
         render={(el: any) => (
-          <span style={{ justifyContent: "center" }}>{translateTeamsName(el.name) || translateTeamsName("Ще се реши")}</span>
+          <span style={{ justifyContent: "center" }}>{translateTeamsName(el.name) || translateTeamsName("Will be decided")}</span>
         )}
       />
       {result ? <ColumnGroup title={translateTeamsName("Result")}>
@@ -194,7 +194,7 @@ export default function oneMatchTable({
         key="awayTeam"
         width={columnWidth}
         render={(el: any) => (
-          <span>{translateTeamsName(el.name) || translateTeamsName("Ще се реши")}</span>
+          <span>{translateTeamsName(el.name) || translateTeamsName("Will be decided")}</span>
         )}
       />
       {usersColumns ? usersColumns :

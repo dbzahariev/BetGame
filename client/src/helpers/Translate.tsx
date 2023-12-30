@@ -31,17 +31,17 @@ export const translateTeamsName = (team: string, many: boolean = false): string 
     }
   }
 
-  if (team !== undefined) {
-    if (team !== "") {
-      if (teamsToShow === undefined) {
-        if (team?.toLowerCase()?.indexOf("group") === -1) {
-          if (team !== "Ще се реши") {
-            // debugger
-          }
-        }
-      }
-    }
-  }
+  // if (team !== undefined) {
+  //   if (team !== "") {
+  //     if (teamsToShow === undefined) {
+  //       if (team?.toLowerCase()?.indexOf("group") === -1) {
+  //         if (team !== "Ще се реши") {
+  //           // debugger
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 
   if (team !== "Show group phase") {
     if ((team || "").toLocaleLowerCase().indexOf("group") > -1) {
@@ -73,9 +73,9 @@ export const translateTeamsName = (team: string, many: boolean = false): string 
         }
       }
     }
-    if (team === "Ще се реши") {
-      englishTeam = "Will be decided"
-    }
+    // if (team === "Ще се реши") {
+    //   englishTeam = "Will be decided"
+    // }
 
     if (team === "LAST_16") {
       englishTeam = "1/8 Final"

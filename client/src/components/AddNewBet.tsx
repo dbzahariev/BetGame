@@ -416,7 +416,7 @@ export default function AddNewBet() {
                 </span>
 
                 <Link to={`/groups/${record.group}`}>
-                  {translateTeamsName(record.group || "") || translateTeamsName("Ще се реши")}
+                  {translateTeamsName(record.group || "") || translateTeamsName("Will be decided")}
                 </Link>
               </>
             );
@@ -438,7 +438,7 @@ export default function AddNewBet() {
           key="homeTeam"
           width={columnWidth}
           render={(el: any) => {
-            return <span>{translateTeamsName(el.name) || translateTeamsName("Ще се реши")}</span>;
+            return <span>{translateTeamsName(el.name) || translateTeamsName("Will be decided")}</span>;
           }}
         />
         <Column
@@ -447,7 +447,7 @@ export default function AddNewBet() {
           key="awayTeam"
           width={columnWidth}
           render={(el: any) => (
-            <span>{translateTeamsName(el.name) || translateTeamsName("Ще се реши")}</span>
+            <span>{translateTeamsName(el.name) || translateTeamsName("Will be decided")}</span>
           )}
         />
         {users.map((user: UsersType) => {
