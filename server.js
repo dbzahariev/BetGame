@@ -9,9 +9,7 @@ const { clearInterval, setInterval } = require("timers");
 var cors = require('cors')
 
 const app = express();
-app.use(cors({
-  origin: '*'
-}));
+app.use(cors());
 const PORT = process.env.PORT || 8080; // Step 1
 
 const routes = require("./routes/api");
