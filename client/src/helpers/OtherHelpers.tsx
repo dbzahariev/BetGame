@@ -90,7 +90,7 @@ const baseUrl = "https://dworld-be.onrender.com"
 axios.defaults.baseURL = baseUrl
 
 export const getMatchesAndUsers = async () => {
-  let matches = await getAllMatchesAsync()
+  let matches = await getAllMatchesAsyncFetch()
   let usesers = await getAllUsersAsync()
   return { matches, usesers }
 }
@@ -569,121 +569,39 @@ export const calcRound = (match: MatchType) => {
   return `ROUND_${matchRound}`
 }
 
-
 export const getAllMatchesAsyncFetch = async () => {
-  let res = await axios({
-    method: "GET",
-    url: "/api/matches",
-  })
-  debugger
-  return []
-};
-
-export const getAllMatchesAsyncFetch2 = async () => {
-  fetch('https://api.allorigins.win/get?url=https://api.football-data.org/v4/competitions/2018/matches', {
-    headers: {
-      'X-Auth-Token': 'c8d23279fec54671a43fcd93068762d1'
-    }
-  })
+  let res: MatchType[] = await fetch('api/db/matches')
     .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error('Error:', error));
+    .catch(error => console.error('Error:', error))
+    .then(data2 => {
+      return data2.matches.map((el: any, index: number) => {
+        let score = el.score;
+        let calculatedScore = calcScore(el, score);
+        let calculatedRound = calcRound(el)
 
+        if (el.stage === "BRONZE") {
+          el.stage = "THIRD_PLACE"
+        }
+        return {
+          number: index + 1,
+          key: index,
+          id: el.id,
+          homeTeam: el.homeTeam,
+          awayTeam: el.awayTeam,
+          utcDate: el.utcDate,
+          group: el.group || el.stage,
+          winner: score?.winner || "",
+          homeTeamScore: calculatedScore.ht,
+          awayTeamScore: calculatedScore.at,
+          status: el.status,
+          score: el.score,
+          round: calculatedRound
+        };
+      });
+    })
 
-
-
-
-
-  // fetch(`https://api.allorigins.win/get?url=//api.football-data.org/v4/competitions/2018/matches`, {
-  //   headers: { "X-Auth-Token": "c8d23279fec54671a43fcd93068762d1" }
-  // })
-  //   .then(response => {
-  //     debugger
-  //     if (response.ok) return response.json()
-  //     throw new Error('Network response was not ok.')
-  //   })
-  //   .then(data => console.log(data.contents));
-
-  // fetch(`https://api.football-data.org/v4/competitions/2018/matches`,
-  //   {
-  //     headers: {
-  //       "X-Auth-Token": "c8d23279fec54671a43fcd93068762d1",
-  //       "Access-Control-Allow-Methods": "GET",
-  //       "Access-Control-Allow-Origin": "*",
-  //       "Access-Control-Allow-Headers": "x-auth-token, x-response-control",
-  //       "Content-Length": "0",
-  //       "Content-Type": "text/plain",
-  //     }
-  //   }
-  // )
-  //   .then((val) => {
-  //     let kk = val.json().then((ffff) => {
-  //       debugger
-  //     })
-  //     debugger
-  //   })
-  // debugger
-}
-
-export const getAllMatchesAsync = async () => {
-  // getAllMatchesAsyncFetch()
-  // return []
-  const midleSite = `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`
-
-
-  // const url = `https://corsproxy.io/?https://api.football-data.org/v2/competitions/2018/matches`
-  // const url = "https://cors-proxy.htmldriven.com/?url=https://api.football-data.org/v2/competitions/2018/matches"
-  const url = `https://thingproxy.freeboard.io/fetch/` + midleSite
-  //'https://corsproxy.io/' + encodeURIComponent(`https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`);
-
-  var config: AxiosRequestConfig = {
-    method: "GET",
-    url: midleSite,//`https://cors-anywhere.herokuapp.com/https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`,
-    withCredentials: false,
-    headers: {
-      "X-Auth-Token": "c8d23279fec54671a43fcd93068762d1",
-      "Access-Control-Allow-Methods": "GET",
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers": "x-auth-token, x-response-control",
-      "Content-Length": "0",
-      "Content-Type": "text/plain",
-    },
-  };
-  let response = await axios(config)
-  let data: MatchType[] = response.data.matches;
-  data = data.slice(0, data.length);
-  let matches: MatchType[] = [];
-
-  data.forEach((el: MatchType, index) => {
-    let score = el.score;
-
-    let calculatedScore = calcScore(el, score);
-
-    let calculatedRound = calcRound(el)
-
-    if (el.stage === "BRONZE") {
-      el.stage = "THIRD_PLACE"
-    }
-
-    let matchToAdd: MatchType = {
-      number: index + 1,
-      key: matches.length || 0,
-      id: el.id,
-      homeTeam: el.homeTeam,
-      awayTeam: el.awayTeam,
-      utcDate: el.utcDate,
-      group: el.group || el.stage,
-      winner: score?.winner || "",
-      homeTeamScore: calculatedScore.ht,
-      awayTeamScore: calculatedScore.at,
-      status: el.status,
-      score: el.score,
-      round: calculatedRound
-    };
-    matches.push(matchToAdd);
-  });
-  return matches
-}
+  return res
+};
 
 export const getAllTeams = (setTeams: Function) => {
   var config: AxiosRequestConfig = {

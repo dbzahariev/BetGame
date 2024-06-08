@@ -4,7 +4,7 @@ import Column from "antd/lib/table/Column";
 import ColumnGroup from "antd/lib/table/ColumnGroup";
 import axios from "axios";
 import { useGlobalState } from "../GlobalStateProvider";
-import { UsersType, MatchType, renderP2, isGroup, stylingTable, getAllMatchesAsync } from "../helpers/OtherHelpers";
+import { UsersType, MatchType, renderP2, isGroup, stylingTable, getAllMatchesAsyncFetch } from '../helpers/OtherHelpers';
 import { translateTeamsName } from "../helpers/Translate";
 import OneMatchTable from "./OneMatchTable";
 
@@ -123,7 +123,7 @@ export default function AddNewBet() {
         url: `/api/update?id=${user.id}`,
       })
         .then((res) => {
-          getAllMatchesAsync().then((matches) => {
+          getAllMatchesAsyncFetch().then((matches) => {
             setState({ users: state.users, matches: matches })
             notification.open({
               message: `Залогът е записан успешно!`,

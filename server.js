@@ -64,6 +64,32 @@ const timer = setInterval(bb, 600 * 1000);
 
 // HTTP request logger
 app.use(morgan("tiny"));
+
+
+
+
+
+app.get('/api/db/matches', (req, res) => {
+  const apiUrl = 'https://api.football-data.org/v4/competitions/2018/matches';
+  const apiHeaders = {
+    'X-Auth-Token': 'c8d23279fec54671a43fcd93068762d1' // Replace 'your-api-token' with your actual API token
+  };
+
+  axios.get(apiUrl, { headers: apiHeaders })
+    .then(response => {
+      res.setHeader('Content-Type', 'application/json');
+      res.status(response.status).json(response.data);
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    });
+});
+
+
+
+
+
 app.use("/api", routes);
 app.use("/chat", routesChat);
 
