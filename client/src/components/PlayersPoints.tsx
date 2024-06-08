@@ -95,9 +95,12 @@ export default function PlayersPoints() {
     try {
       let config: AxiosRequestConfig = {
         method: "GET",
-        url: `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`,
+        url: `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches3`,
         headers: {
           "X-Auth-Token": "c8d23279fec54671a43fcd93068762d1",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization"
         },
       };
 

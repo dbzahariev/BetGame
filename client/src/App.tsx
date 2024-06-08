@@ -28,7 +28,7 @@ const competitionsIds = {
 };
 
 export const selectedCompetition = competitionsIds.Uefa;
-export const selectedApiVersion = "v4";
+export const selectedApiVersion = "v2";
 
 function MatchWithParams() {
   let params: any = useParams();

@@ -29,7 +29,7 @@ interface ScoreType {
 const getFinalScore = async (matchId: string) => {
   var config: AxiosRequestConfig = {
     method: "GET",
-    url: `https://api.football-data.org/${selectedApiVersion}/matches/${matchId}`,
+    url: `https://cors-anywhere.herokuapp.com/https://api.football-data.org/${selectedApiVersion}/matches/${matchId}`,
     headers: {
       "X-Auth-Token": "c8d23279fec54671a43fcd93068762d1",
     },
@@ -118,7 +118,7 @@ export default function OneMatch({ matchId }: { matchId: string }) {
   const getOneMatch = () => {
     var config: AxiosRequestConfig = {
       method: "GET",
-      url: `https://api.football-data.org/${selectedApiVersion}/matches/${matchId}`,
+      url: `https://cors-anywhere.herokuapp.com/https://api.football-data.org/${selectedApiVersion}/matches/${matchId}`,
       headers: {
         "X-Auth-Token": "c8d23279fec54671a43fcd93068762d1",
       },

@@ -510,52 +510,6 @@ export const setDefSettings = (settings: string, value: string) => {
   sessionStorage.setItem(settings, value)
 }
 
-export const getFinalStats = (afterThat: Function) => {
-  var config: AxiosRequestConfig = {
-    method: "GET",
-    url: `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`,
-    headers: {
-      "X-Auth-Token": "c8d23279fec54671a43fcd93068762d1",
-    },
-  };
-
-  axios(config)
-    .then(function (response) {
-      let data: MatchType[] = response.data.matches;
-      data = data.slice(0, data.length);
-      let matches: MatchType[] = [];
-
-      let onlyFinal: MatchType | undefined = undefined;
-
-      data.forEach((el: MatchType, index) => {
-        let score = el.score;
-
-        let calculatedScore = calcScore(el, score);
-
-        let matchToAdd: MatchType = {
-          number: index + 1,
-          key: matches.length || 0,
-          id: el.id,
-          homeTeam: el.homeTeam,
-          awayTeam: el.awayTeam,
-          utcDate: el.utcDate,
-          group: el.group || el.stage,
-          winner: score?.winner || "",
-          homeTeamScore: calculatedScore.ht,
-          awayTeamScore: calculatedScore.at,
-          status: el.status,
-          score: el.score,
-        };
-
-        if (el.stage === "FINAL") {
-          onlyFinal = matchToAdd;
-        }
-      });
-      afterThat(onlyFinal);
-    })
-    .catch((error) => console.error(error));
-};
-
 export const calcScore = (match: MatchType, score: any) => {
   let res: {
     ht: number | undefined;
@@ -618,7 +572,7 @@ export const calcRound = (match: MatchType) => {
 export const getAllMatchesAsync = async () => {
   var config: AxiosRequestConfig = {
     method: "GET",
-    url: `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`,
+    url: `https://cors-anywhere.herokuapp.com/https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`,
     headers: {
       "X-Auth-Token": "c8d23279fec54671a43fcd93068762d1",
     },
@@ -662,7 +616,7 @@ export const getAllMatchesAsync = async () => {
 export const getAllTeams = (setTeams: Function) => {
   var config: AxiosRequestConfig = {
     method: "GET",
-    url: `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/teams`,
+    url: `https://cors-anywhere.herokuapp.com/https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/teams`,
     headers: {
       "X-Auth-Token": "c8d23279fec54671a43fcd93068762d1",
     },

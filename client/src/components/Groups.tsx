@@ -41,7 +41,7 @@ export default function Groups() {
   const getAllStandings = () => {
     var config: AxiosRequestConfig = {
       method: "GET",
-      url: `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/standings`,
+      url: `https://cors-anywhere.herokuapp.com/https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/standings`,
       headers: {
         "X-Auth-Token": "c8d23279fec54671a43fcd93068762d1",
       },
