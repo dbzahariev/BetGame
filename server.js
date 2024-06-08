@@ -122,7 +122,23 @@ app.get('/groups/api/db/standings', (req, res) => {
     });
 });
 
+app.get('/api/db/teams', (req, res) => {
+  console.log("get Tems")
+  const apiUrl = `https://api.football-data.org/${selected.version}/competitions/${selected.competition}/teams`;
+  const apiHeaders = {
+    'X-Auth-Token': 'c8d23279fec54671a43fcd93068762d1'
+  };
 
+  axios.get(apiUrl, { headers: apiHeaders })
+    .then(response => {
+      res.setHeader('Content-Type', 'application/json');
+      res.status(response.status).json(response.data);
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    });
+});
 
 
 

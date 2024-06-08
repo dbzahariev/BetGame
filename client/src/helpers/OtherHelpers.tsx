@@ -604,19 +604,26 @@ export const getAllMatchesAsyncFetch = async () => {
 };
 
 export const getAllTeams = (setTeams: Function) => {
-  var config: AxiosRequestConfig = {
-    method: "GET",
-    url: `https://cors-anywhere.herokuapp.com/https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/teams`,
-    headers: {
-      "X-Auth-Token": "c8d23279fec54671a43fcd93068762d1",
-    },
-  };
-
-  axios(config)
-    .then(function (response) {
-      let data: any[] = response.data.teams
-      let teams: { name: string, flag: string }[] = data.map((el: any) => ({ name: el.name, flag: el.crestUrl }))
-      setTeams(teams);
+  fetch('api/db/teams')
+    .then(response => response.json())
+    .catch(error => console.error('Error:', error))
+    .then(data2 => {
+      setTeams(data2.teams)
     })
-    .catch((error) => console.error(error));
+
+  // var config: AxiosRequestConfig = {
+  //   method: "GET",
+  //   url: `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/teams`,
+  //   headers: {
+  //     "X-Auth-Token": "c8d23279fec54671a43fcd93068762d1",
+  //   },
+  // };
+
+  // axios(config)
+  //   .then(function (response) {
+  //     let data: any[] = response.data.teams
+  //     let teams: { name: string, flag: string }[] = data.map((el: any) => ({ name: el.name, flag: el.crestUrl }))
+  //     setTeams(teams);
+  //   })
+  //   .catch((error) => console.error(error));
 };

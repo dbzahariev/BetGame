@@ -23,6 +23,7 @@ export const translateTeamsName = (team: string, many: boolean = false): string 
       return teamsToShow
     }
   }
+  
   if (team === "Избери група") {
     if (isEnglish) {
       return "Chose group"
@@ -61,9 +62,6 @@ export const translateTeamsName = (team: string, many: boolean = false): string 
         }
       }
     }
-    // if (team === "Ще се реши") {
-    //   englishTeam = "Will be decided"
-    // }
 
     if (team === "LAST_16") {
       englishTeam = "1/8 Final"

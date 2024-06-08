@@ -23,6 +23,9 @@ export default function OneMatchInScheme({ match, teams = [] }: { match: MatchTy
   }
 
   const getFlag = (name: string = "") => {
+    if (name === null) {
+      return <></>
+    }
     const flagSrc = teams.find((element) => element.name === name)?.flag || "";
 
     return (
@@ -107,8 +110,8 @@ export default function OneMatchInScheme({ match, teams = [] }: { match: MatchTy
           }}
         >
           {position === "first"
-            ? translateTeamsName(match.homeTeam.name)
-            : translateTeamsName(match.awayTeam.name)}
+            ? translateTeamsName(match.homeTeam.name || "Will be decided")
+            : translateTeamsName(match.awayTeam.name || "Will be decided")}
           {getFlag(
             position === "first" ? match.homeTeam.name : match.awayTeam.name
           )}
