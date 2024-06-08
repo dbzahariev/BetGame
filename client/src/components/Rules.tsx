@@ -38,7 +38,7 @@ export default function Rules() {
         <p style={styleHeader}>Регламент</p>
         <p style={styleNormal}>
           Прогнози за всички мачове се дават на сайта{" "}
-          <a href="https://dworld.onrender.com/">www.dworld.onrender.com</a>.
+          <a href="https://deuro.onrender.com/">www.deuro.onrender.com</a>.
           <br />
           Ако не е въведена прогноза до началото на сррещата, тя може да се даде
           до 15 мин след началото на срещата, но тогава се получават 50% от
