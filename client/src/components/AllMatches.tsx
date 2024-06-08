@@ -11,6 +11,7 @@ import {
   isGroup,
   UsersType,
   getMatchesAndUsers,
+  isGroupName,
 } from "../helpers/OtherHelpers";
 import ModalSettings, { showGroupsGlobal, showRound1Global, showRound2Global, showRound3Global } from "./ModalSettings";
 import { useGlobalState } from "../GlobalStateProvider";
@@ -22,6 +23,9 @@ export const getMatchesForView = (
   let res = [...matches];
   if (showGroupsGlobal === false) {
     res = res.filter((el) => !isGroup(el))
+  }
+  else {
+    res = res.filter((el) => isGroupName(el))
   }
   if (!showRound1Global) {
     res = res.filter((el) => {

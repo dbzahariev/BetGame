@@ -31,18 +31,6 @@ export const translateTeamsName = (team: string, many: boolean = false): string 
     }
   }
 
-  // if (team !== undefined) {
-  //   if (team !== "") {
-  //     if (teamsToShow === undefined) {
-  //       if (team?.toLowerCase()?.indexOf("group") === -1) {
-  //         if (team !== "Ще се реши") {
-  //           // debugger
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
-
   if (team !== "Show group phase") {
     if ((team || "").toLocaleLowerCase().indexOf("group") > -1) {
       let teamNameArr = team.split("_");

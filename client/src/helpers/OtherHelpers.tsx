@@ -11,6 +11,7 @@ import {
 import { Key } from "react";
 import compare from 'just-compare';
 import { translateTeamsName } from "./Translate";
+import { showGroupOnlyGlobal } from '../components/ModalSettings';
 
 export interface ScoreType {
   duration: string;
@@ -76,6 +77,13 @@ export interface UsersType {
 
 export const isGroup = (fullMatch: MatchType) => {
   return (fullMatch.group || "").toLowerCase().includes("group")
+}
+
+export const isGroupName = (fullMatch: MatchType) => {
+  if (showGroupOnlyGlobal === "") {
+    return true
+  }
+  return (fullMatch.group || "").toLowerCase() === showGroupOnlyGlobal?.toLowerCase()
 }
 
 const baseUrl = "https://dworld-be.onrender.com"
@@ -476,6 +484,7 @@ export const stylingTable = (users: UsersType[], isFromNewBet?: Boolean) => {
 
 export const getDefSettings = () => {
   let showGroupsFromStorage = sessionStorage.getItem("showGroups")
+  let showGroupOnlyFromStorage = sessionStorage.getItem("showGroupOnly")
 
   let showRound1FromStorage = sessionStorage.getItem("showRound1")
   let showRound2FromStorage = sessionStorage.getItem("showRound2")
@@ -484,8 +493,9 @@ export const getDefSettings = () => {
   let isEnglishFromStorage = sessionStorage.getItem("isEnglish")
   let filterGroupFromStorage = sessionStorage.getItem("filterGroup")
 
-  let defaulstSetings = false;
+  let defaulstSetings = true;
   let showGroups = showGroupsFromStorage === null ? defaulstSetings : showGroupsFromStorage === "true" ? true : false
+  let showGroupOnly = showGroupOnlyFromStorage === null ? "" : showGroupOnlyFromStorage
   let showRound1 = showRound1FromStorage === null ? defaulstSetings : showRound1FromStorage === "true" ? true : false
   let showRound2 = showRound2FromStorage === null ? defaulstSetings : showRound2FromStorage === "true" ? true : false
   let showRound3 = showRound3FromStorage === null ? defaulstSetings : showRound3FromStorage === "true" ? true : false
@@ -493,7 +503,7 @@ export const getDefSettings = () => {
   let isEnglish = isEnglishFromStorage === null ? false : isEnglishFromStorage === "true" ? true : false
   let filterGroup = filterGroupFromStorage || ""
 
-  return { showGroups, showRound1, showRound2, showRound3, isEnglish, filterGroup }
+  return { showGroups, showGroupOnly, showRound1, showRound2, showRound3, isEnglish, filterGroup }
 }
 
 export const setDefSettings = (settings: string, value: string) => {

@@ -8,6 +8,7 @@ import { translateTeamsName } from '../helpers/Translate';
 import { useGlobalState } from '../GlobalStateProvider';
 
 export let showGroupsGlobal = getDefSettings().showGroups
+export let showGroupOnlyGlobal = getDefSettings().showGroupOnly
 export let showRound1Global = getDefSettings().showRound1
 export let showRound2Global = getDefSettings().showRound2
 export let showRound3Global = getDefSettings().showRound3
@@ -17,6 +18,7 @@ export let filterGroupGlobal = getDefSettings().filterGroup
 
 export default function ModalSettings({ refresh }: { refresh: Function }) {
   const [showGroups, setShowGroups] = useState(getDefSettings().showGroups);
+  const [showGroupOnly, setShowGroupOnly] = useState(getDefSettings().showGroupOnly);
   const [showRound1, setShowRound1] = useState(getDefSettings().showRound1);
   const [showRound2, setShowRound2] = useState(getDefSettings().showRound2);
   const [showRound3, setShowRound3] = useState(getDefSettings().showRound3);
@@ -29,6 +31,7 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
   const hendleOk = () => {
     checkChange()
     showGroupsGlobal = showGroups
+    showGroupOnlyGlobal = showGroupOnly
     showRound1Global = showRound1
     showRound2Global = showRound2
     showRound3Global = showRound3
@@ -73,9 +76,11 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
     // checkChange()
     hendleOk()
     // eslint-disable-next-line 
-  }, [showGroups, showRound1, showRound2, showRound3, isEnglishState, selctedGroupState])
+  }, [showGroups, showGroupOnly, showRound1, showRound2, showRound3, isEnglishState, selctedGroupState])
 
   const hendleChangeGroup = (event: any) => {
+    setShowGroupOnly(event)
+    setDefSettings("showGroupOnly", event)
     setSelectedGropState(event)
   }
 
@@ -138,7 +143,7 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
           />
         </Space>
         <Select
-          defaultValue={""}
+          defaultValue={showGroupOnly}
           style={{ width: window.innerWidth * 0.085 }}
           options={groupsName}
           onChange={hendleChangeGroup}
