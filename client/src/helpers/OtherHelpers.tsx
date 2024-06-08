@@ -570,9 +570,19 @@ export const calcRound = (match: MatchType) => {
 }
 
 export const getAllMatchesAsync = async () => {
+  const midleSite = `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`
+
+
+  // const url = `https://corsproxy.io/?https://api.football-data.org/v2/competitions/2018/matches`
+  // const url = "https://cors-proxy.htmldriven.com/?url=https://api.football-data.org/v2/competitions/2018/matches"
+  const url = `https://thingproxy.freeboard.io/fetch/` + midleSite
+
+  //'https://corsproxy.io/' + encodeURIComponent(`https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`);
+
   var config: AxiosRequestConfig = {
     method: "GET",
-    url: `https://cors-anywhere.herokuapp.com/https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`,
+    url: url,//`https://cors-anywhere.herokuapp.com/https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`,
+    withCredentials: false,
     headers: {
       "X-Auth-Token": "c8d23279fec54671a43fcd93068762d1",
     },
