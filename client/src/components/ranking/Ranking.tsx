@@ -159,7 +159,7 @@ export default function Ranking() {
     return (
       <p
         style={{ color: color2, fontSize: "15px", whiteSpace: "nowrap" }}
-      >{`${user.name} (${user.totalPoints})`}</p>
+      >{`${translateTeamsName(user.name)} (${user.totalPoints})`}</p>
     );
   };
 
