@@ -17,6 +17,25 @@ router.get("/", (req, res) => {
     });
 });
 
+router.get("/api/matches", (req, res) => {
+  const options = {
+    url: 'https://api.football-data.org/v4/competitions/2018/matches',
+    headers: {
+      'X-Auth-Token': 'c8d23279fec54671a43fcd93068762d1' // Replace 'your-api-token' with your actual API token
+    }
+  };
+
+  request(options, (error, response, body) => {
+    if (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.setHeader('Content-Type', 'application/json');
+      res.status(response.statusCode).send(body);
+    }
+  });
+})
+
 router.get("/users", (req, res) => {
   Games.find({})
     .then((data) => {

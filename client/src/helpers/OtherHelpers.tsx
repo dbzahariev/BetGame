@@ -569,22 +569,84 @@ export const calcRound = (match: MatchType) => {
   return `ROUND_${matchRound}`
 }
 
+
+export const getAllMatchesAsyncFetch = async () => {
+  let res = await axios({
+    method: "GET",
+    url: "/api/matches",
+  })
+  debugger
+  return []
+};
+
+export const getAllMatchesAsyncFetch2 = async () => {
+  fetch('https://api.allorigins.win/get?url=https://api.football-data.org/v4/competitions/2018/matches', {
+    headers: {
+      'X-Auth-Token': 'c8d23279fec54671a43fcd93068762d1'
+    }
+  })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+
+
+
+
+
+
+  // fetch(`https://api.allorigins.win/get?url=//api.football-data.org/v4/competitions/2018/matches`, {
+  //   headers: { "X-Auth-Token": "c8d23279fec54671a43fcd93068762d1" }
+  // })
+  //   .then(response => {
+  //     debugger
+  //     if (response.ok) return response.json()
+  //     throw new Error('Network response was not ok.')
+  //   })
+  //   .then(data => console.log(data.contents));
+
+  // fetch(`https://api.football-data.org/v4/competitions/2018/matches`,
+  //   {
+  //     headers: {
+  //       "X-Auth-Token": "c8d23279fec54671a43fcd93068762d1",
+  //       "Access-Control-Allow-Methods": "GET",
+  //       "Access-Control-Allow-Origin": "*",
+  //       "Access-Control-Allow-Headers": "x-auth-token, x-response-control",
+  //       "Content-Length": "0",
+  //       "Content-Type": "text/plain",
+  //     }
+  //   }
+  // )
+  //   .then((val) => {
+  //     let kk = val.json().then((ffff) => {
+  //       debugger
+  //     })
+  //     debugger
+  //   })
+  // debugger
+}
+
 export const getAllMatchesAsync = async () => {
+  // getAllMatchesAsyncFetch()
+  // return []
   const midleSite = `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`
 
 
   // const url = `https://corsproxy.io/?https://api.football-data.org/v2/competitions/2018/matches`
   // const url = "https://cors-proxy.htmldriven.com/?url=https://api.football-data.org/v2/competitions/2018/matches"
   const url = `https://thingproxy.freeboard.io/fetch/` + midleSite
-
   //'https://corsproxy.io/' + encodeURIComponent(`https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`);
 
   var config: AxiosRequestConfig = {
     method: "GET",
-    url: url,//`https://cors-anywhere.herokuapp.com/https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`,
+    url: midleSite,//`https://cors-anywhere.herokuapp.com/https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/matches`,
     withCredentials: false,
     headers: {
       "X-Auth-Token": "c8d23279fec54671a43fcd93068762d1",
+      "Access-Control-Allow-Methods": "GET",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "x-auth-token, x-response-control",
+      "Content-Length": "0",
+      "Content-Type": "text/plain",
     },
   };
   let response = await axios(config)
