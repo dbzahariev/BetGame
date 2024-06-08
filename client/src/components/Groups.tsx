@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import axios, { AxiosRequestConfig } from "axios";
 import { Button, Space, Table } from "antd";
 import { translateTeamsName } from "../helpers/Translate";
 import { useParams } from "react-router-dom";
-import { selectedCompetition, selectedApiVersion } from "../App";
 import { MatchType } from "../helpers/OtherHelpers";
 import OneMatchTable from "./OneMatchTable";
 import { useGlobalState } from "../GlobalStateProvider";
@@ -33,55 +31,37 @@ export default function Groups() {
 
   useEffect(() => {
     if (matches.length > 0) {
-      getAllStandings();
+      foo();
     }
-    // eslint-disable-next-line
   }, [matches.length]);
 
-  const getAllStandings = () => {
-    var config: AxiosRequestConfig = {
-      method: "GET",
-      url: `https://cors-anywhere.herokuapp.com/https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/standings`,
-      headers: {
-        "X-Auth-Token": "c8d23279fec54671a43fcd93068762d1",
-      },
-    };
 
-    axios(config)
-      .then(function (response) {
-        let data: any = response.data.standings;
-        let allGroups = [];
-
-        for (let i = 0; i < data.length; i++) {
-          let group = data[i];
-          let groupToAdd: OneGroup = {
-            name: group.group as string,
-            table: [],
+  const foo = () => {
+    fetch('api/db/standings')
+      .then(response => response.json())
+      .catch(error => console.error('Error:', error))
+      .then(response => {
+        const allGroups: OneGroup[] = response.standings.map((group: any) => {
+          const groupName = group.group[group.group.length - 1];
+          const table = group.table.map((team: any) => ({
+            key: team.team.name,
+            name: translateTeamsName(team.team.name),
+            playedGames: team.playedGames,
+            won: team.won,
+            draw: team.draw,
+            lost: team.lost,
+            points: team.points,
+            position: team.position,
+            goalDifference: team.goalDifference,
+          }));
+          return {
+            name: groupName,
+            table: table,
           };
-          groupToAdd.name = groupToAdd.name[groupToAdd.name.length - 1];
-
-          for (let j = 0; j < group.table.length; j++) {
-            let teams = group.table[j];
-            let teamsToAdd: OneRow = {
-              key: teams.team.name,
-              name: translateTeamsName(teams.team.name),
-              playedGames: teams.playedGames,
-              won: teams.won,
-              draw: teams.draw,
-              lost: teams.lost,
-              points: teams.points,
-              position: teams.position,
-              goalDifference: teams.goalDifference,
-            };
-            groupToAdd.table.push(teamsToAdd);
-          }
-
-          allGroups.push(groupToAdd);
-        }
+        });
         setGroups(allGroups);
       })
-      .catch((error) => console.error(error));
-  };
+  }
 
   useEffect(() => {
     let groupName = params.groupName;
@@ -91,8 +71,7 @@ export default function Groups() {
         el.scrollIntoView({ behavior: "smooth" });
       }
     }
-    // eslint-disable-next-line
-  }, [groups]);
+  }, [groups, params.groupName]);
 
   const renderGroups = () => {
     const oneGroupTable = (oneGroup: OneGroup) => {

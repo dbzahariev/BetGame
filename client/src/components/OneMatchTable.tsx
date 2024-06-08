@@ -5,8 +5,6 @@ import ColumnGroup from "antd/lib/table/ColumnGroup";
 import { getDefSettings, MatchType, renderP, UsersType } from "../helpers/OtherHelpers";
 import { translateTeamsName } from "../helpers/Translate";
 
-import $ from "jquery";
-
 oneMatchTable.defaultProps = { usersColumns: undefined }
 
 export default function oneMatchTable({
@@ -65,18 +63,6 @@ export default function oneMatchTable({
     return res;
   };
 
-  function findRow(text: string) {
-    let allChilds = $(`#oneMatchTable > div > div > table > tbody > tr > td:nth-child(1)`)
-    if (allChilds.length > 0) {
-      for (let i = 0; i < allChilds.length; i++) {
-        if (allChilds[i].innerHTML === text) {
-          let kk = allChilds[i].parentElement
-          return kk
-        }
-      }
-    }
-  }
-
   for (let index = 0; index < AllMatches.length; index++) {
     const element = AllMatches[index];
     if (["FINISHED", "SCHEDULED"].includes(element.status) === false) {
@@ -93,7 +79,7 @@ export default function oneMatchTable({
       pagination={false}
       bordered
     >
-      
+
       <Column
         title={translateTeamsName("N")}
         dataIndex="number"

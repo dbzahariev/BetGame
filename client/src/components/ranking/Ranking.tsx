@@ -46,11 +46,13 @@ export default function Ranking() {
 
   useEffect(() => {
     genBackupCurrentYear()
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
     getMatches();
     getUsers();
+    // eslint-disable-next-line
   }, [competitionValue, showGroups, backupCurrentYear])
 
   useEffect(() => {

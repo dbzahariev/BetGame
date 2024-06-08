@@ -67,12 +67,14 @@ app.use(morgan("tiny"));
 
 
 
+const selected = { version: "v4", competition: "2018" }
+
 
 
 app.get('/api/db/matches', (req, res) => {
-  const apiUrl = 'https://api.football-data.org/v4/competitions/2018/matches';
+  const apiUrl = `https://api.football-data.org/${selected.version}/competitions/${selected.competition}/matches`;
   const apiHeaders = {
-    'X-Auth-Token': 'c8d23279fec54671a43fcd93068762d1' // Replace 'your-api-token' with your actual API token
+    'X-Auth-Token': 'c8d23279fec54671a43fcd93068762d1'
   };
 
   axios.get(apiUrl, { headers: apiHeaders })
@@ -85,6 +87,43 @@ app.get('/api/db/matches', (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     });
 });
+
+app.get('/groups/api/db/matches', (req, res) => {
+  const apiUrl = `https://api.football-data.org/${selected.version}/competitions/${selected.competition}/matches`;
+  const apiHeaders = {
+    'X-Auth-Token': 'c8d23279fec54671a43fcd93068762d1'
+  };
+
+  axios.get(apiUrl, { headers: apiHeaders })
+    .then(response => {
+      res.setHeader('Content-Type', 'application/json');
+      res.status(response.status).json(response.data);
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    });
+});
+
+app.get('/groups/api/db/standings', (req, res) => {
+  const apiUrl = `https://api.football-data.org/${selected.version}/competitions/${selected.competition}/standings`;
+  const apiHeaders = {
+    'X-Auth-Token': 'c8d23279fec54671a43fcd93068762d1'
+  };
+
+  axios.get(apiUrl, { headers: apiHeaders })
+    .then(response => {
+      res.setHeader('Content-Type', 'application/json');
+      res.status(response.status).json(response.data);
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    });
+});
+
+
+
 
 
 
