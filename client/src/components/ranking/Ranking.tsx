@@ -4,6 +4,7 @@ import {
   ScoreType,
   stylingTable,
   UsersType,
+  getPoints
 } from "../../helpers/OtherHelpers";
 import OneMatchTable from "../OneMatchTable";
 import rankingImg4 from "./rankingImg_4_ranks.svg";
@@ -20,10 +21,12 @@ import backup2016 from "./Backup2016.json";
 import { Select, Space, Switch } from "antd";
 import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
 import { translateTeamsName } from "../../helpers/Translate";
+import { useGlobalState } from "../../GlobalStateProvider";
 
 const { Option } = Select;
 
 const years = [
+  { value: "2024", name: { eng: "Euro 2024", bg: "Евро 2024" } },
   { value: "2022", name: { eng: "World 2022", bg: "Световно 2022" } },
   { value: "2020", name: { eng: "Euro 2020", bg: "Евро 2020" } },
   { value: "2018", name: { eng: "World 2018", bg: "Световно 2018" } },
@@ -34,27 +37,38 @@ export default function Ranking() {
   const [matches, setMatches] = useState<MatchType[]>([]);
   const [users, setUsers] = useState<UsersType[]>([]);
   const [showGroups, setShowGroups] = useState(true);
-  const [competitionValue, setCompetitionValue] = useState<string>("2022");
+  const [competitionValue, setCompetitionValue] = useState<string>("2024");
+  const [backupCurrentYear, setBackupCurrentYear] = useState<{
+    matches: any[];
+    users: any[];
+  }>({ matches: [], users: [] })
+  const { state } = useGlobalState()
+
+  useEffect(() => {
+    genBackupCurrentYear()
+  }, [])
 
   useEffect(() => {
     getMatches();
     getUsers();
-    // eslint-disable-next-line
-  }, [competitionValue, showGroups])
+  }, [competitionValue, showGroups, backupCurrentYear])
 
   useEffect(() => {
-    if (users.length > 0) {
-      stylingTable(users);
-    }
+    stylingTable(users);
   }, [users]);
 
   const getSelectedBackup = () => {
-    if (competitionValue === years[0].value) return backup2022;
-    if (competitionValue === years[1].value) return backup2020;
-    if (competitionValue === years[2].value) return backup2018;
-    if (competitionValue === years[3].value) return backup2016;
-    return backup2020;
+    if (competitionValue === "2022") return backup2022;
+    if (competitionValue === "2020") return backup2020;
+    if (competitionValue === "2018") return backup2018;
+    if (competitionValue === "2016") return backup2016;
+
+    return backupCurrentYear
   };
+
+  const genBackupCurrentYear = () => {
+    setBackupCurrentYear({ matches: state.matches ?? [], users: getPoints(state.users ?? [], state.matches ?? []) })
+  }
 
   const getMatches = () => {
     const selectedBackup = getSelectedBackup();
@@ -93,7 +107,7 @@ export default function Ranking() {
 
   const getPaddingLeft = (index: number) => {
     const defaultPadding = "9%";
-  
+
     if (index === 3 || index === 4) {
       let res = index === 3 ? defaultPadding : "38%";
       if (users.length === 5) {
@@ -101,10 +115,10 @@ export default function Ranking() {
       }
       return res;
     }
-  
+
     return defaultPadding;
   };
-  
+
 
   const getRankingImg = () => {
     if (users.length === 4) {
@@ -132,7 +146,7 @@ export default function Ranking() {
 
   const getSortedUsers = () => {
     let res = users
-      .sort((a, b) => b.index - a.index)
+      .sort((a, b) => a.index - b.index)
       .sort((a, b) => b.totalPoints - a.totalPoints);
 
     return res;

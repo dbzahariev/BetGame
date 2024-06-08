@@ -60,7 +60,7 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
 
   useEffect(() => {
     //TODO: Fix auto refresh
-    if (AutoRefreshInterval >= 1 && AutoRefreshInterval !== "disable" && AutoRefreshInterval !== "init") {
+    if (+AutoRefreshInterval >= 1 && AutoRefreshInterval !== "disable" && AutoRefreshInterval !== "init") {
       intervalRef.current = setInterval(() => {
         reloadDate()
       }, AutoRefreshInterval * 1000);
@@ -76,7 +76,7 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
         setState(newState)
       }
     })
-    stylingTable(state.users || [], undefined)
+    stylingTable(state.users || [])
   }
 
   useEffect(() => {

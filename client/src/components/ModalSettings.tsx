@@ -196,7 +196,7 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
             setDefSettings("isEnglish", (newValue || false).toString())
             return setIsEnglishState(newValue)
           }}
-            style={{ width: "30px", height: "30px", borderRadius: "50%", cursor: "pointer" }} alt="eng" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Bulgaria_Flag.svg/768px-Bulgaria_Flag.svg.png?20161026151841">
+            style={{ width: "30px", height: "30px", borderRadius: "50%", cursor: "pointer" }} alt="eng" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Bulgaria.svg/1920px-Flag_of_Bulgaria.svg.png">
           </img>
         </Space>
       </Space>
