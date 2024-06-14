@@ -1,6 +1,5 @@
 import React from "react"
-import axios, { AxiosRequestConfig } from "axios";
-import { selectedCompetition, selectedApiVersion } from "../App";
+import axios from "axios";
 import $ from "jquery";
 import {
   coefficientQuarterFinal,

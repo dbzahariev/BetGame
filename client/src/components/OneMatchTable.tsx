@@ -32,7 +32,7 @@ export default function oneMatchTable({
       fullMatch: MatchType
     ) => {
       let selectedMatch = user.bets.find((el) => el.matchId === fullMatch.id);
-      if (selectedMatch) return selectedMatch[type];
+      if (selectedMatch) return (selectedMatch as any)[type];
       else return "";
     };
 
@@ -51,15 +51,13 @@ export default function oneMatchTable({
     type: "homeTeam" | "awayTeam",
     ad: any
   ) => {
-    let res = `${ad}`;
-    if (ad === null || ad === undefined) {
-      return "";
-    }
+    let res = `${ad ?? ""}`;
 
-    if (match.score?.duration !== "REGULAR") {
-      res = `${ad} (${match.score?.fullTime[type]})`;
-    }
+    let type2 = type === "homeTeam" ? "home" : "away"
 
+    if (match.status !== "TIMED") {
+      res = `${ad ?? ""} (${(match.score?.fullTime as any)[type2]})`;
+    }
     return res;
   };
 
@@ -135,6 +133,7 @@ export default function oneMatchTable({
           key="homeTeamScore"
           width={100}
           render={(el: any, record: MatchType) => {
+            console.log(el)
             return (
               <div
                 style={{
