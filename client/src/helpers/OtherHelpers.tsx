@@ -207,6 +207,11 @@ export const renderP2 = (el: string, plainText = false) => {
 };
 
 export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
+  matches = matches.map((el) => {
+    let awayTeamScore = el.status === "FINISHED" ? (el.score?.fullTime as any).away : undefined
+    let homeTeamScore = el.status === "FINISHED" ? (el.score?.fullTime as any).home : undefined
+    return { ...el, awayTeamScore, homeTeamScore }
+  })
   const getPointsForEvent = (selectedMatch: MatchType, user: UsersType) => {
     let bet = user.bets.find((el) => el.matchId === selectedMatch.id);
     let res = 0;

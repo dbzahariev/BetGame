@@ -49,7 +49,7 @@ export default function AddNewBet() {
   const checkDisabledInput = (fullMatch: MatchType, user: UsersType) => {
     const haveGest = (fullMatch: MatchType, user: UsersType) => {
       let myBet = user.bets.find((el) => el.matchId === fullMatch.id);
-
+      debugger
       let awayTeamScore = -1;
       let homeTeamScore = -1;
       let haveBet = false;
