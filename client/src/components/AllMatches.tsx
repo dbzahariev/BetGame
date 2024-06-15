@@ -20,6 +20,10 @@ import justCompare from 'just-compare';
 export const getMatchesForView = (
   matches: MatchType[],
 ) => {
+  const getFinalScore = (match: MatchType, team: "home" | "away") => {
+    return (match?.score?.fullTime as any)[team] || undefined
+  }
+
   let res = [...matches];
   if (showGroupsGlobal === false) {
     res = res.filter((el) => !isGroup(el))
@@ -42,6 +46,11 @@ export const getMatchesForView = (
       return (el.round !== "ROUND_3")
     })
   }
+  res = res.map((match) => {
+    match.awayTeamScore = getFinalScore(match, "away")
+    match.homeTeamScore = getFinalScore(match, "home")
+    return { ...match }
+  })
 
   return res;
 };

@@ -49,8 +49,11 @@ export default function oneMatchTable({
   const getFullScore = (
     match: MatchType,
     type: "homeTeam" | "awayTeam",
-    ad: any
   ) => {
+    let ad = (match[`${type}Score`] ?? "").toString()
+    if (match.round === "ROUND_-1") {
+      ad = ""
+    }
     let res = `${ad ?? ""}`;
 
     let type2 = type === "homeTeam" ? "home" : "away"
@@ -69,6 +72,24 @@ export default function oneMatchTable({
   }
 
   let isEnglish = getDefSettings().isEnglish
+
+  const getCurrentPoint = (record: MatchType, user: UsersType) => {
+    let res = "";
+    let selectedMatchBet = user.bets.find((el) => el.matchId === record.id);
+    let selectedBet = user.bets.find((el) => el.matchId === record.id);
+    if (record.status === "FINISHED") {
+      res = `${selectedMatchBet?.point || 0}`
+    }
+    if (selectedBet !== undefined && res === "") {
+      res = "?"
+    }
+
+    if (record.status === "SCHEDULED" && selectedMatchBet !== undefined) {
+      res = "?"
+    }
+
+    return res;
+  }
 
   return (
     <Table
@@ -132,16 +153,15 @@ export default function oneMatchTable({
           dataIndex="homeTeamScore"
           key="homeTeamScore"
           width={100}
-          render={(el: any, record: MatchType) => {
-            console.log(el)
+          render={(_, record: MatchType) => {
             return (
               <div
                 style={{
                   width: "30px",
                 }}
               >
-                <span style={{}}>
-                  {`${getFullScore(record, "homeTeam", el)}`}
+                <span>
+                  {`${getFullScore(record, "homeTeam")}`}
                 </span>
               </div>
             );
@@ -152,14 +172,14 @@ export default function oneMatchTable({
           dataIndex="awayTeamScore"
           key="awayTeamScore"
           width={100}
-          render={(el: any, record: MatchType) => (
+          render={(_, record: MatchType) => (
             <div
               style={{
                 width: "30px",
               }}
             >
-              <span style={{}}>
-                {`${getFullScore(record, "awayTeam", el)}`}
+              <span>
+                {`${getFullScore(record, "awayTeam")}`}
               </span>
             </div>
           )}
@@ -225,29 +245,7 @@ export default function oneMatchTable({
                 key="points"
                 width={40}
                 render={(_, record: MatchType) => {
-                  const getCurrentPoints = () => {
-                    let res = "";
-                    let selectedMatchBet = user.bets.find(
-                      (el) => el.matchId === record.id
-                    );
-                    if (record.status === "FINISHED") {
-                      res = (selectedMatchBet?.point || 0).toString();
-                    }
-                    else {
-                      let fff = user.bets.find((el) => el.matchId === record.id);
-                      if (fff !== undefined) {
-                        res = (selectedMatchBet?.point || 0).toString();
-                      }
-                    }
-
-                    if (record.status === "SCHEDULED" && selectedMatchBet !== undefined) {
-                      res = "?"
-                    }
-
-                    return res;
-                  };
-
-                  return getCurrentPoints();
+                  return getCurrentPoint(record, user)
                 }}
               />
             </ColumnGroup>
