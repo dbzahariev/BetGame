@@ -21,7 +21,6 @@ export default function oneMatchTable({
   let columnWidth = 50;
 
   const renderColumnForUser = (
-    el: any,
     fullMatch: MatchType,
     user: UsersType,
     type: "homeTeamScore" | "awayTeamScore"
@@ -73,23 +72,21 @@ export default function oneMatchTable({
 
   let isEnglish = getDefSettings().isEnglish
 
-  const getCurrentPoint = (record: MatchType, user: UsersType) => {
+  const getCurrentPoint = (record: MatchType, user: UsersType): string => {
     let res = "";
-    let selectedMatchBet = user.bets.find((el) => el.matchId === record.id);
-    let selectedBet = user.bets.find((el) => el.matchId === record.id);
-    if (record.status === "FINISHED") {
-      res = `${selectedMatchBet?.point || 0}`
-    }
-    if (selectedBet !== undefined && res === "") {
-      res = "?"
-    }
+    const selectedBet = user.bets.find((el) => el.matchId === record.id);
 
-    if (record.status === "SCHEDULED" && selectedMatchBet !== undefined) {
-      res = "?"
+    if (record.status === "TIMED") {
+      res = selectedBet === undefined ? "" : "?";
+    } else if (record.status === "FINISHED") {
+      res = `${selectedBet?.point || 0}`;
+    } else {
+      res = "0";
     }
 
     return res;
-  }
+  };
+
 
   return (
     <Table
@@ -214,8 +211,8 @@ export default function oneMatchTable({
                 dataIndex="homeTeamScore"
                 key="homeTeamScore"
                 width={40}
-                render={(el: any, fullMatch: MatchType) =>
-                  renderColumnForUser(el, fullMatch, user, "homeTeamScore")
+                render={(_, fullMatch: MatchType) =>
+                  renderColumnForUser(fullMatch, user, "homeTeamScore")
                 }
               />
               <Column
@@ -223,8 +220,8 @@ export default function oneMatchTable({
                 dataIndex="awayTeamScore"
                 key="awayTeamScore"
                 width={40}
-                render={(el: any, fullMatch: MatchType) =>
-                  renderColumnForUser(el, fullMatch, user, "awayTeamScore")
+                render={(_, fullMatch: MatchType) =>
+                  renderColumnForUser(fullMatch, user, "awayTeamScore")
                 }
               />
               <Column
@@ -244,9 +241,9 @@ export default function oneMatchTable({
                 dataIndex=""
                 key="points"
                 width={40}
-                render={(_, record: MatchType) => {
-                  return getCurrentPoint(record, user)
-                }}
+                render={(_, record: MatchType) =>
+                  getCurrentPoint(record, user)
+                }
               />
             </ColumnGroup>
           );
