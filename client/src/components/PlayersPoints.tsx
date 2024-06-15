@@ -110,7 +110,6 @@ export default function PlayersPoints() {
       data = data.slice(0, data.length);
       let matches: MatchType[] = [];
 
-      debugger
       data.forEach((el, index) => {
         let score = el.score;
         let matchToAdd: MatchType = {
