@@ -74,7 +74,6 @@ export default function Ranking() {
 
   const getMatches = () => {
     const selectedBackup = getSelectedBackup();
-    debugger
     const matchesFromBackup: MatchType[] = selectedBackup.matches
       .map((el: MatchType) => ({
         number: el.number,

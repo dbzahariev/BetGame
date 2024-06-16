@@ -40,18 +40,19 @@ export default function oneMatchTable({
     return value;
   };
 
-  const getFullScore = (match: MatchType, type: "home" | "away",) => {
-    let ad = (match[`${type}TeamScore`] ?? "").toString()
+  const getFullScore = (match: MatchType, type: "home" | "away"): string => {
+    const teamScore: string = match[`${type}TeamScore`]?.toString() ?? "";
+    const fullTimeScore: string = match?.score?.fullTime[type]?.toString() ?? "";
+
     if (match.round === "ROUND_-1") {
-      ad = ""
+      return fullTimeScore;
     }
-    let res = `${ad ?? ""}`;
 
     if (match.status !== "TIMED") {
-      res = `${ad ?? ""} (${(match.score?.fullTime as any)[type]})`;
+      return `${teamScore} (${fullTimeScore})`;
     }
 
-    return res;
+    return teamScore;
   };
 
   for (let index = 0; index < AllMatches.length; index++) {
