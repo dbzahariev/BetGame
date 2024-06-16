@@ -15,10 +15,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 5, "awayTeam": 0 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 5, "away": 0 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -36,10 +36,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 1, "awayTeam": 0 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 1, "away": 0 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -57,10 +57,10 @@
       "score": {
         "winner": "AWAY_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 0, "awayTeam": 1 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 0, "away": 1 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -78,10 +78,10 @@
       "score": {
         "winner": "DRAW",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 3, "awayTeam": 3 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 3, "away": 3 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -99,10 +99,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 2, "awayTeam": 1 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 2, "away": 1 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -120,10 +120,10 @@
       "score": {
         "winner": "DRAW",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 1, "awayTeam": 1 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 1, "away": 1 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -141,10 +141,10 @@
       "score": {
         "winner": "AWAY_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 0, "awayTeam": 1 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 0, "away": 1 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -162,10 +162,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 2, "awayTeam": 0 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 2, "away": 0 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -183,10 +183,10 @@
       "score": {
         "winner": "AWAY_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 0, "awayTeam": 1 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 0, "away": 1 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -204,10 +204,10 @@
       "score": {
         "winner": "AWAY_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 0, "awayTeam": 1 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 0, "away": 1 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -225,10 +225,10 @@
       "score": {
         "winner": "DRAW",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 1, "awayTeam": 1 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 1, "away": 1 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -246,10 +246,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 1, "awayTeam": 0 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 1, "away": 0 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -267,10 +267,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 3, "awayTeam": 0 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 3, "away": 0 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -288,10 +288,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 2, "awayTeam": 1 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 2, "away": 1 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -309,10 +309,10 @@
       "score": {
         "winner": "AWAY_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 1, "awayTeam": 2 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 1, "away": 2 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -330,10 +330,10 @@
       "score": {
         "winner": "AWAY_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 1, "awayTeam": 2 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 1, "away": 2 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -351,10 +351,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 3, "awayTeam": 1 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 3, "away": 1 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -372,10 +372,10 @@
       "score": {
         "winner": "AWAY_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 0, "awayTeam": 1 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 0, "away": 1 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -393,10 +393,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 1, "awayTeam": 0 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 1, "away": 0 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -414,10 +414,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 1, "awayTeam": 0 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 1, "away": 0 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -435,10 +435,10 @@
       "score": {
         "winner": "DRAW",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 1, "awayTeam": 1 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 1, "away": 1 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -456,10 +456,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 1, "awayTeam": 0 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 1, "away": 0 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -477,10 +477,10 @@
       "score": {
         "winner": "AWAY_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 0, "awayTeam": 3 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 0, "away": 3 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -498,10 +498,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 2, "awayTeam": 0 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 2, "away": 0 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -519,10 +519,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 2, "awayTeam": 0 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 2, "away": 0 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -540,10 +540,10 @@
       "score": {
         "winner": "AWAY_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 1, "awayTeam": 2 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 1, "away": 2 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -561,10 +561,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 5, "awayTeam": 2 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 5, "away": 2 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -582,10 +582,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 2, "awayTeam": 1 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 2, "away": 1 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -603,10 +603,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 2, "awayTeam": 1 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 2, "away": 1 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -624,10 +624,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 6, "awayTeam": 1 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 6, "away": 1 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -645,10 +645,10 @@
       "score": {
         "winner": "DRAW",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 2, "awayTeam": 2 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 2, "away": 2 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -666,10 +666,10 @@
       "score": {
         "winner": "AWAY_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 0, "awayTeam": 3 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 0, "away": 3 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -687,10 +687,10 @@
       "score": {
         "winner": "AWAY_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 0, "awayTeam": 3 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 0, "away": 3 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -708,10 +708,10 @@
       "score": {
         "winner": "AWAY_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 1, "awayTeam": 2 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 1, "away": 2 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -729,10 +729,10 @@
       "score": {
         "winner": "DRAW",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 1, "awayTeam": 1 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 1, "away": 1 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -750,10 +750,10 @@
       "score": {
         "winner": "DRAW",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 2, "awayTeam": 2 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 2, "away": 2 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -771,10 +771,10 @@
       "score": {
         "winner": "DRAW",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 0, "awayTeam": 0 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 0, "away": 0 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -792,10 +792,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 2, "awayTeam": 0 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 2, "away": 0 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -813,10 +813,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 2, "awayTeam": 1 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 2, "away": 1 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -834,10 +834,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 2, "awayTeam": 1 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 2, "away": 1 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -855,10 +855,10 @@
       "score": {
         "winner": "AWAY_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 0, "awayTeam": 3 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 0, "away": 3 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -876,10 +876,10 @@
       "score": {
         "winner": "AWAY_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 0, "awayTeam": 2 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 0, "away": 2 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -897,10 +897,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 2, "awayTeam": 0 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 2, "away": 0 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -918,10 +918,10 @@
       "score": {
         "winner": "DRAW",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 2, "awayTeam": 2 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 2, "away": 2 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -939,10 +939,10 @@
       "score": {
         "winner": "AWAY_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 0, "awayTeam": 1 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 0, "away": 1 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -960,10 +960,10 @@
       "score": {
         "winner": "AWAY_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 0, "awayTeam": 1 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 0, "away": 1 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -981,10 +981,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 1, "awayTeam": 0 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 1, "away": 0 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -1002,10 +1002,10 @@
       "score": {
         "winner": "AWAY_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 1, "awayTeam": 2 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 1, "away": 2 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -1023,10 +1023,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 4, "awayTeam": 3 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 4, "away": 3 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -1044,10 +1044,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 2, "awayTeam": 1 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 2, "away": 1 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -1065,10 +1065,10 @@
       "score": {
         "winner": "AWAY_TEAM",
         "duration": "EXTRA_TIME",
-        "fullTime": { "homeTeam": 1, "awayTeam": 1 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": 1, "awayTeam": 2 },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 1, "away": 1 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": 1, "away": 2 },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -1086,10 +1086,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "EXTRA_TIME",
-        "fullTime": { "homeTeam": 1, "awayTeam": 1 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": 1, "awayTeam": 2 },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 1, "away": 1 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": 1, "away": 2 },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -1107,10 +1107,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 2, "awayTeam": 0 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 2, "away": 0 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -1128,10 +1128,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 3, "awayTeam": 2 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 3, "away": 2 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -1149,10 +1149,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 1, "awayTeam": 0 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 1, "away": 0 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -1170,10 +1170,10 @@
       "score": {
         "winner": "AWAY_TEAM",
         "duration": "EXTRA_TIME",
-        "fullTime": { "homeTeam": 1, "awayTeam": 1 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": 1, "awayTeam": 2 },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 1, "away": 1 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": 1, "away": 2 },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -1191,10 +1191,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 2, "awayTeam": 0 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 2, "away": 0 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -1212,10 +1212,10 @@
       "score": {
         "winner": "AWAY_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 1, "awayTeam": 2 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 1, "away": 2 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -1233,10 +1233,10 @@
       "score": {
         "winner": "AWAY_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 0, "awayTeam": 2 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 0, "away": 2 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -1254,10 +1254,10 @@
       "score": {
         "winner": "AWAY_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 1, "awayTeam": 1 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 1, "away": 1 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -1275,10 +1275,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 1, "awayTeam": 0 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 1, "away": 0 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -1296,10 +1296,10 @@
       "score": {
         "winner": "AWAY_TEAM",
         "duration": "EXTRA_TIME",
-        "fullTime": { "homeTeam": 1, "awayTeam": 1 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": 1, "awayTeam": 2 },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 1, "away": 1 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": 1, "away": 2 },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -1317,10 +1317,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 2, "awayTeam": 0 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 2, "away": 0 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     },
     {
@@ -1338,10 +1338,10 @@
       "score": {
         "winner": "HOME_TEAM",
         "duration": "REGULAR",
-        "fullTime": { "homeTeam": 4, "awayTeam": 2 },
-        "halfTime": { "homeTeam": 0, "awayTeam": 0 },
-        "extraTime": { "homeTeam": null, "awayTeam": null },
-        "penalties": { "homeTeam": null, "awayTeam": null }
+        "fullTime": { "home": 4, "away": 2 },
+        "halfTime": { "home": 0, "away": 0 },
+        "extraTime": { "home": null, "away": null },
+        "penalties": { "home": null, "away": null }
       }
     }
   ],

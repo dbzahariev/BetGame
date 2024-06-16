@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import Groups from "./components/Groups";
-import OneMatch from "./components/OneMatch";
 import "antd/dist/antd.css";
 
 import {
   BrowserRouter as Router,
   Route,
   Link,
-  useParams,
   Switch,
   Redirect,
 } from "react-router-dom";
@@ -29,12 +27,6 @@ const competitionsIds = {
 
 export const selectedCompetition = competitionsIds.Uefa;
 export const selectedApiVersion = "v4";
-
-function MatchWithParams() {
-  let params: any = useParams();
-
-  return <OneMatch matchId={params.matchId} />;
-}
 
 export const fontSize = "20px";
 
@@ -120,7 +112,6 @@ export default function App() {
         </Space>
       </div>
       <Switch>
-        <Route path="/match/:matchId" exact component={MatchWithParams} />
         <Route path="/groups/:groupName" exact component={Groups}></Route>
         <Route path="/rules" exact component={Rules}></Route>
         <Route path="/addbet" exact component={AddNewBet}></Route>
@@ -133,9 +124,6 @@ export default function App() {
         <Route exact path="/allMatches">
           <Redirect to="/" />
         </Route>
-        {/* <Route exact path="/">
-          <Redirect to="/allMatches" />
-        </Route> */}
       </Switch>
     </Router>
   );

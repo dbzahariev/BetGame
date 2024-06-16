@@ -12,24 +12,17 @@ import compare from 'just-compare';
 import { translateTeamsName } from "./Translate";
 import { showGroupOnlyGlobal } from '../components/ModalSettings';
 
+export interface MiniScore {
+  home: number;
+  away: number;
+}
+
 export interface ScoreType {
   duration: string;
-  extraTime: {
-    homeTeam: null;
-    awayTeam: null;
-  };
-  fullTime: {
-    homeTeam: number;
-    awayTeam: number;
-  };
-  halfTime: {
-    homeTeam: number;
-    awayTeam: number;
-  };
-  penalties: {
-    homeTeam: null;
-    awayTeam: null;
-  };
+  extraTime: MiniScore;
+  fullTime: MiniScore;
+  halfTime: MiniScore;
+  penalties: MiniScore;
   winner: string;
 }
 
@@ -530,17 +523,17 @@ export const calcScore = (match: MatchType, score: any) => {
   }
 
   if (res.ht !== undefined) {
-    res.ht -= match.score?.extraTime.homeTeam || 0;
+    res.ht -= match.score?.extraTime.home || 0;
   }
   if (res.at !== undefined) {
-    res.at -= match.score?.extraTime.awayTeam || 0;
+    res.at -= match.score?.extraTime.away || 0;
   }
 
   if (res.ht !== undefined) {
-    res.ht -= match.score?.penalties.homeTeam || 0;
+    res.ht -= match.score?.penalties.home || 0;
   }
   if (res.at !== undefined) {
-    res.at -= match.score?.penalties.awayTeam || 0;
+    res.at -= match.score?.penalties.away || 0;
   }
 
   return res;
@@ -578,7 +571,7 @@ export const getAllMatchesAsyncFetch = async () => {
     .then(response => response.json())
     .catch(error => console.error('Error:', error))
     .then(data2 => {
-      return data2.matches.map((el: any, index: number) => {
+      return data2.matches.map((el: MatchType, index: number) => {
         let score = el.score;
         let calculatedScore = calcScore(el, score);
         let calculatedRound = calcRound(el)
@@ -614,20 +607,4 @@ export const getAllTeams = (setTeams: Function) => {
     .then(data2 => {
       setTeams(data2.teams)
     })
-
-  // var config: AxiosRequestConfig = {
-  //   method: "GET",
-  //   url: `https://api.football-data.org/${selectedApiVersion}/competitions/${selectedCompetition}/teams`,
-  //   headers: {
-  //     "X-Auth-Token": "c8d23279fec54671a43fcd93068762d1",
-  //   },
-  // };
-
-  // axios(config)
-  //   .then(function (response) {
-  //     let data: any[] = response.data.teams
-  //     let teams: { name: string, flag: string }[] = data.map((el: any) => ({ name: el.name, flag: el.crestUrl }))
-  //     setTeams(teams);
-  //   })
-  //   .catch((error) => console.error(error));
 };

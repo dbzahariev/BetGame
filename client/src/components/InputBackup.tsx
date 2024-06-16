@@ -7,7 +7,7 @@ interface MatchFromBackup {
   number: number;
   key: number;
   id: number;
-  homeTeam: {
+  home: {
     id: number;
     name: string;
   };
@@ -25,20 +25,20 @@ interface MatchFromBackup {
     winner: string;
     duration: string;
     fullTime: {
-      homeTeam: number;
-      awayTeam: number;
+      home: number;
+      away: number;
     };
     halfTime: {
-      homeTeam: number;
-      awayTeam: number;
+      home: number;
+      away: number;
     };
     extraTime: {
-      homeTeam: null;
-      awayTeam: null;
+      home: null;
+      away: null;
     };
     penalties: {
-      homeTeam: null;
-      awayTeam: null;
+      home: null;
+      away: null;
     };
   };
 }
@@ -71,7 +71,7 @@ export default function InputBackup() {
     number: 1,
     key: 0,
     id: 201801,
-    homeTeam: { id: 1, name: "Русия" },
+    home: { id: 1, name: "Русия" },
     awayTeam: { id: 2, name: "Саудитска Арабия" },
     utcDate: "2018-06-14T15:00:00Z",
     group: "Group A",
@@ -82,10 +82,10 @@ export default function InputBackup() {
     score: {
       winner: "HOME_TEAM",
       duration: "REGULAR",
-      fullTime: { homeTeam: 5, awayTeam: 0 },
-      halfTime: { homeTeam: 0, awayTeam: 0 },
-      extraTime: { homeTeam: null, awayTeam: null },
-      penalties: { homeTeam: null, awayTeam: null },
+      fullTime: { home: 5, away: 0 },
+      halfTime: { home: 0, away: 0 },
+      extraTime: { home: null, away: null },
+      penalties: { home: null, away: null },
     },
   };
 
@@ -185,7 +185,7 @@ export default function InputBackup() {
       number: input.number,
       key: input.number - 1,
       id: Number(`2018${input.number}`),
-      homeTeam: { id: 1, name: input.otbor1 },
+      home: { id: 1, name: input.otbor1 },
       awayTeam: { id: 2, name: input.otbor2 },
       utcDate: new Date(input.date).toUTCString(),
       group: input.group,
@@ -197,12 +197,12 @@ export default function InputBackup() {
         winner: input.winner,
         duration: "REGULAR",
         fullTime: {
-          homeTeam: input.homeTeamScore,
-          awayTeam: input.awayTeamScore,
+          home: input.homeTeamScore,
+          away: input.awayTeamScore,
         },
-        halfTime: { homeTeam: 0, awayTeam: 0 },
-        extraTime: { homeTeam: null, awayTeam: null },
-        penalties: { homeTeam: null, awayTeam: null },
+        halfTime: { home: 0, away: 0 },
+        extraTime: { home: null, away: null },
+        penalties: { home: null, away: null },
       },
     };
     setInput({

@@ -51,14 +51,14 @@ export default function OneMatchInScheme({ match, teams = [] }: { match: MatchTy
       res = `${match.homeTeamScore}`;
 
       if (match.score?.duration !== "REGULAR") {
-        res += ` (${match.score?.fullTime.homeTeam})`;
+        res += ` (${match.score?.fullTime.home})`;
       }
     }
     if (team === "away" && res !== undefined) {
       res = `${match.awayTeamScore}`;
 
       if (match.score?.duration !== "REGULAR") {
-        res += ` (${match.score?.fullTime.awayTeam})`;
+        res += ` (${match.score?.fullTime.away})`;
       }
     }
 

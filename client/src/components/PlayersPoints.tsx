@@ -122,8 +122,8 @@ export default function PlayersPoints() {
           utcDate: el.utcDate,
           group: el.group,
           winner: score?.winner || "",
-          homeTeamScore: score?.fullTime?.homeTeam || 0,
-          awayTeamScore: score?.fullTime?.awayTeam || 0,
+          homeTeamScore: score?.fullTime?.home || 0,
+          awayTeamScore: score?.fullTime?.away || 0,
         };
         matches.push(matchToAdd);
       });

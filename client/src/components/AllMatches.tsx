@@ -60,7 +60,7 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
   const [isInit, setIsint] = useState(-1)
   const { state, setState } = useGlobalState();
 
-  const matches = state.matches || []
+  const matches = [...state.matches || []]
   const users = state.users || []
 
   let intervalRef = useRef<any>();

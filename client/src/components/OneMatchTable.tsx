@@ -7,6 +7,8 @@ import { translateTeamsName } from "../helpers/Translate";
 
 oneMatchTable.defaultProps = { usersColumns: undefined }
 
+const columnWidth = 50;
+
 export default function oneMatchTable({
   AllMatches,
   users,
@@ -18,48 +20,37 @@ export default function oneMatchTable({
   result: Boolean;
   usersColumns: any[]
 }) {
-  let columnWidth = 50;
 
-  const renderColumnForUser = (
-    fullMatch: MatchType,
-    user: UsersType,
-    type: "homeTeamScore" | "awayTeamScore"
-  ) => {
-    const getValue = (
-      user: UsersType,
-      type: "homeTeamScore" | "awayTeamScore",
-      fullMatch: MatchType
-    ) => {
-      let selectedMatch = user.bets.find((el) => el.matchId === fullMatch.id);
-      if (selectedMatch) return (selectedMatch as any)[type];
-      else return "";
-    };
-
-    let dd = getValue(user, type, fullMatch);
-    let matchDate = new Date(fullMatch.utcDate);
-    let now = new Date();
-    let dif = matchDate.getTime() - now.getTime();
-    if (dif > 0 && dd.toString().length > 0) {
-      dd = "?";
-    }
-    return dd;
+  const getValue = (user: UsersType, type: "homeTeamScore" | "awayTeamScore", fullMatch: MatchType) => {
+    let selectedMatch = user.bets.find((el) => el.matchId === fullMatch.id);
+    if (selectedMatch) return (selectedMatch as any)[type];
+    else return "";
   };
 
-  const getFullScore = (
-    match: MatchType,
-    type: "homeTeam" | "awayTeam",
-  ) => {
-    let ad = (match[`${type}Score`] ?? "").toString()
+  const renderColumnForUser = (fullMatch: MatchType, user: UsersType, type: "homeTeamScore" | "awayTeamScore"): string | number => {
+    let value = getValue(user, type, fullMatch);
+    const matchDate = new Date(fullMatch.utcDate);
+    const now = Date.now();
+    const dif = matchDate.getTime() - now;
+
+    if (dif > 0 && value.toString().length > 0) {
+      return "?";
+    }
+
+    return value;
+  };
+
+  const getFullScore = (match: MatchType, type: "home" | "away",) => {
+    let ad = (match[`${type}TeamScore`] ?? "").toString()
     if (match.round === "ROUND_-1") {
       ad = ""
     }
     let res = `${ad ?? ""}`;
 
-    let type2 = type === "homeTeam" ? "home" : "away"
-
     if (match.status !== "TIMED") {
-      res = `${ad ?? ""} (${(match.score?.fullTime as any)[type2]})`;
+      res = `${ad ?? ""} (${(match.score?.fullTime as any)[type]})`;
     }
+
     return res;
   };
 
@@ -86,7 +77,6 @@ export default function oneMatchTable({
 
     return res;
   };
-
 
   return (
     <Table
@@ -158,7 +148,7 @@ export default function oneMatchTable({
                 }}
               >
                 <span>
-                  {`${getFullScore(record, "homeTeam")}`}
+                  {`${getFullScore(record, "home")}`}
                 </span>
               </div>
             );
@@ -176,7 +166,7 @@ export default function oneMatchTable({
               }}
             >
               <span>
-                {`${getFullScore(record, "awayTeam")}`}
+                {`${getFullScore(record, "away")}`}
               </span>
             </div>
           )}
