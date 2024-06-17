@@ -166,7 +166,7 @@ export default function Groups() {
         {groups.map((group) => {
           return (
             <div key={`Group ${group.name}`} id={`Group ${group.name}`}
-              style={{ width: "760px", border: "2px solid black" }}>
+              style={{ width: "760px", border: "2px solid black", backgroundColor:"yellow" }}>
               <p style={{ textAlign: "center", padding: "10px", margin: "0px", fontWeight: "bold", fontSize: "20px" }}>{`${translateTeamsName("GROUP")} ${group.name}`}</p>
               {oneGroupMatches(group)}
               <Space style={{

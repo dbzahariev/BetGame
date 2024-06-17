@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import Groups from "./components/Groups";
 import "antd/dist/antd.css";
@@ -19,71 +19,24 @@ import Ranking from "./components/ranking/Ranking";
 import AllMatches from "./components/AllMatches";
 import { translateTeamsName } from "./helpers/Translate";
 
-const competitionsIds = {
-  Uefa: 2018,
-  Premier: 2021,
-  World: 2000,
-};
-
-export const selectedCompetition = competitionsIds.Uefa;
-export const selectedApiVersion = "v4";
-
 export const fontSize = "20px";
 
 export default function App() {
   const [reload, setReload] = useState(0);
-  const [tableWitdh, setTableWidth] = useState(0);
 
   const refresh = () => {
     setReload(reload + 1);
   };
 
-  const [dimensions, setDimensions] = useState({
-    widthI: window.innerWidth,
-    heightI: window.innerHeight,
-    widthO: window.outerWidth,
-    heightO: window.outerHeight,
-  });
-
-  useEffect(() => {
-    const updateWindowDimensions = () => {
-      setDimensions({
-        widthI: window.innerWidth,
-        heightI: window.innerWidth,
-        widthO: window.outerWidth,
-        heightO: window.outerWidth,
-      });
-    };
-
-    window.addEventListener("resize", updateWindowDimensions);
-    window.addEventListener("scroll", onScroll);
-  }, []);
-
-  const onScroll = () => {
-    setTableWidth(document.getElementById("oneMatchTable")?.clientWidth || (window.innerWidth * 0.989))
-  };
-
-  useEffect(() => {
-    onScroll()
-  }, [dimensions])
-
   return (
     <Router>
       <div
         id="header"
-        style={{
-          position: "sticky",
-          zIndex: 2,
-          top: 0,
-          backgroundColor: "white",
-          minWidth: "850px",
-          width: `${tableWitdh * 1}px`,
-        }}
       >
         <Space
           direction={"horizontal"}
           size={"large"}
-          style={{ height: `${dimensions.heightO * 0.06}px`, whiteSpace: "nowrap" }}
+          style={{ whiteSpace: "nowrap", margin: "10px" }}
         >
           <Link
             style={{ fontSize: fontSize, display: "block" }}

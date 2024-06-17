@@ -397,10 +397,9 @@ export default function AddNewBet() {
   };
 
   return (
-    <div>
+    <div style={{ width: "min-content" }}>
       <Select
         defaultValue={translateTeamsName("Chose plear")}
-        style={{ width: 140 }}
         onChange={handleChangeForSelector}
       >
         <Option value="">{translateTeamsName("Chose plear")}</Option>
@@ -413,17 +412,9 @@ export default function AddNewBet() {
           );
         })}
       </Select>
-      <div style={{ width: 4000 }}>
+      <div>
         <Space direction={"horizontal"}>{oneMatchTable(matches)}</Space>
       </div>
-      {/* <div>
-        <Space direction={"horizontal"}>
-          <OneMatchTable
-            AllMatches={matches}
-            users={users}
-          />
-        </Space>
-      </div> */}
     </div>
   );
 }
