@@ -18,6 +18,7 @@ import Scheme from "./components/scheme/Scheme";
 import Ranking from "./components/ranking/Ranking";
 import AllMatches from "./components/AllMatches";
 import { translateTeamsName } from "./helpers/Translate";
+import { matchesNotState } from "./helpers/OtherHelpers";
 
 export const fontSize = "20px";
 
@@ -28,41 +29,46 @@ export default function App() {
     setReload(reload + 1);
   };
 
+  const getSpacelinks = () => {
+    if (matchesNotState.length === 0) return <></>
+    return <Space
+      direction={"horizontal"}
+      size={"large"}
+      style={{ whiteSpace: "nowrap", margin: "10px" }}
+    >
+      <Link
+        style={{ fontSize: fontSize, display: "block" }}
+        to="/allMatches"
+      >
+        <span>{translateTeamsName("All matches")}</span>
+      </Link>
+      <Link style={{ fontSize: fontSize }} to="/addbet">
+        {translateTeamsName("Predictions")}
+      </Link>
+      <Link to="/groups/all" style={{ fontSize: fontSize }}>
+        {translateTeamsName("Groups")}
+      </Link>
+      <Link to="/rules" style={{ fontSize: fontSize }}>
+        {translateTeamsName("Rules")}
+      </Link>
+      <Link to="/chatroom" style={{ fontSize: fontSize }}>
+        {translateTeamsName("Chat")}
+      </Link>
+      <Link to="/scheme" style={{ fontSize: fontSize }}>
+        {translateTeamsName("Scheme")}
+      </Link>
+      <Link to="/ranking" style={{ fontSize: fontSize }}>
+        {translateTeamsName("Ranking")}
+      </Link>
+    </Space>
+  }
+
   return (
     <Router>
       <div
         id="header"
       >
-        <Space
-          direction={"horizontal"}
-          size={"large"}
-          style={{ whiteSpace: "nowrap", margin: "10px" }}
-        >
-          <Link
-            style={{ fontSize: fontSize, display: "block" }}
-            to="/allMatches"
-          >
-            <span>{translateTeamsName("All matches")}</span>
-          </Link>
-          <Link style={{ fontSize: fontSize }} to="/addbet">
-            {translateTeamsName("Predictions")}
-          </Link>
-          <Link to="/groups/all" style={{ fontSize: fontSize }}>
-            {translateTeamsName("Groups")}
-          </Link>
-          <Link to="/rules" style={{ fontSize: fontSize }}>
-            {translateTeamsName("Rules")}
-          </Link>
-          <Link to="/chatroom" style={{ fontSize: fontSize }}>
-            {translateTeamsName("Chat")}
-          </Link>
-          <Link to="/scheme" style={{ fontSize: fontSize }}>
-            {translateTeamsName("Scheme")}
-          </Link>
-          <Link to="/ranking" style={{ fontSize: fontSize }}>
-            {translateTeamsName("Ranking")}
-          </Link>
-        </Space>
+        {getSpacelinks()}
       </div>
       <Switch>
         <Route path="/groups/:groupName" exact component={Groups}></Route>

@@ -67,6 +67,17 @@ export interface UsersType {
   totalPoints: number;
 }
 
+export let matchesNotState: MatchType[] = []
+export let usersNotState: UsersType[] = []
+
+export const setMatchNotState = (matches: MatchType[]) => {
+  matchesNotState = matches
+}
+
+export const setusersNotState = (users: UsersType[]) => {
+  usersNotState = users
+}
+
 export const isGroup = (fullMatch: MatchType) => {
   return (fullMatch.group || "").toLowerCase().includes("group")
 }
@@ -539,31 +550,43 @@ export const calcScore = (match: MatchType, score: any) => {
 };
 
 export const calcRound = (match: MatchType) => {
-  let round1 = {
-    startDate: new Date("2022-11-20").getTime(),
-    endDate: new Date("2022-11-24").getTime()
-  }
-  let round2 = {
-    startDate: new Date("2022-11-25").getTime(),
-    endDate: new Date("2022-11-28").getTime()
-  }
-  let round3 = {
-    startDate: new Date("2022-11-29").getTime(),
-    endDate: new Date("2022-12-02").getTime()
-  }
+  const stageToRoundMap: { [key: string]: string } = {
+    "LAST_16": "1",
+    "QUARTER_FINALS": "2",
+    "SEMI_FINALS": "3",
+    "FINAL": "4"
+  };
 
-  let matchDate = new Date((match.utcDate).toString().slice(0, 10)).getTime()
-  let matchRound: number = -1
-  if (matchDate >= round1.startDate && matchDate <= round1.endDate) {
-    matchRound = 1
-  } else if (matchDate >= round2.startDate && matchDate <= round2.endDate) {
-    matchRound = 2
-  } else if (matchDate >= round3.startDate && matchDate <= round3.endDate) {
-    matchRound = 3
-  }
+  const matchRound = -1//match.stage && match.stage !== "GROUP_STAGE" ? stageToRoundMap[match.stage] || "-1" : "-1";
+  return `ROUND_${matchRound}`;
+};
 
-  return `ROUND_${matchRound}`
-}
+// export const calcRound2 = (match: MatchType) => {
+//   let round1 = {
+//     startDate: new Date("2022-11-20").getTime(),
+//     endDate: new Date("2022-11-24").getTime()
+//   }
+//   let round2 = {
+//     startDate: new Date("2022-11-25").getTime(),
+//     endDate: new Date("2022-11-28").getTime()
+//   }
+//   let round3 = {
+//     startDate: new Date("2022-11-29").getTime(),
+//     endDate: new Date("2022-12-02").getTime()
+//   }
+
+//   let matchDate = new Date((match.utcDate).toString().slice(0, 10)).getTime()
+//   let matchRound: number = -1
+//   if (matchDate >= round1.startDate && matchDate <= round1.endDate) {
+//     matchRound = 1
+//   } else if (matchDate >= round2.startDate && matchDate <= round2.endDate) {
+//     matchRound = 2
+//   } else if (matchDate >= round3.startDate && matchDate <= round3.endDate) {
+//     matchRound = 3
+//   }
+
+//   return `ROUND_${matchRound}`
+// }
 
 export const getAllMatchesAsyncFetch = async () => {
   let res: MatchType[] = await fetch('api/db/matches')

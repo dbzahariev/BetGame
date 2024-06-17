@@ -4,7 +4,9 @@ import {
   ScoreType,
   stylingTable,
   UsersType,
-  getPoints
+  getPoints,
+  usersNotState,
+  matchesNotState
 } from "../../helpers/OtherHelpers";
 import OneMatchTable from "../OneMatchTable";
 import rankingImg4 from "./rankingImg_4_ranks.svg";
@@ -21,7 +23,6 @@ import backup2016 from "./Backup2016.json";
 import { Select, Space, Switch } from "antd";
 import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
 import { translateTeamsName } from "../../helpers/Translate";
-import { useGlobalState } from "../../GlobalStateProvider";
 
 const { Option } = Select;
 
@@ -42,7 +43,6 @@ export default function Ranking() {
     matches: any[];
     users: any[];
   }>({ matches: [], users: [] })
-  const { state } = useGlobalState()
 
   useEffect(() => {
     genBackupCurrentYear()
@@ -69,7 +69,7 @@ export default function Ranking() {
   };
 
   const genBackupCurrentYear = () => {
-    setBackupCurrentYear({ matches: state.matches ?? [], users: getPoints(state.users ?? [], state.matches ?? []) })
+    setBackupCurrentYear({ matches: matchesNotState, users: getPoints(usersNotState, matchesNotState) })
   }
 
   const getMatches = () => {

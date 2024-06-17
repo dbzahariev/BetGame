@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Space } from "antd";
+import { Space, Spin } from "antd";
 import { AutoRefreshInterval } from "./AutoRefresh";
 import OneMatchTable from "./OneMatchTable";
 
@@ -10,16 +10,22 @@ import {
   MatchType,
   isGroup,
   UsersType,
-  getMatchesAndUsers,
   isGroupName,
+  matchesNotState,
+  usersNotState,
+  setMatchNotState,
+  setusersNotState,
+  getAllMatchesAsyncFetch,
+  getAllUsersAsync,
 } from "../helpers/OtherHelpers";
 import ModalSettings, { showGroupsGlobal, showRound1Global, showRound2Global, showRound3Global } from "./ModalSettings";
-import { useGlobalState } from "../GlobalStateProvider";
-import justCompare from 'just-compare';
+import { LoadingOutlined } from "@ant-design/icons";
 
 export const getMatchesForView = (
   matches: MatchType[],
 ) => {
+  if (matches.length === 0) return []
+  
   const getFinalScore = (match: MatchType, team: "home" | "away") => {
     return (match?.score?.fullTime as any)[team] || undefined
   }
@@ -58,16 +64,15 @@ export const getMatchesForView = (
 export default function AllMatches({ refresh }: { refresh: Function }) {
   const [filteredMatches, setFilteredMatches] = useState<MatchType[]>([]);
   const [isInit, setIsint] = useState(-1)
-  const { state, setState } = useGlobalState();
 
-  const matches = [...state.matches || []]
-  const users = state.users || []
+  const matches = matchesNotState
+  const users = usersNotState
 
   let intervalRef = useRef<any>();
 
   useEffect(() => {
-    stylingTable(users)
-    setFilteredMatches(matches)
+    stylingTable(usersNotState)
+    setFilteredMatches(matchesNotState)
   }, [users, matches])
 
   useEffect(() => {
@@ -82,17 +87,24 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
   }, [AutoRefreshInterval]);
 
   const reloadDate = () => {
-    getMatchesAndUsers().then((newState) => {
-      if (!justCompare(newState.matches, state.matches)) {
-        setState(newState)
-      }
-    })
-    stylingTable(state.users || [])
+    fetchDate().then((date) => {
+      setMatchNotState(date.matches)
+      setusersNotState(date.users)
+      setIsint(isInit + 1)
+    }).catch(console.error)
+    //   getMatchesAndUsers().then((newState) => {
+    //     console.log("refresh")
+    //     if (!justCompare(newState.matches, matchesNotState)) {
+    //       setMatchNotState(newState.matches)
+    //       setusersNotState(newState.usesers)
+    //     }
+    //   })
+    //   stylingTable(usersNotState)
   }
 
   useEffect(() => {
-    if (isInit > -1) {
-      reloadDate()
+    if (isInit > 0) {
+      // reloadDate()
     }
     // eslint-disable-next-line
   }, [refresh])
@@ -119,6 +131,26 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
     // eslint-disable-next-line 
   }, [isInit])
 
+  useEffect(() => {
+    reloadDate()
+    // eslint-disable-next-line
+  }, [])
+
+  const fetchDate = async () => {
+    let matches = await getAllMatchesAsyncFetch()
+    let users = await getAllUsersAsync()
+    return { matches, users }
+  }
+
+  let stateMatches = matchesNotState.length
+  if (!stateMatches) {
+    return <div>
+      <Spin
+        indicator={<LoadingOutlined style={{ fontSize: 80 }} spin />}
+        size="large"
+        style={{ padding: "10px", width: "100%", height: "100%", alignItems: "center" }}
+      /></div>
+  }
   return (
     <Space direction="vertical">
       <ModalSettings refresh={() => setIsint(isInit + 1)} />

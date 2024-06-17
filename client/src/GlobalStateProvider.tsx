@@ -1,6 +1,6 @@
 import { Spin } from "antd";
 import React, { createContext, useState, useContext, Dispatch, SetStateAction, useEffect } from "react";
-import { getAllMatchesAsyncFetch, getAllUsersAsync, MatchType, UsersType } from "./helpers/OtherHelpers";
+import { getAllMatchesAsyncFetch, getAllUsersAsync, matchesNotState, MatchType, setMatchNotState, setusersNotState, usersNotState, UsersType } from "./helpers/OtherHelpers";
 
 import { LoadingOutlined } from "@ant-design/icons";
 
@@ -21,29 +21,36 @@ const GlobalStateProvider = ({
   children: React.ReactNode;
   value?: GlobalStateInterface;
 }) => {
-  const [state, setState] = useState<Partial<GlobalStateInterface>>(value);
+  const [foo, setFoo] = useState(0)
 
   const fetchDate = async () => {
     let matches = await getAllMatchesAsyncFetch()
     let users = await getAllUsersAsync()
+    setFoo(foo + 1)
     return { matches, users }
   }
 
   useEffect(() => {
     setTimeout(() => {
       fetchDate().then((date) => {
-        setState({ matches: date.matches, users: date.users })
+        console.log("set matches", date.matches)
+        setMatchNotState(date.matches)
+        setusersNotState(date.users)
+        setFoo(foo + 1)
       }).catch(console.error)
     }, 1)
+    // eslint-disable-next-line
   }, [])
 
-  let stateMatches = state?.matches?.length
+  let stateMatches = matchesNotState.length
   if (!stateMatches) {
     setTimeout(() => {
       fetchDate().then((date) => {
-        setState({ matches: date.matches, users: date.users })
+        setMatchNotState(date.matches)
+        setusersNotState(date.users)
       }).catch(console.error)
     }, 6000)
+    console.log("not found matches")
     return <div>
       <Spin
         indicator={<LoadingOutlined style={{ fontSize: 80 }} spin />}
@@ -52,13 +59,15 @@ const GlobalStateProvider = ({
       /></div>
   }
 
-  let statUsers = state?.users?.length
+  let statUsers = usersNotState.length
   if (!statUsers) {
     setTimeout(() => {
       fetchDate().then((date) => {
-        setState({ matches: date.matches, users: date.users })
+        setMatchNotState(date.matches)
+        setusersNotState(date.users)
       }).catch(console.error)
     }, 100);
+    console.log("not found users")
     return <div>
       <Spin
         indicator={<LoadingOutlined style={{ fontSize: 80 }} spin />}
@@ -68,9 +77,9 @@ const GlobalStateProvider = ({
   }
 
   return (
-    <GlobalStateContext.Provider value={{ state, setState }}>
+    // <GlobalStateContext.Provider value={{ state, setState }}>
       {children}
-    </GlobalStateContext.Provider>
+    // </GlobalStateContext.Provider>
   );
 };
 

@@ -7,7 +7,7 @@ import { translateTeamsName } from "../helpers/Translate";
 
 oneMatchTable.defaultProps = { usersColumns: undefined }
 
-const columnWidth = 50;
+const columnWidth = 500;
 
 export default function oneMatchTable({
   AllMatches,
@@ -74,6 +74,7 @@ export default function oneMatchTable({
 
   return (
     <Table
+      style={{ width: "1500px", backgroundColor: "yellow" }}
       id="oneMatchTable"
       dataSource={AllMatches}
       pagination={false}
@@ -106,7 +107,7 @@ export default function oneMatchTable({
           let newEl = new Date(el)
           let res = `${newEl.getHours()}.0${newEl.getUTCMinutes()}`
 
-          return <span style={{}}>{res}</span>;
+          return <span style={{ textWrap: "nowrap" }}>{res}</span>;
         }}
       />
       <Column
@@ -114,8 +115,8 @@ export default function oneMatchTable({
         dataIndex="group"
         key="group"
         render={(el: any) => {
-          return <div style={!result ? { height: "2.6rem", display: "flex", alignItems: "center" } : {}}>
-            <span>{translateTeamsName(el || "") || translateTeamsName("Will be decided")}</span>
+          return <div style={!result ? { height: "2.6rem", width: "3rem", backgroundColor: "yellow", display: "flex", alignItems: "center" } : {}}>
+            <span style={{ textWrap: "nowrap" }}>{translateTeamsName(el || "") || translateTeamsName("Will be decided")}</span>
           </div>
         }}
       />
@@ -123,9 +124,8 @@ export default function oneMatchTable({
         title={translateTeamsName("Home team")}
         dataIndex="homeTeam"
         key="homeTeam"
-        width={columnWidth}
         render={(el: any) => (
-          <span style={{ justifyContent: "center" }}>{translateTeamsName(el.name) || translateTeamsName("Will be decided")}</span>
+          <span style={{ textWrap: "nowrap" }}>{translateTeamsName(el.name) || translateTeamsName("Will be decided")}</span>
         )}
       />
       {result ? <ColumnGroup title={translateTeamsName("Result")}>
@@ -180,7 +180,7 @@ export default function oneMatchTable({
         key="awayTeam"
         width={columnWidth}
         render={(el: any) => (
-          <span>{translateTeamsName(el.name) || translateTeamsName("Will be decided")}</span>
+          <span style={{ textWrap: "nowrap" }}>{translateTeamsName(el.name) || translateTeamsName("Will be decided")}</span>
         )}
       />
       {usersColumns ? usersColumns :

@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Select, Space, Switch } from 'antd';
 
 import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
-import { getDefSettings, setDefSettings } from '../helpers/OtherHelpers';
+import { getDefSettings, matchesNotState, setDefSettings } from '../helpers/OtherHelpers';
 import AutoRefresh from './AutoRefresh';
 import { translateTeamsName } from '../helpers/Translate';
-import { useGlobalState } from '../GlobalStateProvider';
 
 export let showGroupsGlobal = getDefSettings().showGroups
 export let showGroupOnlyGlobal = getDefSettings().showGroupOnly
@@ -26,7 +25,6 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
   const [selctedGroupState, setSelectedGropState] = useState(getDefSettings().filterGroup)
   const [isEnglishState, setIsEnglishState] = useState(getDefSettings().isEnglish);
   const [isInit, setIsInit] = useState(-1);
-  const { state } = useGlobalState();
 
   const hendleOk = () => {
     checkChange()
@@ -73,7 +71,6 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
   }, [isInit])
 
   useEffect(() => {
-    // checkChange()
     hendleOk()
     // eslint-disable-next-line 
   }, [showGroups, showGroupOnly, showRound1, showRound2, showRound3, isEnglishState, selctedGroupState])
@@ -85,37 +82,28 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
   }
 
   const fixDate = () => {
-    let groupsNameOptions: { value: string, label: string }[] = []
-    let groupNames: string[] = [""]
+    const matches = matchesNotState;
 
-    const matches = state.matches || []
+    const groupNames = matches
+      .map(m => m.group || "")
+      .filter((g, index, self) => g.toLowerCase().includes("group") && self.indexOf(g) === index);
 
-    for (let index = 0; index < matches.length; index++) {
-      let elToAll = matches[index].group || ""
-      if (!groupNames.includes(elToAll) && elToAll.toLowerCase().indexOf("group") !== -1) {
-        groupNames.push(elToAll)
-      }
-    }
-    for (let index = 0; index < groupNames.length; index++) {
-      const groupName = groupNames[index];
-      let elToAdd: {
-        value: string;
-        label: string;
-      } = { value: "", label: "" }
-      if (groupName === "") {
-        elToAdd = { value: "", label: translateTeamsName("Chose group") }
-      } else {
-        elToAdd = { value: groupName, label: translateTeamsName(groupName) }
-      }
-      groupsNameOptions.push(elToAdd)
-    }
-    setGroupsName(groupsNameOptions)
-  }
+    const groupsNameOptions = [
+      { value: "", label: translateTeamsName("Chose group") },
+      ...groupNames.map(groupName => ({ value: groupName, label: translateTeamsName(groupName) }))
+    ];
+
+    setGroupsName(groupsNameOptions);
+  };
 
   useEffect(() => {
     fixDate()
     // eslint-disable-next-line 
-  }, [isEnglish])
+  }, [isEnglish, matchesNotState])
+
+  if (matchesNotState.length === 0) {
+    return <></>
+  }
 
   return (
     <Space direction="horizontal" style={{ width: '100%' }}>
@@ -129,7 +117,7 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
               setDefSettings("showGroups", (newValue || false).toString())
 
               setShowRound1(newValue)
-              setDefSettings("showRound1", (newValue || false).toString())
+              setDefSettings("", (newValue || false).toString())
               setShowRound2(newValue)
               setDefSettings("showRound2", (newValue || false).toString())
               setShowRound3(newValue)

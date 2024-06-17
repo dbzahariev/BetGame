@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Button, Space, Table } from "antd";
 import { translateTeamsName } from "../helpers/Translate";
 import { useParams } from "react-router-dom";
-import { MatchType } from "../helpers/OtherHelpers";
+import { MatchType, matchesNotState } from "../helpers/OtherHelpers";
 import OneMatchTable from "./OneMatchTable";
-import { useGlobalState } from "../GlobalStateProvider";
 
 type OneRow = {
   key: string;
@@ -25,18 +24,13 @@ type OneGroup = {
 
 export default function Groups() {
   const [groups, setGroups] = useState<OneGroup[]>([]);
-  const { state } = useGlobalState()
-  const matches = state.matches || []
   let params: any = useParams();
 
   useEffect(() => {
-    if (matches.length > 0) {
-      foo();
-    }
-  }, [matches.length]);
+    fixStandings();
+  }, []);
 
-
-  const foo = () => {
+  const fixStandings = () => {
     fetch('api/db/standings')
       .then(response => response.json())
       .catch(error => console.error('Error:', error))
@@ -144,9 +138,7 @@ export default function Groups() {
     };
 
     const oneGroupMatches = (group: OneGroup) => {
-      let filteredMatches = matches.filter((el: MatchType) => {
-        return (el.group || "") === `GROUP_${group.name}`
-      })
+      let filteredMatches = matchesNotState.filter((el: MatchType) => (el.group || "") === `GROUP_${group.name}`)
 
       return (
         <div style={{ padding: "0px" }}>

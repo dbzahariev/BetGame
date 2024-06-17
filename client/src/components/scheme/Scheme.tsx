@@ -1,7 +1,6 @@
 import React from "react"
 import { useEffect, useState } from "react";
-import { useGlobalState } from "../../GlobalStateProvider";
-import { getAllTeams } from "../../helpers/OtherHelpers";
+import { getAllTeams, matchesNotState } from "../../helpers/OtherHelpers";
 import { translateTeamsName } from "../../helpers/Translate";
 import OneMatchInScheme from "./OneMatchInScheme";
 import Separator from "./separator.svg";
@@ -13,8 +12,7 @@ export default function Scheme() {
     name: string;
     flag: string;
   }[]>([])
-  const { state } = useGlobalState()
-  const matches = state.matches || []
+  const matches = matchesNotState
 
   useEffect(() => {
     getAllTeams((teams: any[]) => {

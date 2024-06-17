@@ -3,8 +3,7 @@ import { Input, InputNumber, notification, Select, Space } from "antd";
 import Column from "antd/lib/table/Column";
 import ColumnGroup from "antd/lib/table/ColumnGroup";
 import axios from "axios";
-import { useGlobalState } from "../GlobalStateProvider";
-import { UsersType, MatchType, renderP2, isGroup, stylingTable, getAllMatchesAsyncFetch } from '../helpers/OtherHelpers';
+import { UsersType, MatchType, renderP2, isGroup, stylingTable, getAllMatchesAsyncFetch, matchesNotState, usersNotState, setMatchNotState } from '../helpers/OtherHelpers';
 import { translateTeamsName } from "../helpers/Translate";
 import OneMatchTable from "./OneMatchTable";
 
@@ -16,9 +15,8 @@ export default function AddNewBet() {
   const [selectedUserName, setSelectedUserName] = useState("");
   const [usersNames, setUsersNames] = useState<string[]>([]);
 
-  const { state, setState } = useGlobalState();
-  const matches = state.matches || []
-  const usersFromState = state.users || []
+  const matches = matchesNotState
+  const usersFromState = usersNotState
 
   useEffect(() => {
     stylingTable(users, true);
@@ -121,8 +119,8 @@ export default function AddNewBet() {
         url: `/api/update?id=${user.id}`,
       })
         .then((res) => {
-          getAllMatchesAsyncFetch().then((matches) => {
-            setState({ users: state.users, matches: matches })
+          getAllMatchesAsyncFetch().then((matches2: MatchType[]) => {
+            setMatchNotState(matches2)
             notification.open({
               message: `Залогът е записан успешно!`,
               type: "success",
