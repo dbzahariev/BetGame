@@ -55,13 +55,6 @@ export default function oneMatchTable({
     return teamScore;
   };
 
-  for (let index = 0; index < AllMatches.length; index++) {
-    const element = AllMatches[index];
-    if (["FINISHED", "SCHEDULED"].includes(element.status) === false) {
-      // $(findRow(element.number.toString()) || <></>).css("background-color", "#fffd8a")
-    }
-  }
-
   let isEnglish = getDefSettings().isEnglish
 
   const getCurrentPoint = (record: MatchType, user: UsersType): string => {

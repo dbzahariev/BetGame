@@ -43,8 +43,7 @@ export default function AddNewBet() {
 
   useEffect(() => {
     setUsers(usersFromState.filter((user) => user.name === selectedUserName));
-    // eslint-disable-next-line
-  }, [selectedUserName]);
+  }, [selectedUserName, usersFromState]);
 
   const checkDisabledInput = (fullMatch: MatchType, user: UsersType) => {
     const haveGest = (fullMatch: MatchType, user: UsersType) => {

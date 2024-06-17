@@ -68,11 +68,9 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
   useEffect(() => {
     stylingTable(users)
     setFilteredMatches(matches)
-    // eslint-disable-next-line
-  }, [])
+  }, [users, matches])
 
   useEffect(() => {
-    //TODO: Fix auto refresh
     if (+AutoRefreshInterval >= 1 && AutoRefreshInterval !== "disable" && AutoRefreshInterval !== "init") {
       intervalRef.current = setInterval(() => {
         reloadDate()

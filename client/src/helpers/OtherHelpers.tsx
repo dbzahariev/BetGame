@@ -244,7 +244,6 @@ export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
         res = 1;
       }
 
-      // Plus one point for winer in current match
       if (
         !isGroup(selectedMatch) &&
         R3 === P3

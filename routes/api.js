@@ -81,20 +81,4 @@ router.post("/update", (req, res) => {
   }
 });
 
-// Games.findOne(id).then((game) => {
-//   console.log(game);
-//   // Games.findOneAndUpdate(
-//   //   { _id: id },
-//   //   { bets: data.bets },
-//   //   { useFindAndModify: false }
-//   // )
-//   //   .then(() => {
-//   //     return res.json({ msg: "Bet is saved successfully!" });
-//   //   })
-//   //   .catch(() => {
-//   //     return res.status(500);
-//   //   });
-// });
-// });
-
 module.exports = router;
