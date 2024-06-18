@@ -55,7 +55,7 @@ const GlobalStateProvider = ({
       <Spin
         indicator={<LoadingOutlined style={{ fontSize: 80 }} spin />}
         size="large"
-        style={{ padding: "10px", width: "100%", height: "100%", alignItems: "center" }}
+        style={{ padding: "10px",  alignItems: "center" }}
       /></div>
   }
 
@@ -72,7 +72,7 @@ const GlobalStateProvider = ({
       <Spin
         indicator={<LoadingOutlined style={{ fontSize: 80 }} spin />}
         size="large"
-        style={{ padding: "10px", width: "100%", height: "100%", alignItems: "center" }}
+        style={{ padding: "10px",alignItems: "center" }}
       /></div>
   }
 

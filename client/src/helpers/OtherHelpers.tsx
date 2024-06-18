@@ -455,7 +455,7 @@ export const stylingTable = (users: UsersType[], isFromNewBet?: Boolean) => {
   // Center text
   $(`table > tbody > tr:nth-child(1n) > td:nth-child(6), table > tbody > tr:nth-child(1n) > td:nth-child(7), table > tbody > tr:nth-child(1n) > td:nth-child(8)`).css("text-align", "center")
 
-  $(`#newBetTable > div > div > div > div > div > div > div > div > table > thead > tr > th:nth-child(7)`).css("height", "6.9rem")
+  // $(`#newBetTable > div > div > div > div > div > div > div > div > table > thead > tr > th:nth-child(7)`).css("height", "6.9rem")
 
   // New bet table
   if (users.length > 0 && isFromNewBet) {

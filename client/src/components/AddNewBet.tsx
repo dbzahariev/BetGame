@@ -361,7 +361,7 @@ export default function AddNewBet() {
                       title={translateTeamsName("Д")}
                       dataIndex="homeTeamScore"
                       key="homeTeamScore"
-                      width={80}
+                      // width={80}
                       render={(el: any, fullMatch: MatchType) =>
                         renderColumnForUser(el, fullMatch, user, "homeTeamScore")
                       }
@@ -370,7 +370,7 @@ export default function AddNewBet() {
                       title={translateTeamsName("Г")}
                       dataIndex="awayTeamScore"
                       key="awayTeamScore"
-                      width={80}
+                      // width={80}
                       render={(el: any, fullMatch: MatchType) =>
                         renderColumnForUser(el, fullMatch, user, "awayTeamScore")
                       }
@@ -379,7 +379,7 @@ export default function AddNewBet() {
                       title={translateTeamsName("П")}
                       dataIndex="winner"
                       key="winner"
-                      width={40}
+                      // width={40}
                       render={(_, record: MatchType) => {
                         return renderWinner(user, record);
                       }}
