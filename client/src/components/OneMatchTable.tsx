@@ -44,7 +44,7 @@ export default function oneMatchTable({
     const teamScore: string = match[`${type}TeamScore`]?.toString() ?? "";
     const fullTimeScore: string = match?.score?.fullTime[type]?.toString() ?? "";
 
-    if (match.round === "ROUND_-1") {
+    if (match.group?.startsWith("GROUP")) {
       return fullTimeScore;
     }
 
