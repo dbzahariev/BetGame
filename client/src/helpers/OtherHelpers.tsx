@@ -549,17 +549,40 @@ export const calcScore = (match: MatchType, score: any) => {
   return res;
 };
 
-export const calcRound = (match: MatchType) => {
-  const stageToRoundMap: { [key: string]: string } = {
-    "LAST_16": "1",
-    "QUARTER_FINALS": "2",
-    "SEMI_FINALS": "3",
-    "FINAL": "4"
-  };
+// export const calcRound3 = (match: MatchType) => {
+//   const stageToRoundMap: { [key: string]: string } = {
+//     "LAST_16": "1",
+//     "QUARTER_FINALS": "2",
+//     "SEMI_FINALS": "3",
+//     "FINAL": "4"
+//   };
 
-  const matchRound = -1//match.stage && match.stage !== "GROUP_STAGE" ? stageToRoundMap[match.stage] || "-1" : "-1";
-  return `ROUND_${matchRound}`;
-};
+//   const matchRound = -1//match.stage && match.stage !== "GROUP_STAGE" ? stageToRoundMap[match.stage] || "-1" : "-1";
+//   return `ROUND_${matchRound}`;
+// };
+
+const calcRound = (elements: MatchType[], id: number) => {
+  const elementIdToCheck = id;
+
+  const totalLength = elements.length;
+  const groupSize = totalLength / 3;
+
+  function isElementInGroup(start: number, end: number, id: number) {
+    return id >= start && id <= end
+  }
+  let result;
+  if (isElementInGroup(0, groupSize, elementIdToCheck)) {
+    result = 'ROUND_1';
+  } else if (isElementInGroup(groupSize, 2 * groupSize, elementIdToCheck)) {
+    result = 'ROUND_2';
+  } else if (isElementInGroup(2 * groupSize, 3 * groupSize, elementIdToCheck)) {
+    result = 'ROUND_3';
+  } else {
+    result = 'ROUND_-1';
+  }
+
+  return result
+}
 
 // export const calcRound2 = (match: MatchType) => {
 //   let round1 = {
@@ -596,7 +619,7 @@ export const getAllMatchesAsyncFetch = async () => {
       return data2.matches.map((el: MatchType, index: number) => {
         let score = el.score;
         let calculatedScore = calcScore(el, score);
-        let calculatedRound = calcRound(el)
+        let calculatedRound = calcRound(data2.matches.filter((el: MatchType) => el.stage === "GROUP_STAGE") || [], index+1)
 
         if (el.stage === "BRONZE") {
           el.stage = "THIRD_PLACE"
