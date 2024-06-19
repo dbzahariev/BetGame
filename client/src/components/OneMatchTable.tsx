@@ -7,8 +7,6 @@ import { translateTeamsName } from "../helpers/Translate";
 
 oneMatchTable.defaultProps = { usersColumns: undefined }
 
-const columnWidth = 400;
-
 export default function oneMatchTable({
   AllMatches,
   users,

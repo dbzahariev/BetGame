@@ -25,7 +25,7 @@ export const getMatchesForView = (
   matches: MatchType[],
 ) => {
   if (matches.length === 0) return []
-  
+
   const getFinalScore = (match: MatchType, team: "home" | "away") => {
     return (match?.score?.fullTime as any)[team] || undefined
   }
@@ -73,12 +73,12 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
   useEffect(() => {
     stylingTable(usersNotState)
     setFilteredMatches(matchesNotState)
-  }, [users, matches])
+  }, [users, matches, isInit])
 
   useEffect(() => {
     if (+AutoRefreshInterval >= 1 && AutoRefreshInterval !== "disable" && AutoRefreshInterval !== "init") {
       intervalRef.current = setInterval(() => {
-        reloadDate()
+        fetchDate()
       }, AutoRefreshInterval * 1000);
     }
 
@@ -86,28 +86,21 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
     // eslint-disable-next-line
   }, [AutoRefreshInterval]);
 
-  const reloadDate = () => {
-    fetchDate().then((date) => {
-      setMatchNotState(date.matches)
-      setusersNotState(date.users)
-      setIsint(isInit + 1)
-    }).catch(console.error)
-    //   getMatchesAndUsers().then((newState) => {
-    //     console.log("refresh")
-    //     if (!justCompare(newState.matches, matchesNotState)) {
-    //       setMatchNotState(newState.matches)
-    //       setusersNotState(newState.usesers)
-    //     }
-    //   })
-    //   stylingTable(usersNotState)
-  }
-
-  useEffect(() => {
-    if (isInit > 0) {
-      // reloadDate()
-    }
-    // eslint-disable-next-line
-  }, [refresh])
+  // const reloadDate = () => {
+  //   fetchDate().then((date) => {
+  //     setMatchNotState(date.matches)
+  //     setusersNotState(date.users)
+  //     setIsint(isInit + 1)
+  //   }).catch(console.error)
+  //   //   getMatchesAndUsers().then((newState) => {
+  //   //     console.log("refresh")
+  //   //     if (!justCompare(newState.matches, matchesNotState)) {
+  //   //       setMatchNotState(newState.matches)
+  //   //       setusersNotState(newState.usesers)
+  //   //     }
+  //   //   })
+  //   //   stylingTable(usersNotState)
+  // }
 
   useEffect(() => {
     getAllFinalWinner(users);
@@ -132,14 +125,14 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
   }, [isInit])
 
   useEffect(() => {
-    reloadDate()
+    fetchDate()
     // eslint-disable-next-line
   }, [])
 
   const fetchDate = async () => {
-    let matches = await getAllMatchesAsyncFetch()
-    let users = await getAllUsersAsync()
-    return { matches, users }
+    setMatchNotState(await getAllMatchesAsyncFetch())
+    setusersNotState(await getAllUsersAsync())
+    setIsint(isInit + 1)
   }
 
   let stateMatches = matchesNotState.length

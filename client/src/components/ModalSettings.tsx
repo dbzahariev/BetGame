@@ -21,6 +21,7 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
   const [showRound1, setShowRound1] = useState(getDefSettings().showRound1);
   const [showRound2, setShowRound2] = useState(getDefSettings().showRound2);
   const [showRound3, setShowRound3] = useState(getDefSettings().showRound3);
+  const [showLikeFinalScore, setShowLikeFinalScore] = useState(true);
   const [groupsName, setGroupsName] = useState<{ value: string, label: string }[]>([])
   const [selctedGroupState, setSelectedGropState] = useState(getDefSettings().filterGroup)
   const [isEnglishState, setIsEnglishState] = useState(getDefSettings().isEnglish);
@@ -173,6 +174,19 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
             checkedChildren={<CheckOutlined />}
             unCheckedChildren={<CloseOutlined />}
             checked={showRound3}
+            disabled={!showGroups}
+          />
+        </Space>
+        <Space direction="horizontal">
+          <span>{translateTeamsName("Show like final score")}</span>
+          <Switch
+            onChange={(newValue: any) => {
+              setDefSettings("showLikeFinalScore", (newValue || false).toString())
+              return setShowLikeFinalScore(newValue)
+            }}
+            checkedChildren={<CheckOutlined />}
+            unCheckedChildren={<CloseOutlined />}
+            checked={showLikeFinalScore}
             disabled={!showGroups}
           />
         </Space>

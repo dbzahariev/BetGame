@@ -496,6 +496,7 @@ export const getDefSettings = () => {
   let showRound1FromStorage = sessionStorage.getItem("showRound1")
   let showRound2FromStorage = sessionStorage.getItem("showRound2")
   let showRound3FromStorage = sessionStorage.getItem("showRound3")
+  // let showLikeFinalScoreStorage = sessionStorage.getItem("showLikeStorage")
 
   let isEnglishFromStorage = sessionStorage.getItem("isEnglish")
   let filterGroupFromStorage = sessionStorage.getItem("filterGroup")
@@ -506,6 +507,7 @@ export const getDefSettings = () => {
   let showRound1 = showRound1FromStorage === null ? defaulstSetings : showRound1FromStorage === "true" ? true : false
   let showRound2 = showRound2FromStorage === null ? defaulstSetings : showRound2FromStorage === "true" ? true : false
   let showRound3 = showRound3FromStorage === null ? defaulstSetings : showRound3FromStorage === "true" ? true : false
+  // let showLikeFinalScore = showLikeFinalScoreStorage === null ? false : showLikeFinalScoreStorage === "true" ? true : false
 
   let isEnglish = isEnglishFromStorage === null ? false : isEnglishFromStorage === "true" ? true : false
   let filterGroup = filterGroupFromStorage || ""
@@ -619,7 +621,7 @@ export const getAllMatchesAsyncFetch = async () => {
       return data2.matches.map((el: MatchType, index: number) => {
         let score = el.score;
         let calculatedScore = calcScore(el, score);
-        let calculatedRound = calcRound(data2.matches.filter((el: MatchType) => el.stage === "GROUP_STAGE") || [], index+1)
+        let calculatedRound = calcRound(data2.matches.filter((el: MatchType) => el.stage === "GROUP_STAGE") || [], index + 1)
 
         if (el.stage === "BRONZE") {
           el.stage = "THIRD_PLACE"

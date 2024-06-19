@@ -90,7 +90,7 @@ export default function Scheme() {
     return (
       <div>
         <p style={{ textAlign: "center", fontSize: "25px", whiteSpace: "nowrap" }}>{translateTeamsName(matchesTP.length > 0 ? "Third place and final" : "FINAL")}</p>
-        <div style={{ marginTop: `${coeficientLength + 35}%` }}>
+        <div style={{ marginTop: `${coeficientLength + 44}%` }}>
           <div style={{ height: "80px" }}>
             {matchesTP.length > 0 ? <OneMatchInScheme teams={teams} match={matchesTP[0]} /> : <></>}
           </div>
