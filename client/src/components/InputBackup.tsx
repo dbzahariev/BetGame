@@ -175,8 +175,6 @@ export default function InputBackup() {
       });
     } else if (field === "winner") {
       setInput({ ...input, winner: value });
-    } else {
-      console.log("err", { value, field });
     }
   };
 

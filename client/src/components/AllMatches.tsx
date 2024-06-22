@@ -93,7 +93,6 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
   //     setIsint(isInit + 1)
   //   }).catch(console.error)
   //   //   getMatchesAndUsers().then((newState) => {
-  //   //     console.log("refresh")
   //   //     if (!justCompare(newState.matches, matchesNotState)) {
   //   //       setMatchNotState(newState.matches)
   //   //       setusersNotState(newState.usesers)

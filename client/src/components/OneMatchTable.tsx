@@ -4,6 +4,7 @@ import Column from "antd/lib/table/Column";
 import ColumnGroup from "antd/lib/table/ColumnGroup";
 import { getDefSettings, MatchType, renderP, UsersType } from "../helpers/OtherHelpers";
 import { translateTeamsName } from "../helpers/Translate";
+import { showLikeFinalScoreGlobal } from "./ModalSettings";
 
 oneMatchTable.defaultProps = { usersColumns: undefined }
 
@@ -30,7 +31,8 @@ export default function oneMatchTable({
     const matchDate = new Date(fullMatch.utcDate);
     const now = Date.now();
     const dif = matchDate.getTime() - now;
-
+    let showLikeFinalScore = showLikeFinalScoreGlobal
+    console.log({showLikeFinalScore})
     if (dif > 0 && value.toString().length > 0) {
       return "?";
     }
@@ -58,7 +60,6 @@ export default function oneMatchTable({
   const getCurrentPoint = (record: MatchType, user: UsersType): string => {
     let res = "";
     const selectedBet = user.bets.find((el) => el.matchId === record.id);
-
     if (record.status === "TIMED") {
       res = selectedBet === undefined ? "" : "?";
     } else if (record.status === "FINISHED") {
@@ -82,7 +83,7 @@ export default function oneMatchTable({
         title={translateTeamsName("N")}
         dataIndex="number"
         key="number"
-        // width={56}
+      // width={56}
       />
       <Column
         title={translateTeamsName("Date")}
@@ -134,9 +135,9 @@ export default function oneMatchTable({
           render={(_, record: MatchType) => {
             return (
               <div
-                // style={{
-                //   width: "30px",
-                // }}
+              // style={{
+              //   width: "30px",
+              // }}
               >
                 <span>
                   {`${getFullScore(record, "home")}`}
@@ -152,9 +153,9 @@ export default function oneMatchTable({
           // width={100}
           render={(_, record: MatchType) => (
             <div
-              // style={{
-              //   width: "30px",
-              // }}
+            // style={{
+            //   width: "30px",
+            // }}
             >
               <span>
                 {`${getFullScore(record, "away")}`}

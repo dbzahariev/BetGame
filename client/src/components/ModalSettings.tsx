@@ -11,6 +11,7 @@ export let showGroupOnlyGlobal = getDefSettings().showGroupOnly
 export let showRound1Global = getDefSettings().showRound1
 export let showRound2Global = getDefSettings().showRound2
 export let showRound3Global = getDefSettings().showRound3
+export let showLikeFinalScoreGlobal = getDefSettings().showLikeFinalScore
 
 export let isEnglish = getDefSettings().isEnglish
 export let filterGroupGlobal = getDefSettings().filterGroup
@@ -21,7 +22,7 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
   const [showRound1, setShowRound1] = useState(getDefSettings().showRound1);
   const [showRound2, setShowRound2] = useState(getDefSettings().showRound2);
   const [showRound3, setShowRound3] = useState(getDefSettings().showRound3);
-  const [showLikeFinalScore, setShowLikeFinalScore] = useState(true);
+  const [showLikeFinalScore, setShowLikeFinalScore] = useState(getDefSettings().showLikeFinalScore);
   const [groupsName, setGroupsName] = useState<{ value: string, label: string }[]>([])
   const [selctedGroupState, setSelectedGropState] = useState(getDefSettings().filterGroup)
   const [isEnglishState, setIsEnglishState] = useState(getDefSettings().isEnglish);
@@ -34,6 +35,7 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
     showRound1Global = showRound1
     showRound2Global = showRound2
     showRound3Global = showRound3
+    showLikeFinalScoreGlobal = showLikeFinalScore
     isEnglish = isEnglishState
     filterGroupGlobal = selctedGroupState
   }
@@ -52,6 +54,10 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
     }
 
     if (showRound3Global !== showRound3) {
+      setIsInit(isInit + 1)
+    }
+    
+    if (showLikeFinalScoreGlobal !== showLikeFinalScore) {
       setIsInit(isInit + 1)
     }
 
@@ -74,7 +80,7 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
   useEffect(() => {
     hendleOk()
     // eslint-disable-next-line 
-  }, [showGroups, showGroupOnly, showRound1, showRound2, showRound3, isEnglishState, selctedGroupState])
+  }, [showGroups, showGroupOnly, showRound1, showRound2, showRound3, showLikeFinalScore, isEnglishState, selctedGroupState])
 
   const hendleChangeGroup = (event: any) => {
     setShowGroupOnly(event)

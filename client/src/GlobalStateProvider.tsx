@@ -33,7 +33,6 @@ const GlobalStateProvider = ({
   useEffect(() => {
     setTimeout(() => {
       fetchDate().then((date) => {
-        console.log("set matches", date.matches)
         setMatchNotState(date.matches)
         setusersNotState(date.users)
         setFoo(foo + 1)
@@ -50,7 +49,6 @@ const GlobalStateProvider = ({
         setusersNotState(date.users)
       }).catch(console.error)
     }, 6000)
-    console.log("not found matches")
     return <div>
       <Spin
         indicator={<LoadingOutlined style={{ fontSize: 80 }} spin />}
@@ -67,7 +65,6 @@ const GlobalStateProvider = ({
         setusersNotState(date.users)
       }).catch(console.error)
     }, 100);
-    console.log("not found users")
     return <div>
       <Spin
         indicator={<LoadingOutlined style={{ fontSize: 80 }} spin />}

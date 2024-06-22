@@ -496,7 +496,7 @@ export const getDefSettings = () => {
   let showRound1FromStorage = sessionStorage.getItem("showRound1")
   let showRound2FromStorage = sessionStorage.getItem("showRound2")
   let showRound3FromStorage = sessionStorage.getItem("showRound3")
-  // let showLikeFinalScoreStorage = sessionStorage.getItem("showLikeStorage")
+  let showLikeFinalScoreStorage = sessionStorage.getItem("showLikeFinalScore")
 
   let isEnglishFromStorage = sessionStorage.getItem("isEnglish")
   let filterGroupFromStorage = sessionStorage.getItem("filterGroup")
@@ -507,12 +507,12 @@ export const getDefSettings = () => {
   let showRound1 = showRound1FromStorage === null ? defaulstSetings : showRound1FromStorage === "true" ? true : false
   let showRound2 = showRound2FromStorage === null ? defaulstSetings : showRound2FromStorage === "true" ? true : false
   let showRound3 = showRound3FromStorage === null ? defaulstSetings : showRound3FromStorage === "true" ? true : false
-  // let showLikeFinalScore = showLikeFinalScoreStorage === null ? false : showLikeFinalScoreStorage === "true" ? true : false
+  let showLikeFinalScore = showLikeFinalScoreStorage === null ? false : showLikeFinalScoreStorage === "true" ? true : false
 
   let isEnglish = isEnglishFromStorage === null ? false : isEnglishFromStorage === "true" ? true : false
   let filterGroup = filterGroupFromStorage || ""
 
-  return { showGroups, showGroupOnly, showRound1, showRound2, showRound3, isEnglish, filterGroup }
+  return { showGroups, showGroupOnly, showRound1, showRound2, showRound3, showLikeFinalScore, isEnglish, filterGroup }
 }
 
 export const setDefSettings = (settings: string, value: string) => {
