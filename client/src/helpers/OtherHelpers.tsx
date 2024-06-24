@@ -294,7 +294,7 @@ export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
       let selectedMatch = matches.find((el) => el.id === oneBet.matchId);
 
       if (selectedMatch) {
-        let pointsForEvent = oneBet.point ?? getPointsForEvent(selectedMatch, oneUser);
+        let pointsForEvent = getPointsForEvent(selectedMatch, oneUser);
         oneUser.totalPoints = (oneUser.totalPoints || 0) + pointsForEvent;
         if (oneBet.point !== pointsForEvent) {
           oneBet.point = pointsForEvent;
