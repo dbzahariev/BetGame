@@ -435,7 +435,8 @@ export const stylingTable = (users: UsersType[], isFromNewBet?: Boolean) => {
     `#root > div:nth-child(4) > div > div > div > div > div > div > div > div > table > thead`
   ).css("position", "-webkit-sticky");
 
-  $(`table > thead`).css("top", `${$("#header").height()}px`);
+  // $(`table > thead`).css("top", `5px`);
+  // $(`table > thead`).css("top", `${($("#header").height() || 0) * 1.5}px`);
 
   $(`table > thead`).css("z-index", "1");
 

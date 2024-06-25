@@ -4,9 +4,12 @@ import Column from "antd/lib/table/Column";
 import ColumnGroup from "antd/lib/table/ColumnGroup";
 import { getDefSettings, MatchType, renderP, UsersType } from "../helpers/OtherHelpers";
 import { translateTeamsName } from "../helpers/Translate";
-import { showLikeFinalScoreGlobal } from "./ModalSettings";
+import $ from "jquery";
 
 oneMatchTable.defaultProps = { usersColumns: undefined }
+
+const columnWidth = 150
+const columnWidthScore = 30
 
 export default function oneMatchTable({
   AllMatches,
@@ -31,8 +34,6 @@ export default function oneMatchTable({
     const matchDate = new Date(fullMatch.utcDate);
     const now = Date.now();
     const dif = matchDate.getTime() - now;
-    let showLikeFinalScore = showLikeFinalScoreGlobal
-    console.log({showLikeFinalScore})
     if (dif > 0 && value.toString().length > 0) {
       return "?";
     }
@@ -71,36 +72,39 @@ export default function oneMatchTable({
     return res;
   };
 
+  let kk = $("#header").height() || 0
+  kk += 533
+  // kk *= 10
+
+  // let kk = window.innerHeight * 0.5;
+
   return (
     <Table
       id="oneMatchTable"
       dataSource={AllMatches}
       pagination={false}
+      scroll={{ y: `${kk}px` }}
       bordered
+      
     >
-
       <Column
         title={translateTeamsName("N")}
         dataIndex="number"
         key="number"
-      // width={56}
+        width={40}
       />
       <Column
         title={translateTeamsName("Date")}
         dataIndex="utcDate"
         key="utcDate"
-        // width={columnWidth}
-        render={(el: any) => {
-          const res = new Date(el).toLocaleDateString(isEnglish ? 'en-EN' : 'bg-BG', { day: '2-digit', month: '2-digit' });
-
-          return <span>{res}</span>;
-        }}
+        width={60}
+        render={(el: any) => { return new Date(el).toLocaleDateString(isEnglish ? 'en-EN' : 'bg-BG', { day: '2-digit', month: '2-digit' }) }}
       />
       <Column
         title={translateTeamsName("Time")}
         dataIndex="utcDate"
         key="utcDate"
-        // width={columnWidth}
+        width={60}
         render={(el: any) => {
           let newEl = new Date(el)
           let res = `${newEl.getHours()}.0${newEl.getUTCMinutes()}`
@@ -112,6 +116,7 @@ export default function oneMatchTable({
         title={translateTeamsName("Group")}
         dataIndex="group"
         key="group"
+        width={70}
         render={(el: any) => {
           return <div style={!result ? { display: "flex", alignItems: "center" } : {}}>
             <span style={{ textWrap: "nowrap" }}>{translateTeamsName(el || "") || translateTeamsName("Will be decided")}</span>
@@ -122,52 +127,29 @@ export default function oneMatchTable({
         title={translateTeamsName("Home team")}
         dataIndex="homeTeam"
         key="homeTeam"
-        render={(el: any) => (
-          <span style={{ textWrap: "nowrap" }}>{translateTeamsName(el.name) || translateTeamsName("Will be decided")}</span>
-        )}
+        width={columnWidth}
+        render={(el: any) => translateTeamsName(el.name) || translateTeamsName("Will be decided")}
       />
       {result ? <ColumnGroup title={translateTeamsName("Result")}>
         <Column
           title={translateTeamsName("H")}
           dataIndex="homeTeamScore"
           key="homeTeamScore"
-          // width={100}
-          render={(_, record: MatchType) => {
-            return (
-              <div
-              // style={{
-              //   width: "30px",
-              // }}
-              >
-                <span>
-                  {`${getFullScore(record, "home")}`}
-                </span>
-              </div>
-            );
-          }}
+          width={columnWidthScore}
+          render={(_, record: MatchType) => getFullScore(record, "home")}
         />
         <Column
           title={translateTeamsName("A")}
           dataIndex="awayTeamScore"
           key="awayTeamScore"
-          // width={100}
-          render={(_, record: MatchType) => (
-            <div
-            // style={{
-            //   width: "30px",
-            // }}
-            >
-              <span>
-                {`${getFullScore(record, "away")}`}
-              </span>
-            </div>
-          )}
+          width={columnWidthScore}
+          render={(_, record: MatchType) => getFullScore(record, "away")}
         />
         <Column
           title={translateTeamsName("W")}
           dataIndex="winner"
           key="winner"
-          // width={40}
+          width={columnWidthScore}
           render={(el, match: MatchType) => renderP(el, null, match)}
         />
       </ColumnGroup>
@@ -176,7 +158,7 @@ export default function oneMatchTable({
         title={translateTeamsName("Away team")}
         dataIndex="awayTeam"
         key="awayTeam"
-        // width={columnWidth}
+        width={columnWidth}
         render={(el: any) => (
           <span style={{ textWrap: "nowrap" }}>{translateTeamsName(el.name) || translateTeamsName("Will be decided")}</span>
         )}
@@ -192,7 +174,7 @@ export default function oneMatchTable({
                 title={translateTeamsName("H")}
                 dataIndex="homeTeamScore"
                 key="homeTeamScore"
-                // width={40}
+                width={columnWidthScore}
                 render={(_, fullMatch: MatchType) =>
                   renderColumnForUser(fullMatch, user, "homeTeamScore")
                 }
@@ -201,7 +183,7 @@ export default function oneMatchTable({
                 title={translateTeamsName("A")}
                 dataIndex="awayTeamScore"
                 key="awayTeamScore"
-                // width={40}
+                width={columnWidthScore}
                 render={(_, fullMatch: MatchType) =>
                   renderColumnForUser(fullMatch, user, "awayTeamScore")
                 }
@@ -210,7 +192,7 @@ export default function oneMatchTable({
                 title={translateTeamsName("W")}
                 dataIndex="winner"
                 key="winner"
-                // width={40}
+                width={columnWidthScore}
                 render={(_, record: MatchType) => {
                   let selectedMatchWinner =
                     user.bets.find((el) => el.matchId === record.id)?.winner ||
@@ -222,7 +204,7 @@ export default function oneMatchTable({
                 title={translateTeamsName("P")}
                 dataIndex=""
                 key="points"
-                // width={40}
+                width={columnWidthScore}
                 render={(_, record: MatchType) =>
                   getCurrentPoint(record, user)
                 }

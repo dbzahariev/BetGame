@@ -113,7 +113,7 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
   }
 
   return (
-    <Space direction="horizontal" style={{ width: '100%' }}>
+    <Space direction="horizontal" style={{ width: '100%' }} id="settings">
       <AutoRefresh refresh={refresh} />
       <Space direction="horizontal">
         <Space direction="horizontal">

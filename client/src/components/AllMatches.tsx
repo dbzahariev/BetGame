@@ -140,7 +140,7 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
       <Spin
         indicator={<LoadingOutlined style={{ fontSize: 80 }} spin />}
         size="large"
-        style={{ padding: "10px", width: "100%", height: "100%", alignItems: "center" }}
+        style={{ padding: "10px", width: "100%", height: "50px", alignItems: "center" }}
       /></div>
   }
   return (
