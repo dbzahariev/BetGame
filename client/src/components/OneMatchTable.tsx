@@ -85,7 +85,7 @@ export default function oneMatchTable({
       pagination={false}
       scroll={{ y: `${kk}px` }}
       bordered
-      
+      style={{ width: "100%" }}
     >
       <Column
         title={translateTeamsName("N")}
@@ -116,7 +116,7 @@ export default function oneMatchTable({
         title={translateTeamsName("Group")}
         dataIndex="group"
         key="group"
-        width={70}
+        width={90}
         render={(el: any) => {
           return <div style={!result ? { display: "flex", alignItems: "center" } : {}}>
             <span style={{ textWrap: "nowrap" }}>{translateTeamsName(el || "") || translateTeamsName("Will be decided")}</span>

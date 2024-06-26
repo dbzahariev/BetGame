@@ -283,6 +283,7 @@ export default function AddNewBet() {
     ) => {
       return (
         <InputNumber
+          style={{ width: "90%" }}
           min={-1}
           max={10}
           disabled={checkDisabledInput(fullMatch, user)}
@@ -346,9 +347,11 @@ export default function AddNewBet() {
       return res;
     };
 
+    let colWidth = 70
+
     return (
       <div>
-        <div id={"newBetTable"}>
+        <div id={"newBetTable"} style={{ width: "300px" }}>
           <Space direction={"horizontal"}>
             <OneMatchTable
               AllMatches={matches.filter((match) => match.status !== "FINISHED")}
@@ -361,7 +364,7 @@ export default function AddNewBet() {
                       title={translateTeamsName("Д")}
                       dataIndex="homeTeamScore"
                       key="homeTeamScore"
-                      // width={80}
+                      width={colWidth}
                       render={(el: any, fullMatch: MatchType) =>
                         renderColumnForUser(el, fullMatch, user, "homeTeamScore")
                       }
@@ -370,7 +373,7 @@ export default function AddNewBet() {
                       title={translateTeamsName("Г")}
                       dataIndex="awayTeamScore"
                       key="awayTeamScore"
-                      // width={80}
+                      width={colWidth}
                       render={(el: any, fullMatch: MatchType) =>
                         renderColumnForUser(el, fullMatch, user, "awayTeamScore")
                       }
@@ -379,7 +382,7 @@ export default function AddNewBet() {
                       title={translateTeamsName("П")}
                       dataIndex="winner"
                       key="winner"
-                      // width={40}
+                      width={colWidth}
                       render={(_, record: MatchType) => {
                         return renderWinner(user, record);
                       }}
@@ -390,7 +393,7 @@ export default function AddNewBet() {
             />
           </Space>
         </div>
-      </div>)
+      </div >)
   };
 
   return (
