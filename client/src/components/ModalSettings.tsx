@@ -183,7 +183,7 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
             disabled={!showGroups}
           />
         </Space>
-        <Space direction="horizontal">
+        {/* <Space direction="horizontal">
           <span>{translateTeamsName("Show like final score")}</span>
           <Switch
             onChange={(newValue: any) => {
@@ -195,7 +195,7 @@ export default function ModalSettings({ refresh }: { refresh: Function }) {
             checked={showLikeFinalScore}
             disabled={!showGroups}
           />
-        </Space>
+        </Space> */}
         <Space direction="horizontal">
           <img onClick={() => {
             let newValue = true
