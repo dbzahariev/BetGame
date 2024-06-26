@@ -35,3 +35,17 @@ button {
 /* .ant-table-thead{ */
 /* top: 0 !important */
 /* } */
+
+#oneMatchTable > div > div.ant-table-header > table > thead > tr:nth-child(1) > th:nth-child(7) {
+  width: 100px;
+}
+
+#oneMatchTable
+  > div
+  > div.ant-table-header
+  > table
+  > thead
+  > tr:nth-child(1)
+  > th.ant-table-cell.ant-table-cell-scrollbar {
+    display: none;
+}

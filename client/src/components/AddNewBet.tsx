@@ -338,7 +338,6 @@ export default function AddNewBet() {
       res = (
         <Input
           disabled={checkDisablePredWinner(record)}
-          style={{ width: 100 }}
           placeholder=""
           value={vall}
           onChange={(el) => handleChange(el, user, record, "winner")}
@@ -383,9 +382,7 @@ export default function AddNewBet() {
                       dataIndex="winner"
                       key="winner"
                       width={colWidth}
-                      render={(_, record: MatchType) => {
-                        return renderWinner(user, record);
-                      }}
+                      render={(_, record: MatchType) => renderWinner(user, record)}
                     />
                   </ColumnGroup>
                 );
