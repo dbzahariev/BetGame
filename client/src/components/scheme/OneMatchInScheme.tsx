@@ -17,7 +17,7 @@ export let months = [
   "Декември",
 ];
 
-export default function OneMatchInScheme({ match, teams = [] }: { match: MatchType, teams: { name: string, flag: string }[] }) {
+export default function OneMatchInScheme({ match, teams = [] }: { match: MatchType, teams: { name: string, flag: string, crest: string }[] }) {
   if (match === undefined || teams.length === 0) {
     return <div></div>
   }
@@ -26,7 +26,9 @@ export default function OneMatchInScheme({ match, teams = [] }: { match: MatchTy
     if (name === null) {
       return <></>
     }
-    const flagSrc = teams.find((element) => element.name === name)?.flag || "";
+    let team = teams.find((element) => element.name === name)
+
+    const flagSrc = team?.flag || team?.crest || "";
 
     return (
       <img
