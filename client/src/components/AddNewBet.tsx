@@ -314,6 +314,14 @@ export default function AddNewBet() {
           }
         }
 
+        let matchDate = new Date(record.utcDate);
+        let now = new Date();
+        let difference = now.getTime() - matchDate.getTime();
+        let differenceMin = Math.round(difference / 1000 / 60);
+
+        if (differenceMin >= 0 && differenceMin <= 15) {
+          res = true;
+        }
         return res;
       };
 

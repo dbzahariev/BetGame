@@ -160,7 +160,9 @@ export const renderP = (
   } else if (el === "AWAY_TEAM") {
     result = translateTeamsName("A");
   } else if (el === "DRAW") {
-    result = translateTeamsName("D");
+    let isGroup = fullMatch?.group !== undefined && fullMatch?.group.length > 0 && fullMatch.group.indexOf("GROUP") === -1
+    let showDraw = user !== null || !isGroup
+    result = showDraw ? translateTeamsName("D") : "";
   } else {
     result = "";
   }
@@ -504,7 +506,7 @@ export const getDefSettings = () => {
   let isEnglishFromStorage = sessionStorage.getItem("isEnglish")
   let filterGroupFromStorage = sessionStorage.getItem("filterGroup")
 
-  let defaulstSetings = true;
+  let defaulstSetings = false;
   let showGroups = showGroupsFromStorage === null ? defaulstSetings : showGroupsFromStorage === "true" ? true : false
   let showGroupOnly = showGroupOnlyFromStorage === null ? "" : showGroupOnlyFromStorage
   let showRound1 = showRound1FromStorage === null ? defaulstSetings : showRound1FromStorage === "true" ? true : false

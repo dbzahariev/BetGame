@@ -10,6 +10,7 @@ oneMatchTable.defaultProps = { usersColumns: undefined }
 
 const columnWidth = 130
 const columnWidthScore = 30
+const columnWinnerhScore = 50
 
 export default function oneMatchTable({
   AllMatches,
@@ -50,7 +51,7 @@ export default function oneMatchTable({
     }
 
     if (match.status !== "TIMED") {
-      return `${teamScore} (${fullTimeScore})`;
+      return `${teamScore} / ${fullTimeScore}`;
     }
 
     return teamScore;
@@ -77,7 +78,6 @@ export default function oneMatchTable({
   // kk *= 10
 
   // let kk = window.innerHeight * 0.5;
-
   return (
     <Table
       id="oneMatchTable"
@@ -135,21 +135,21 @@ export default function oneMatchTable({
           title={translateTeamsName("H")}
           dataIndex="homeTeamScore"
           key="homeTeamScore"
-          width={columnWidthScore}
+          width={columnWinnerhScore}
           render={(_, record: MatchType) => getFullScore(record, "home")}
         />
         <Column
           title={translateTeamsName("A")}
           dataIndex="awayTeamScore"
           key="awayTeamScore"
-          width={columnWidthScore}
+          width={columnWinnerhScore}
           render={(_, record: MatchType) => getFullScore(record, "away")}
         />
         <Column
           title={translateTeamsName("W")}
           dataIndex="winner"
           key="winner"
-          width={columnWidthScore}
+          width={columnWinnerhScore}
           render={(el, match: MatchType) => renderP(el, null, match)}
         />
       </ColumnGroup>

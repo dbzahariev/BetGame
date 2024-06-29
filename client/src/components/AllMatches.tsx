@@ -27,7 +27,7 @@ export const getMatchesForView = (
   if (matches.length === 0) return []
 
   const getFinalScore = (match: MatchType, team: "home" | "away") => {
-    return (match?.score?.fullTime as any)[team] || undefined
+    return (match?.score?.fullTime as any)[team]// || undefined
   }
 
   let res = [...matches];
