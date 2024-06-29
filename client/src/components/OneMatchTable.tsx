@@ -43,18 +43,18 @@ export default function oneMatchTable({
   };
 
   const getFullScore = (match: MatchType, type: "home" | "away"): string => {
-    const teamScore: string = match[`${type}TeamScore`]?.toString() ?? "";
-    const fullTimeScore: string = match?.score?.fullTime[type]?.toString() ?? "";
+    const teamScore = match[`${type}TeamScore`]?.toString() ?? "";
+    const fullTimeScore = match?.score?.fullTime[type]?.toString() ?? "";
 
     if (match.group?.startsWith("GROUP")) {
       return fullTimeScore;
     }
 
-    if (match.status !== "TIMED") {
+    if (match.status !== "TIMED" && match.score?.winner === "DRAW") {
       return `${teamScore} / ${fullTimeScore}`;
     }
 
-    return teamScore;
+    return fullTimeScore;
   };
 
   let isEnglish = getDefSettings().isEnglish
