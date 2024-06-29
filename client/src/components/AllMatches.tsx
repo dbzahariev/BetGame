@@ -20,6 +20,7 @@ import {
 } from "../helpers/OtherHelpers";
 import ModalSettings, { showGroupsGlobal, showRound1Global, showRound2Global, showRound3Global } from "./ModalSettings";
 import { LoadingOutlined } from "@ant-design/icons";
+import FinalWiner from "./FinalWinner";
 
 export const getMatchesForView = (
   matches: MatchType[],
@@ -146,7 +147,8 @@ export default function AllMatches({ refresh }: { refresh: Function }) {
   return (
     <Space direction="vertical">
       <ModalSettings refresh={() => setIsint(isInit + 1)} />
-      <Space direction={"horizontal"}>
+      <Space direction={"vertical"}>
+        <FinalWiner users={users}></FinalWiner>
         <OneMatchTable
           AllMatches={getMatchesForView(filteredMatches)}
           users={getResultedUsers(users)}

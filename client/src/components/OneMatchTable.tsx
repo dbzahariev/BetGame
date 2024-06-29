@@ -79,140 +79,142 @@ export default function oneMatchTable({
 
   // let kk = window.innerHeight * 0.5;
   return (
-    <Table
-      id="oneMatchTable"
-      dataSource={AllMatches}
-      pagination={false}
-      scroll={{ y: `${kk}px` }}
-      bordered
-      style={{ width: "100%" }}
-    >
-      <Column
-        title={translateTeamsName("N")}
-        dataIndex="number"
-        key="number"
-        width={40}
-      />
-      <Column
-        title={translateTeamsName("Date")}
-        dataIndex="utcDate"
-        key="utcDate"
-        width={60}
-        render={(el: any) => { return new Date(el).toLocaleDateString(isEnglish ? 'en-EN' : 'bg-BG', { day: '2-digit', month: '2-digit' }) }}
-      />
-      <Column
-        title={translateTeamsName("Time")}
-        dataIndex="utcDate"
-        key="utcDate"
-        width={60}
-        render={(el: any) => {
-          let newEl = new Date(el)
-          let res = `${newEl.getHours()}.0${newEl.getUTCMinutes()}`
+    <>
+      <Table
+        id="oneMatchTable"
+        dataSource={AllMatches}
+        pagination={false}
+        scroll={{ y: `${kk}px` }}
+        bordered
+        style={{ width: "100%" }}
+      >
+        <Column
+          title={translateTeamsName("N")}
+          dataIndex="number"
+          key="number"
+          width={40}
+        />
+        <Column
+          title={translateTeamsName("Date")}
+          dataIndex="utcDate"
+          key="utcDate"
+          width={60}
+          render={(el: any) => { return new Date(el).toLocaleDateString(isEnglish ? 'en-EN' : 'bg-BG', { day: '2-digit', month: '2-digit' }) }}
+        />
+        <Column
+          title={translateTeamsName("Time")}
+          dataIndex="utcDate"
+          key="utcDate"
+          width={60}
+          render={(el: any) => {
+            let newEl = new Date(el)
+            let res = `${newEl.getHours()}.0${newEl.getUTCMinutes()}`
 
-          return <span style={{ textWrap: "nowrap" }}>{res}</span>;
-        }}
-      />
-      <Column
-        title={translateTeamsName("Group")}
-        dataIndex="group"
-        key="group"
-        width={90}
-        render={(el: any) => {
-          return <div style={!result ? { display: "flex", alignItems: "center" } : {}}>
-            <span style={{ textWrap: "nowrap" }}>{translateTeamsName(el || "") || translateTeamsName("Will be decided")}</span>
-          </div>
-        }}
-      />
-      <Column
-        title={translateTeamsName("Home team")}
-        dataIndex="homeTeam"
-        key="homeTeam"
-        width={columnWidth}
-        render={(el: any) => translateTeamsName(el.name) || translateTeamsName("Will be decided")}
-      />
-      {result ? <ColumnGroup title={translateTeamsName("Result")}>
-        <Column
-          title={translateTeamsName("H")}
-          dataIndex="homeTeamScore"
-          key="homeTeamScore"
-          width={columnWinnerhScore}
-          render={(_, record: MatchType) => getFullScore(record, "home")}
+            return <span style={{ textWrap: "nowrap" }}>{res}</span>;
+          }}
         />
         <Column
-          title={translateTeamsName("A")}
-          dataIndex="awayTeamScore"
-          key="awayTeamScore"
-          width={columnWinnerhScore}
-          render={(_, record: MatchType) => getFullScore(record, "away")}
+          title={translateTeamsName("Group")}
+          dataIndex="group"
+          key="group"
+          width={90}
+          render={(el: any) => {
+            return <div style={!result ? { display: "flex", alignItems: "center" } : {}}>
+              <span style={{ textWrap: "nowrap" }}>{translateTeamsName(el || "") || translateTeamsName("Will be decided")}</span>
+            </div>
+          }}
         />
         <Column
-          title={translateTeamsName("W")}
-          dataIndex="winner"
-          key="winner"
-          width={columnWinnerhScore}
-          render={(el, match: MatchType) => renderP(el, null, match)}
+          title={translateTeamsName("Home team")}
+          dataIndex="homeTeam"
+          key="homeTeam"
+          width={columnWidth}
+          render={(el: any) => translateTeamsName(el.name) || translateTeamsName("Will be decided")}
         />
-      </ColumnGroup>
-        : <></>}
-      <Column
-        title={translateTeamsName("Away team")}
-        dataIndex="awayTeam"
-        key="awayTeam"
-        width={columnWidth}
-        render={(el: any) => (
-          <span style={{ textWrap: "nowrap" }}>{translateTeamsName(el.name) || translateTeamsName("Will be decided")}</span>
-        )}
-      />
-      {usersColumns ? usersColumns :
-        users.map((user: UsersType) => {
-          return (
-            <ColumnGroup
-              key={user.name}
-              title={`${translateTeamsName(user.name)} (${user.totalPoints || 0})`}
-            >
-              <Column
-                title={translateTeamsName("H")}
-                dataIndex="homeTeamScore"
-                key="homeTeamScore"
-                width={columnWidthScore}
-                render={(_, fullMatch: MatchType) =>
-                  renderColumnForUser(fullMatch, user, "homeTeamScore")
-                }
-              />
-              <Column
-                title={translateTeamsName("A")}
-                dataIndex="awayTeamScore"
-                key="awayTeamScore"
-                width={columnWidthScore}
-                render={(_, fullMatch: MatchType) =>
-                  renderColumnForUser(fullMatch, user, "awayTeamScore")
-                }
-              />
-              <Column
-                title={translateTeamsName("W")}
-                dataIndex="winner"
-                key="winner"
-                width={columnWidthScore}
-                render={(_, record: MatchType) => {
-                  let selectedMatchWinner =
-                    user.bets.find((el) => el.matchId === record.id)?.winner ||
-                    "";
-                  return renderP(selectedMatchWinner, user, record);
-                }}
-              />
-              <Column
-                title={translateTeamsName("P")}
-                dataIndex=""
-                key="points"
-                width={columnWidthScore}
-                render={(_, record: MatchType) =>
-                  getCurrentPoint(record, user)
-                }
-              />
-            </ColumnGroup>
-          );
-        })
-      }
-    </Table>
+        {result ? <ColumnGroup title={translateTeamsName("Result")}>
+          <Column
+            title={translateTeamsName("H")}
+            dataIndex="homeTeamScore"
+            key="homeTeamScore"
+            width={columnWinnerhScore}
+            render={(_, record: MatchType) => getFullScore(record, "home")}
+          />
+          <Column
+            title={translateTeamsName("A")}
+            dataIndex="awayTeamScore"
+            key="awayTeamScore"
+            width={columnWinnerhScore}
+            render={(_, record: MatchType) => getFullScore(record, "away")}
+          />
+          <Column
+            title={translateTeamsName("W")}
+            dataIndex="winner"
+            key="winner"
+            width={columnWinnerhScore}
+            render={(el, match: MatchType) => renderP(el, null, match)}
+          />
+        </ColumnGroup>
+          : <></>}
+        <Column
+          title={translateTeamsName("Away team")}
+          dataIndex="awayTeam"
+          key="awayTeam"
+          width={columnWidth}
+          render={(el: any) => (
+            <span style={{ textWrap: "nowrap" }}>{translateTeamsName(el.name) || translateTeamsName("Will be decided")}</span>
+          )}
+        />
+        {usersColumns ? usersColumns :
+          users.map((user: UsersType) => {
+            return (
+              <ColumnGroup
+                key={user.name}
+                title={`${translateTeamsName(user.name)} (${user.totalPoints || 0})`}
+              >
+                <Column
+                  title={translateTeamsName("H")}
+                  dataIndex="homeTeamScore"
+                  key="homeTeamScore"
+                  width={columnWidthScore}
+                  render={(_, fullMatch: MatchType) =>
+                    renderColumnForUser(fullMatch, user, "homeTeamScore")
+                  }
+                />
+                <Column
+                  title={translateTeamsName("A")}
+                  dataIndex="awayTeamScore"
+                  key="awayTeamScore"
+                  width={columnWidthScore}
+                  render={(_, fullMatch: MatchType) =>
+                    renderColumnForUser(fullMatch, user, "awayTeamScore")
+                  }
+                />
+                <Column
+                  title={translateTeamsName("W")}
+                  dataIndex="winner"
+                  key="winner"
+                  width={columnWidthScore}
+                  render={(_, record: MatchType) => {
+                    let selectedMatchWinner =
+                      user.bets.find((el) => el.matchId === record.id)?.winner ||
+                      "";
+                    return renderP(selectedMatchWinner, user, record);
+                  }}
+                />
+                <Column
+                  title={translateTeamsName("P")}
+                  dataIndex=""
+                  key="points"
+                  width={columnWidthScore}
+                  render={(_, record: MatchType) =>
+                    getCurrentPoint(record, user)
+                  }
+                />
+              </ColumnGroup>
+            );
+          })
+        }
+      </Table>
+    </>
   );
 }
