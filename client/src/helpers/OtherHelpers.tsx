@@ -227,6 +227,9 @@ export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
   })
 
   const getPointsForEvent = (selectedMatch: MatchType, user: UsersType) => {
+    if (selectedMatch.status !== "FINISHED") {
+      return 0
+    }
     let bet = user.bets.find((el) => el.matchId === selectedMatch.id);
     let res = 0;
 
@@ -306,9 +309,7 @@ export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
       if (selectedMatch) {
         let pointsForEvent = getPointsForEvent(selectedMatch, oneUser);
         oneUser.totalPoints = (oneUser.totalPoints || 0) + pointsForEvent;
-        if (oneBet.point !== pointsForEvent) {
-          oneBet.point = pointsForEvent;
-        }
+        oneBet.point = pointsForEvent;
       }
     }
     const getMatchDate = (bet: any) => {
