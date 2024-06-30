@@ -21,6 +21,7 @@ export interface ScoreType {
   duration: string;
   extraTime: MiniScore;
   fullTime: MiniScore;
+  regularTime?: MiniScore;
   halfTime: MiniScore;
   penalties: MiniScore;
   winner: string;
