@@ -17,6 +17,7 @@ import {
   setusersNotState,
   getAllMatchesAsyncFetch,
   getAllUsersAsync,
+  getFinalScore,
 } from "../helpers/OtherHelpers";
 import ModalSettings, { showGroupsGlobal, showRound1Global, showRound2Global, showRound3Global } from "./ModalSettings";
 import { LoadingOutlined } from "@ant-design/icons";
@@ -27,9 +28,6 @@ export const getMatchesForView = (
 ) => {
   if (matches.length === 0) return []
 
-  const getFinalScore = (match: MatchType, team: "home" | "away") => {
-    return (match?.score?.fullTime as any)[team]// || undefined
-  }
 
   let res = [...matches];
   if (showGroupsGlobal === false) {

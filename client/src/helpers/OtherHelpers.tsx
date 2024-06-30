@@ -213,21 +213,28 @@ export const renderP2 = (el: string, plainText = false) => {
   return <span style={{}}>{result}</span>;
 };
 
+export const getFinalScore = (match: MatchType, team: "home" | "away") => {
+  let regularScore = match.score?.regularTime && match.score?.regularTime[team]
+
+  return regularScore || (match?.score?.fullTime as any)[team]// || undefined
+}
+
 export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
   matches = matches.map((el) => {
     let awayTeamScore = el.status === "FINISHED" ? (el.score?.fullTime as any).away : undefined
     let homeTeamScore = el.status === "FINISHED" ? (el.score?.fullTime as any).home : undefined
     return { ...el, awayTeamScore, homeTeamScore }
   })
+
   const getPointsForEvent = (selectedMatch: MatchType, user: UsersType) => {
     let bet = user.bets.find((el) => el.matchId === selectedMatch.id);
     let res = 0;
 
     if (bet) {
-      const R1 = selectedMatch.homeTeamScore;
+      const R1 = getFinalScore(selectedMatch, "home")// selectedMatch.homeTeamScore;
       const P1 = bet.homeTeamScore;
 
-      const R2 = selectedMatch.awayTeamScore;
+      const R2 = getFinalScore(selectedMatch, "away");
       const P2 = bet.awayTeamScore;
 
       const R3 = selectedMatch.winner;
