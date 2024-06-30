@@ -227,6 +227,65 @@ export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
   })
 
   const getPointsForEvent = (selectedMatch: MatchType, user: UsersType) => {
+    if (selectedMatch.status !== "FINISHED") return 0;
+
+    const bet = user.bets.find(el => el.matchId === selectedMatch.id);
+    if (!bet) return 0;
+
+    const homeFinalScore = getFinalScore(selectedMatch, "home");
+    const awayFinalScore = getFinalScore(selectedMatch, "away");
+    const homeBetScore = bet.homeTeamScore;
+    const awayBetScore = bet.awayTeamScore;
+
+    if (
+      homeFinalScore === undefined ||
+      awayFinalScore === undefined ||
+      homeBetScore === undefined ||
+      awayBetScore === undefined
+    ) return 0;
+
+    let points = 0;
+    const matchDifference = homeFinalScore - awayFinalScore;
+    const betDifference = homeBetScore - awayBetScore;
+
+    if (homeFinalScore === homeBetScore && awayFinalScore === awayBetScore) {
+      points = 3;
+    } else if (matchDifference === betDifference) {
+      points = 2;
+    } else if (
+      (homeBetScore > awayBetScore && homeFinalScore > awayFinalScore) ||
+      (homeBetScore === awayBetScore && homeFinalScore === awayFinalScore) ||
+      (homeBetScore < awayBetScore && homeFinalScore < awayFinalScore)
+    ) {
+      points = 1;
+    }
+
+    if (!isGroup(selectedMatch) && selectedMatch.winner === bet.winner) {
+      points += 1;
+    }
+
+    const groupMultipliers: { [key: string]: number } = {
+      "QUARTER_FINAL": coefficientQuarterFinal,
+      "QUARTER_FINALS": coefficientQuarterFinal,
+      "SEMI_FINAL": coefficientSemiFinal,
+      "SEMI_FINALS": coefficientSemiFinal,
+      "THIRD_PLACE": coefficientThirdPlace,
+      "FINAL": coefficientFinal
+    };
+
+    if (groupMultipliers[selectedMatch.group || ""]) {
+      points *= groupMultipliers[selectedMatch.group || ""];
+    }
+
+    if (new Date(bet.date).getTime() > new Date(selectedMatch.utcDate).getTime()) {
+      points /= 2;
+    }
+
+    return points;
+  };
+
+  /*
+  const getPointsForEventOld = (selectedMatch: MatchType, user: UsersType) => {
     if (selectedMatch.status !== "FINISHED") {
       return 0
     }
@@ -295,6 +354,7 @@ export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
     }
     return res;
   };
+  */
 
   let res = newUsers.slice();
 
