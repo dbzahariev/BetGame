@@ -215,8 +215,9 @@ export const renderP2 = (el: string, plainText = false) => {
 
 export const getFinalScore = (match: MatchType, team: "home" | "away") => {
   let regularScore = match.score?.regularTime && match.score?.regularTime[team]
+  let fullTimeScore = match.score?.fullTime && match.score.fullTime[team]
 
-  return regularScore || (match?.score?.fullTime as any)[team]// || undefined
+  return regularScore ?? fullTimeScore// || // || (match?.score?.fullTime as any)[team]// || undefined
 }
 
 export const getPoints = (newUsers: UsersType[], matches: MatchType[]) => {
