@@ -90,7 +90,7 @@ export const isGroupName = (fullMatch: MatchType) => {
   return (fullMatch.group || "").toLowerCase() === showGroupOnlyGlobal?.toLowerCase()
 }
 
-const baseUrl = "https://dworld-be.onrender.com"
+const baseUrl = "https://dworld-be-9jny.onrender.com"
 axios.defaults.baseURL = baseUrl
 
 export const getMatchesAndUsers = async () => {
