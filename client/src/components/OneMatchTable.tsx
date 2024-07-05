@@ -9,7 +9,7 @@ import $ from "jquery";
 oneMatchTable.defaultProps = { usersColumns: undefined }
 
 const columnWidth = 130
-const columnWidthScore = 30
+const columnWidthScore = 40
 const columnWinnerhScore = 50
 
 export default function oneMatchTable({
