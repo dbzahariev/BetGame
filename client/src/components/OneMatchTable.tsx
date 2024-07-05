@@ -9,7 +9,7 @@ import $ from "jquery";
 oneMatchTable.defaultProps = { usersColumns: undefined }
 
 const columnWidth = 130
-const columnWidthScore = 40
+const columnWidthScore = 50
 const columnWinnerhScore = 50
 
 export default function oneMatchTable({
@@ -177,9 +177,7 @@ export default function oneMatchTable({
                   dataIndex="homeTeamScore"
                   key="homeTeamScore"
                   width={columnWidthScore}
-                  render={(_, fullMatch: MatchType) =>
-                    renderColumnForUser(fullMatch, user, "homeTeamScore")
-                  }
+                  render={(_, fullMatch: MatchType) => renderColumnForUser(fullMatch, user, "homeTeamScore")}
                 />
                 <Column
                   title={translateTeamsName("A")}
