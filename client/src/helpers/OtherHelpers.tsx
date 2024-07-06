@@ -444,6 +444,7 @@ export const stylingTable = (users: UsersType[], isFromNewBet?: Boolean) => {
     $(selector2).css("border-left", "1px solid");
     $(selector2).css("border-right", "1px solid");
     $(selector2).css("border-color", `hsl(${users[i].colorTable}, 100%, 50%)`);
+    $(selector2).css("text-align", "center");
   }
 
   const getForBorders = () => {
@@ -713,6 +714,10 @@ export const getAllMatchesAsyncFetch = async () => {
         if (el.id === 495402) {
           el.score.fullTime = { away: 5, home: 3 }
           el.score.regularTime = { away: 0, home: 0 }
+        }
+        if (el.id === 495403){
+          el.score.fullTime = { away: 6, home: 4 }
+          el.score.regularTime = { away: 1, home: 1 }
         }
         let score = el.score;
         let calculatedScore = calcScore(el, score);
