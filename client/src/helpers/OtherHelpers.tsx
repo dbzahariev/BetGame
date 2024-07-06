@@ -42,7 +42,7 @@ export interface MatchType {
   utcDate: Date;
   group?: string | undefined;
   stage?: string | undefined;
-  score?: ScoreType;
+  score: ScoreType;
   winner?: string;
   homeTeamScore?: number | undefined;
   awayTeamScore?: number | undefined;
@@ -595,36 +595,44 @@ export const setDefSettings = (settings: string, value: string) => {
 }
 
 export const calcScore = (match: MatchType, score: any) => {
-  let res: {
-    ht: number | undefined;
-    at: number | undefined;
-  } = { ht: undefined, at: undefined };
+  let ht = score?.extraTime?.home || score?.fullTime?.home || 0;
+  let at = score?.extraTime?.away || score?.fullTime?.away || 0;
 
-  let ht = score?.fullTime?.homeTeam;
-  let at = score?.fullTime?.awayTeam;
-  if (ht !== null) {
-    res.ht = score?.fullTime?.homeTeam;
-  }
-  if (at !== null) {
-    res.at = score?.fullTime?.awayTeam;
-  }
+  let res: any = { ht, at }
+  return res
+}
 
-  if (res.ht !== undefined) {
-    res.ht -= match.score?.extraTime.home || 0;
-  }
-  if (res.at !== undefined) {
-    res.at -= match.score?.extraTime.away || 0;
-  }
+// export const calcScore2 = (match: MatchType, score: any) => {
+//   let res: {
+//     ht: number | undefined;
+//     at: number | undefined;
+//   } = { ht: undefined, at: undefined };
 
-  if (res.ht !== undefined) {
-    res.ht -= match.score?.penalties.home || 0;
-  }
-  if (res.at !== undefined) {
-    res.at -= match.score?.penalties.away || 0;
-  }
+//   let ht = score?.fullTime?.home;
+//   let at = score?.fullTime?.away;
+//   if (ht !== null) {
+//     res.ht = score?.fullTime?.homeTeam;
+//   }
+//   if (at !== null) {
+//     res.at = score?.fullTime?.awayTeam;
+//   }
 
-  return res;
-};
+//   if (res.ht !== undefined) {
+//     res.ht -= match.score?.extraTime.home || 0;
+//   }
+//   if (res.at !== undefined) {
+//     res.at -= match.score?.extraTime.away || 0;
+//   }
+
+//   if (res.ht !== undefined) {
+//     res.ht -= match.score?.penalties.home || 0;
+//   }
+//   if (res.at !== undefined) {
+//     res.at -= match.score?.penalties.away || 0;
+//   }
+
+//   return res;
+// };
 
 // export const calcRound3 = (match: MatchType) => {
 //   const stageToRoundMap: { [key: string]: string } = {
@@ -694,6 +702,18 @@ export const getAllMatchesAsyncFetch = async () => {
     .catch(error => console.error('Error:', error))
     .then(data2 => {
       return data2.matches.map((el: MatchType, index: number) => {
+        if (el.id === 428789) {
+          el.score.fullTime = { away: 1, home: 2 }
+          el.score.regularTime = { away: 1, home: 1 }
+        }
+        if (el.id === 428788) {
+          el.score.fullTime = { away: 0, home: 3 }
+          el.score.regularTime = { away: 0, home: 0 }
+        }
+        if (el.id === 495402) {
+          el.score.fullTime = { away: 5, home: 3 }
+          el.score.regularTime = { away: 0, home: 0 }
+        }
         let score = el.score;
         let calculatedScore = calcScore(el, score);
         let calculatedRound = calcRound(data2.matches.filter((el: MatchType) => el.stage === "GROUP_STAGE") || [], index + 1)
