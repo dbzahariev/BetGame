@@ -8,8 +8,8 @@ import $ from "jquery";
 
 oneMatchTable.defaultProps = { usersColumns: undefined }
 
-const columnWidth = 130
-const columnWidthScore = 50
+const columnWidth = 110
+const columnWidthScore = 30
 const columnWinnerhScore = 50
 
 export default function oneMatchTable({
@@ -93,20 +93,20 @@ export default function oneMatchTable({
           title={translateTeamsName("N")}
           dataIndex="number"
           key="number"
-          width={40}
+          width={37}
         />
         <Column
           title={translateTeamsName("Date")}
           dataIndex="utcDate"
           key="utcDate"
-          width={60}
+          width={56}
           render={(el: any) => { return new Date(el).toLocaleDateString(isEnglish ? 'en-EN' : 'bg-BG', { day: '2-digit', month: '2-digit' }) }}
         />
         <Column
           title={translateTeamsName("Time")}
           dataIndex="utcDate"
           key="utcDate"
-          width={60}
+          width={45}
           render={(el: any) => {
             let newEl = new Date(el)
             let res = `${newEl.getHours()}.0${newEl.getUTCMinutes()}`
@@ -118,7 +118,7 @@ export default function oneMatchTable({
           title={translateTeamsName("Group")}
           dataIndex="group"
           key="group"
-          width={90}
+          width={85}
           render={(el: any) => {
             return <div style={!result ? { display: "flex", alignItems: "center" } : {}}>
               <span style={{ textWrap: "nowrap" }}>{translateTeamsName(el || "") || translateTeamsName("Will be decided")}</span>
@@ -204,7 +204,7 @@ export default function oneMatchTable({
                   title={translateTeamsName("P")}
                   dataIndex=""
                   key="points"
-                  width={columnWidthScore}
+                  width={columnWidthScore+13}
                   render={(_, record: MatchType) =>
                     getCurrentPoint(record, user)
                   }
