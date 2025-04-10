@@ -3,7 +3,7 @@ import { Input, InputNumber, notification, Select, Space } from "antd";
 import Column from "antd/lib/table/Column";
 import ColumnGroup from "antd/lib/table/ColumnGroup";
 import axios from "axios";
-import { UsersType, MatchType, renderP2, isGroup, stylingTable, getAllMatchesAsyncFetch, matchesNotState, usersNotState, setMatchNotState } from '../helpers/OtherHelpers';
+import { UsersType, MatchType, renderP, isGroup, stylingTable, getAllMatchesAsyncFetch, matchesNotState, usersNotState, setMatchNotState } from '../helpers/OtherHelpers';
 import { translateTeamsName } from "../helpers/Translate";
 import OneMatchTable from "./OneMatchTable";
 
@@ -325,7 +325,6 @@ export default function AddNewBet() {
         return res;
       };
 
-      let res = renderP2(selectedMatchWinner);
       let vall: string = getValue(
         user,
         "awayTeamScore",
@@ -333,7 +332,7 @@ export default function AddNewBet() {
         true
       ).toString();
 
-      vall = renderP2(vall, true).toString();
+      vall = renderP(vall, null, null).toString();
 
       let selectedBet = user.bets.find((el) => el.matchId === record.id)
       let isDraw = selectedBet?.awayTeamScore === selectedBet?.homeTeamScore
@@ -343,6 +342,7 @@ export default function AddNewBet() {
         vall = ""
       }
 
+      let res = renderP(selectedMatchWinner, null, null).props.children;
       res = (
         <Input
           disabled={checkDisablePredWinner(record)}

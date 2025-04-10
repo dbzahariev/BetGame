@@ -90,65 +90,57 @@ export const isGroupName = (fullMatch: MatchType) => {
   return (fullMatch.group || "").toLowerCase() === showGroupOnlyGlobal?.toLowerCase()
 }
 
-const baseUrl = "https://dworld-be-9jny.onrender.com"
-axios.defaults.baseURL = baseUrl
+// const baseUrl = "https://dworld-be-9jny.onrender.com"
+// axios.defaults.baseURL = baseUrl
 
-export const getMatchesAndUsers = async () => {
-  let matches = await getAllMatchesAsyncFetch()
-  let usesers = await getAllUsersAsync()
-  return { matches, usesers }
-}
+// export const getMatchesAndUsers = async () => {
+//   console.log("Hi2")
+//   let matches = await getAllMatchesAsyncFetch()
+//   let usesers = await getAllUsersAsync()
+//   return { matches, usesers }
+// }
 
 export const getAllUsersAsync = async () => {
-  let res = await axios({
-    method: "GET",
-    url: "/api/users",
-  })
-  let users = [...res.data].sort((a, b) => a.index - b.index) as UsersType[];
-  let newUsers: UsersType[] = [];
-
-  users.forEach((el) => {
-    let userToAdd: UsersType = {
-      name: el.name,
-      bets: el.bets,
-      index: el.index,
-      finalWinner: el.finalWinner,
-      colorTable: el.colorTable,
-      totalPoints: 0,
-    };
-    if (el._id) {
-      userToAdd.id = el._id;
-    }
-
-    newUsers.push(userToAdd);
+  return await axios.get("/api/users").then((res) => {
+    return [...res.data]
+      .sort((a, b) => a.index - b.index)
+      .map((el) => ({
+        name: el.name,
+        bets: el.bets,
+        index: el.index,
+        finalWinner: el.finalWinner,
+        colorTable: el.colorTable,
+        totalPoints: 0,
+        ...(el._id && { id: el._id }),
+      })) as UsersType[];
   });
-  return newUsers
 };
 
-export const getAllUsersAsync2 = async () => {
-  let res = await axios({
-    method: "GET",
-    url: "/api/users",
-  })
-  let users = [...res.data] as UsersType[];
-  let newUsers: UsersType[] = [];
-  users.forEach((el) => {
-    let userToAdd: UsersType = {
-      name: el.name,
-      bets: el.bets,
-      index: el.index,
-      finalWinner: el.finalWinner,
-      colorTable: el.colorTable,
-      totalPoints: 0,
-    };
-    if (el._id) {
-      userToAdd.id = el._id;
-    }
+// export const getAllUsersAsync2 = async () => {
+//   console.log("Hi3")
+//   let res = await axios({
+//     method: "GET",
+//     url: "/api/users",
+//   })
+//   let users = [...res.data] as UsersType[];
+//   let newUsers: UsersType[] = [];
+//   users.forEach((el) => {
+//     let userToAdd: UsersType = {
+//       name: el.name,
+//       bets: el.bets,
+//       index: el.index,
+//       finalWinner: el.finalWinner,
+//       colorTable: el.colorTable,
+//       totalPoints: 0,
+//     };
+//     if (el._id) {
+//       userToAdd.id = el._id;
+//     }
 
-    newUsers.push(userToAdd);
-  });
-  return newUsers
-};
+//     newUsers.push(userToAdd);
+//   });
+//   return newUsers
+// };
 
 export const renderP = (
   el: string,
@@ -194,24 +186,24 @@ export const renderP = (
   return <span style={{}}>{result}</span>;
 };
 
-export const renderP2 = (el: string, plainText = false) => {
-  if (el === "") {
-    return el
-  }
+// export const renderP2 = (el: string, plainText = false) => {
+//   if (el === "") {
+//     return el
+//   }
 
-  let result = renderP(el, null, null)
-  if (typeof result === "object") {
-    if (result.props.children && plainText) {
-      return result.props.children
-    }
-    return result
-  }
+//   let result = renderP(el, null, null)
+//   if (typeof result === "object") {
+//     if (result.props.children && plainText) {
+//       return result.props.children
+//     }
+//     return result
+//   }
 
-  if (plainText) {
-    return result;
-  }
-  return <span style={{}}>{result}</span>;
-};
+//   if (plainText) {
+//     return result;
+//   }
+//   return <span style={{}}>{result}</span>;
+// };
 
 export const getFinalScore = (match: MatchType, team: "home" | "away") => {
   let regularScore = match.score?.regularTime && match.score?.regularTime[team]
@@ -715,7 +707,7 @@ export const getAllMatchesAsyncFetch = async () => {
           el.score.fullTime = { away: 5, home: 3 }
           el.score.regularTime = { away: 0, home: 0 }
         }
-        if (el.id === 495403){
+        if (el.id === 495403) {
           el.score.fullTime = { away: 6, home: 4 }
           el.score.regularTime = { away: 1, home: 1 }
         }
