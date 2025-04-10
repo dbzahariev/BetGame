@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "client": "set NODE_OPTIONS=--openssl-legacy-provider && npm run start --prefix client",
-    "start": "node server.js",
-    "server": "nodemon server.js",
+    "start": "node --no-deprecation server.js",
+    "server": "nodemon --no-deprecation server.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "client-install-build": "npm install --prefix client && npm run build --prefix client"
   },
@@ -14,14 +14,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.21.1",
-    "concurrently": "^5.0.0",
+    "axios": "^1.8.4",
+    "concurrently": "^9.1.2",
     "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
-    "just-compare": "^2.2.2",
-    "mongoose": "^5.7.9",
-    "morgan": "^1.9.1"
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "just-compare": "^2.3.0",
+    "mongoose": "^8.13.2",
+    "morgan": "^1.10.0"
   },
   "engines": {
     "node": "22.14.0",
