@@ -1,11 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const axios = require('axios');
 const { clearInterval, setInterval } = require("timers");
 const cors = require('cors');
 
 require('dotenv').config();
 
+const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const app = express();
 const PORT = process.env.PORT || 8080;
 
@@ -30,35 +30,34 @@ if (process.env.NODE_ENV === "production") {
 
 // Set up a timer to trigger an API request every 10 minutes
 let times = 1;
-const timerFunction = () => {
-  axios.get("https://dworld.onrender.com/api/users")
-    .then(() => {
-      console.log('Trigger awake', times);
-      if (times === 9000) clearInterval(timer);
-      times += 1;
-    })
-    .catch((err) => {
-      console.error("Unable to fetch -", err.message);
-    });
+const timerFunction = async () => {
+  try {
+    const response = await fetch("https://dworld.onrender.com/api/users");
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    console.log('Trigger awake', times);
+    if (times === 9000) clearInterval(timer);
+    times += 1;
+  } catch (err) {
+    console.error("Unable to fetch -", err.message);
+  }
 };
 const timer = setInterval(timerFunction, 600 * 1000);
 
-// Define common API URL base and headers
-const selected = { version: "v4", competition: "2018" };
-const apiHeaders = { 'X-Auth-Token': process.env.FOOTBALL_API_KEY, };
-
 // Function to make the API request and handle response
-const fetchFootballData = (endpoint, res) => {
+const fetchFootballData = async (endpoint, res) => {
+  const selected = { version: "v4", competition: "2018" };
+
   const apiUrl = `https://api.football-data.org/${selected.version}/competitions/${selected.competition}/${endpoint}`;
-  axios.get(apiUrl, { headers: apiHeaders })
-    .then(response => {
-      res.setHeader('Content-Type', 'application/json');
-      res.status(response.status).json(response.data);
-    })
-    .catch(error => {
-      console.error(error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    });
+  try {
+    const response = await fetch(apiUrl, { headers: { 'X-Auth-Token': process.env.FOOTBALL_API_KEY } });
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const data = await response.json();
+    res.setHeader('Content-Type', 'application/json');
+    res.status(response.status).json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 };
 
 // Set up routes for football data
