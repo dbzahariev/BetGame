@@ -1,10 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const morgan = require("morgan");
 const axios = require('axios');
 const { clearInterval, setInterval } = require("timers");
-require('dotenv').config();
 const cors = require('cors');
+
+require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -17,7 +17,6 @@ const routesChat = require("./routes/chat");
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(morgan("tiny"));
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
@@ -31,9 +30,9 @@ if (process.env.NODE_ENV === "production") {
 
 // Set up a timer to trigger an API request every 10 minutes
 let times = 1;
-const bb = () => {
+const timerFunction = () => {
   axios.get("https://dworld.onrender.com/api/users")
-    .then((response) => {
+    .then(() => {
       console.log('Trigger awake', times);
       if (times === 9000) clearInterval(timer);
       times += 1;
@@ -42,13 +41,11 @@ const bb = () => {
       console.error("Unable to fetch -", err.message);
     });
 };
-const timer = setInterval(bb, 600 * 1000);
+const timer = setInterval(timerFunction, 600 * 1000);
 
 // Define common API URL base and headers
 const selected = { version: "v4", competition: "2018" };
-const apiHeaders = {
-  'X-Auth-Token': 'c8d23279fec54671a43fcd93068762d1'
-};
+const apiHeaders = { 'X-Auth-Token': process.env.FOOTBALL_API_KEY, };
 
 // Function to make the API request and handle response
 const fetchFootballData = (endpoint, res) => {
