@@ -6,11 +6,11 @@
       "id": 201801,
       "homeTeam": {
         "id": 1,
-        "name": "Франция"
+        "name": "France"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Румъния"
+        "name": "Romania"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group A",
@@ -45,11 +45,11 @@
       "id": 201802,
       "homeTeam": {
         "id": 1,
-        "name": "Албания"
+        "name": "Albania"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Швейцария"
+        "name": "Switzerland"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group A",
@@ -84,11 +84,11 @@
       "id": 201803,
       "homeTeam": {
         "id": 1,
-        "name": "Уелс"
+        "name": "Wales"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Словакия"
+        "name": "Slovakia"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group B",
@@ -123,11 +123,11 @@
       "id": 201804,
       "homeTeam": {
         "id": 1,
-        "name": "Англия"
+        "name": "England"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Русия"
+        "name": "Russia"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group B",
@@ -162,11 +162,11 @@
       "id": 201805,
       "homeTeam": {
         "id": 1,
-        "name": "Турция"
+        "name": "Turkey"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Хърватия"
+        "name": "Croatia"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group D",
@@ -201,11 +201,11 @@
       "id": 201806,
       "homeTeam": {
         "id": 1,
-        "name": "Полша"
+        "name": "Poland"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Ирландия"
+        "name": "Ireland"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group C",
@@ -240,11 +240,11 @@
       "id": 201807,
       "homeTeam": {
         "id": 1,
-        "name": "Германия"
+        "name": "Germany"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Украйна"
+        "name": "Ukraine"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group C",
@@ -279,7 +279,7 @@
       "id": 201808,
       "homeTeam": {
         "id": 1,
-        "name": "Испания"
+        "name": "Spain"
       },
       "awayTeam": {
         "id": 2,
@@ -361,7 +361,7 @@
       },
       "awayTeam": {
         "id": 2,
-        "name": "Италия"
+        "name": "Italy"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group E",
@@ -400,7 +400,7 @@
       },
       "awayTeam": {
         "id": 2,
-        "name": "Унгария"
+        "name": "Hungary"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group F",
@@ -435,11 +435,11 @@
       "id": 201812,
       "homeTeam": {
         "id": 1,
-        "name": "Португалия"
+        "name": "Portugal"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Исландия"
+        "name": "Iceland"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group F",
@@ -474,11 +474,11 @@
       "id": 201813,
       "homeTeam": {
         "id": 1,
-        "name": "Русия"
+        "name": "Russia"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Словакия"
+        "name": "Slovakia"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group B",
@@ -513,11 +513,11 @@
       "id": 201814,
       "homeTeam": {
         "id": 1,
-        "name": "Румъния"
+        "name": "Romania"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Швейцария"
+        "name": "Switzerland"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group A",
@@ -552,11 +552,11 @@
       "id": 201815,
       "homeTeam": {
         "id": 1,
-        "name": "Франция"
+        "name": "France"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Албания"
+        "name": "Albania"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group A",
@@ -591,11 +591,11 @@
       "id": 201816,
       "homeTeam": {
         "id": 1,
-        "name": "Англия"
+        "name": "England"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Уелс"
+        "name": "Wales"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group B",
@@ -630,11 +630,11 @@
       "id": 201817,
       "homeTeam": {
         "id": 1,
-        "name": "Украйна"
+        "name": "Ukraine"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Ирландия"
+        "name": "Ireland"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group C",
@@ -669,11 +669,11 @@
       "id": 201818,
       "homeTeam": {
         "id": 1,
-        "name": "Германия"
+        "name": "Germany"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Полша"
+        "name": "Poland"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group C",
@@ -708,7 +708,7 @@
       "id": 201819,
       "homeTeam": {
         "id": 1,
-        "name": "Италия"
+        "name": "Italy"
       },
       "awayTeam": {
         "id": 2,
@@ -751,7 +751,7 @@
       },
       "awayTeam": {
         "id": 2,
-        "name": "Хърватия"
+        "name": "Croatia"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group D",
@@ -786,11 +786,11 @@
       "id": 201821,
       "homeTeam": {
         "id": 1,
-        "name": "Испания"
+        "name": "Spain"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Турция"
+        "name": "Turkey"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group D",
@@ -864,11 +864,11 @@
       "id": 201823,
       "homeTeam": {
         "id": 1,
-        "name": "Исландия"
+        "name": "Iceland"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Унгария"
+        "name": "Hungary"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group F",
@@ -903,7 +903,7 @@
       "id": 201824,
       "homeTeam": {
         "id": 1,
-        "name": "Португалия"
+        "name": "Portugal"
       },
       "awayTeam": {
         "id": 2,
@@ -942,11 +942,11 @@
       "id": 201825,
       "homeTeam": {
         "id": 1,
-        "name": "Румъния"
+        "name": "Romania"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Албания"
+        "name": "Albania"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group A",
@@ -981,11 +981,11 @@
       "id": 201826,
       "homeTeam": {
         "id": 1,
-        "name": "Швейцария"
+        "name": "Switzerland"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Франция"
+        "name": "France"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group A",
@@ -1020,11 +1020,11 @@
       "id": 201827,
       "homeTeam": {
         "id": 1,
-        "name": "Словакия"
+        "name": "Slovakia"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Англия"
+        "name": "England"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group B",
@@ -1059,11 +1059,11 @@
       "id": 201828,
       "homeTeam": {
         "id": 1,
-        "name": "Русия"
+        "name": "Russia"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Уелс"
+        "name": "Wales"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group B",
@@ -1098,11 +1098,11 @@
       "id": 201829,
       "homeTeam": {
         "id": 1,
-        "name": "Украйна"
+        "name": "Ukraine"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Полша"
+        "name": "Poland"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group C",
@@ -1137,11 +1137,11 @@
       "id": 201830,
       "homeTeam": {
         "id": 1,
-        "name": "Ирландия"
+        "name": "Ireland"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Германия"
+        "name": "Germany"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group C",
@@ -1180,7 +1180,7 @@
       },
       "awayTeam": {
         "id": 2,
-        "name": "Турция"
+        "name": "Turkey"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group D",
@@ -1215,11 +1215,11 @@
       "id": 201832,
       "homeTeam": {
         "id": 1,
-        "name": "Хърватия"
+        "name": "Croatia"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Испания"
+        "name": "Spain"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group D",
@@ -1254,11 +1254,11 @@
       "id": 201833,
       "homeTeam": {
         "id": 1,
-        "name": "Унгария"
+        "name": "Hungary"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Португалия"
+        "name": "Portugal"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "Group F",
@@ -1293,7 +1293,7 @@
       "id": 201834,
       "homeTeam": {
         "id": 1,
-        "name": "Исландия"
+        "name": "Iceland"
       },
       "awayTeam": {
         "id": 2,
@@ -1332,7 +1332,7 @@
       "id": 201835,
       "homeTeam": {
         "id": 1,
-        "name": "Италия"
+        "name": "Italy"
       },
       "awayTeam": {
         "id": 2,
@@ -1410,11 +1410,11 @@
       "id": 201837,
       "homeTeam": {
         "id": 1,
-        "name": "Швейцария"
+        "name": "Switzerland"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Полша"
+        "name": "Poland"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "LAST_16",
@@ -1449,11 +1449,11 @@
       "id": 201838,
       "homeTeam": {
         "id": 1,
-        "name": "Уелс"
+        "name": "Wales"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Ирландия"
+        "name": "Ireland"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "LAST_16",
@@ -1488,11 +1488,11 @@
       "id": 201839,
       "homeTeam": {
         "id": 1,
-        "name": "Хърватия"
+        "name": "Croatia"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Португалия"
+        "name": "Portugal"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "LAST_16",
@@ -1527,7 +1527,7 @@
       "id": 201840,
       "homeTeam": {
         "id": 1,
-        "name": "Франция"
+        "name": "France"
       },
       "awayTeam": {
         "id": 2,
@@ -1566,11 +1566,11 @@
       "id": 201841,
       "homeTeam": {
         "id": 1,
-        "name": "Германия"
+        "name": "Germany"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Словакия"
+        "name": "Slovakia"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "LAST_16",
@@ -1605,7 +1605,7 @@
       "id": 201842,
       "homeTeam": {
         "id": 1,
-        "name": "Унгария"
+        "name": "Hungary"
       },
       "awayTeam": {
         "id": 2,
@@ -1644,11 +1644,11 @@
       "id": 201843,
       "homeTeam": {
         "id": 1,
-        "name": "Италия"
+        "name": "Italy"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Испания"
+        "name": "Spain"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "LAST_16",
@@ -1683,11 +1683,11 @@
       "id": 201844,
       "homeTeam": {
         "id": 1,
-        "name": "Англия"
+        "name": "England"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Исландия"
+        "name": "Iceland"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "LAST_16",
@@ -1722,11 +1722,11 @@
       "id": 201845,
       "homeTeam": {
         "id": 1,
-        "name": "Полша"
+        "name": "Poland"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Португалия"
+        "name": "Portugal"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "QUARTER_FINAL",
@@ -1761,7 +1761,7 @@
       "id": 201846,
       "homeTeam": {
         "id": 1,
-        "name": "Уелс"
+        "name": "Wales"
       },
       "awayTeam": {
         "id": 2,
@@ -1800,11 +1800,11 @@
       "id": 201847,
       "homeTeam": {
         "id": 1,
-        "name": "Германия"
+        "name": "Germany"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Италия"
+        "name": "Italy"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "QUARTER_FINAL",
@@ -1839,11 +1839,11 @@
       "id": 201848,
       "homeTeam": {
         "id": 1,
-        "name": "Франция"
+        "name": "France"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Исландия"
+        "name": "Iceland"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "QUARTER_FINAL",
@@ -1878,11 +1878,11 @@
       "id": 201849,
       "homeTeam": {
         "id": 1,
-        "name": "Португалия"
+        "name": "Portugal"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Уелс"
+        "name": "Wales"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "SEMI_FINAL",
@@ -1917,11 +1917,11 @@
       "id": 201850,
       "homeTeam": {
         "id": 1,
-        "name": "Германия"
+        "name": "Germany"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Франция"
+        "name": "France"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "SEMI_FINAL",
@@ -1956,11 +1956,11 @@
       "id": 201851,
       "homeTeam": {
         "id": 1,
-        "name": "Португалия"
+        "name": "Portugal"
       },
       "awayTeam": {
         "id": 2,
-        "name": "Франция"
+        "name": "France"
       },
       "utcDate": "2016-06-14T15:00:00Z",
       "group": "FINAL",
