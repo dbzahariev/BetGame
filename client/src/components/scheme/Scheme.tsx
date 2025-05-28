@@ -4,6 +4,7 @@ import { getAllTeams, matchesNotState } from "../../helpers/OtherHelpers";
 import { translateTeamsName } from "../../helpers/Translate";
 import OneMatchInScheme from "./OneMatchInScheme";
 import Separator from "./separator.svg";
+import { io } from "socket.io-client";
 
 let coeficientLength = 23.5
 
@@ -16,9 +17,15 @@ export default function Scheme() {
   const matches = matchesNotState
 
   useEffect(() => {
+    const socket = io("http://localhost:8080");
+    socket.on("data-updated", (dateFromServer) => {
+      console.log(dateFromServer);
+    });
+
     getAllTeams((teams: any[]) => {
       setTeams(teams)
     })
+    // eslint-disable-next-line
   }, []);
 
   const capitalizeText = (text: String) => {

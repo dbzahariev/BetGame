@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const { clearInterval, setInterval } = require("timers");
 const cors = require('cors');
 const backupNow = require('./client/src/components/ranking/Backup2024.json')
+const http = require('http');
+const { Server } = require('socket.io');
 
 require('dotenv').config();
 
@@ -64,7 +66,7 @@ const fetchFootballData = async (endpoint, res) => {
 // In-memory cache for standings
 let standingsCache = null;
 let standingsCacheTime = 0;
-const STANDINGS_TTL = 180 * 1000; // 3 минути в ms
+const STANDINGS_TTL = 10 * 1000; // 10 секунди в ms
 
 // Set up routes for football data
 app.get('/api/db/matches', (req, res) => {
@@ -82,6 +84,7 @@ app.get('/groups/api/db/standings', async (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     const now = Date.now();
     if (standingsCache && (now - standingsCacheTime < STANDINGS_TTL)) {
+      io.emit('data-updated', { message: 'Cached data on standings', data: standingsCache });
       return res.status(200).json(standingsCache);
     }
     const selected = { version: "v4", competition: "2018" };
@@ -91,6 +94,7 @@ app.get('/groups/api/db/standings', async (req, res) => {
     const data = await response.json();
     standingsCache = data;
     standingsCacheTime = now;
+    io.emit('data-updated', { message: 'Refreshed data on standings', data: standingsCache });
     res.status(200).json(data);
   } catch (error) {
     console.error(error);
@@ -102,9 +106,26 @@ app.get('/api/db/teams', (req, res) => {
   fetchFootballData("teams", res);
 });
 
+// function simulateChange() {
+//   io.emit('data-updated', { message: 'New data available', timestamp: new Date() });
+// }
+// setInterval(simulateChange, STANDINGS_TTL);
+
 // Use the imported routes
 app.use("/api", routes);
 app.use("/chat", routesChat);
 
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST']
+  }
+});
+
+io.on('connection', (socket) => {
+  socket.on('disconnect', () => { });
+});
+
 // Start server
-app.listen(PORT, () => console.log(`Server is starting at ${PORT}`));
+server.listen(PORT, () => console.log(`Server is starting at ${PORT}`));
