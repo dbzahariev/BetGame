@@ -16,6 +16,7 @@ import rankingImg7 from "./rankingImg_7_ranks.svg";
 import rankingImg8 from "./rankingImg_8_ranks.svg";
 import rankingImg9 from "./rankingImg_9_ranks.svg";
 import rankingImg10 from "./rankingImg_10_ranks.svg";
+import backup2024 from "./Backup2024.json";
 import backup2022 from "./Backup2022.json";
 import backup2020 from "./Backup2020.json";
 import backup2018 from "./Backup2018.json";
@@ -27,6 +28,7 @@ import { translateTeamsName } from "../../helpers/Translate";
 const { Option } = Select;
 
 const years = [
+  { value: "2026", name: { eng: "Euro 2026", bg: "Световно 2026" } },
   { value: "2024", name: { eng: "Euro 2024", bg: "Евро 2024" } },
   { value: "2022", name: { eng: "World 2022", bg: "Световно 2022" } },
   { value: "2020", name: { eng: "Euro 2020", bg: "Евро 2020" } },
@@ -60,6 +62,7 @@ export default function Ranking() {
   }, [users]);
 
   const getSelectedBackup = () => {
+    if (competitionValue === "2024") return backup2024;
     if (competitionValue === "2022") return backup2022;
     if (competitionValue === "2020") return backup2020;
     if (competitionValue === "2018") return backup2018;
@@ -73,29 +76,32 @@ export default function Ranking() {
   }
 
   const getMatches = () => {
-    const selectedBackup = getSelectedBackup();
-    const matchesFromBackup: MatchType[] = selectedBackup.matches
-      .map((el: MatchType) => ({
-        number: el.number,
-        key: el.key,
-        id: el.id,
-        homeTeam: el.homeTeam,
-        awayTeam: el.awayTeam,
-        utcDate: new Date(el.utcDate),
-        status: el.status,
-        score: el.score as ScoreType,
-        homeTeamScore: el.homeTeamScore,
-        awayTeamScore: el.awayTeamScore,
-        group: el.group,
-      }))
-      .filter((matchToAdd) => !(showGroups === false && matchToAdd?.group?.toLowerCase().indexOf("group") === 0));
-
-    setMatches(matchesFromBackup);
-  };
+      const selectedBackup = getSelectedBackup();
+      const matchesFromBackup = selectedBackup.matches
+        .map((el: any) => ({
+          number: el.number,
+          key: el.key,
+          id: el.id,
+          homeTeam: el.homeTeam,
+          awayTeam: el.awayTeam,
+          utcDate: new Date(el.utcDate),
+          status: el.status,
+          score: el.score as ScoreType,
+          homeTeamScore: el.homeTeamScore,
+          awayTeamScore: el.awayTeamScore,
+          group: el.group,
+        }))
+        .filter((matchToAdd: any) => !(showGroups === false && matchToAdd?.group?.toLowerCase().indexOf("group") === 0));
+  
+      setMatches(matchesFromBackup);
+    };
 
   const getUsers = () => {
     const selectedBackup = getSelectedBackup();
-    const usersFromBackup: UsersType[] = selectedBackup.users.map((el) => ({
+    const usersArray = (selectedBackup && Array.isArray((selectedBackup as any).users))
+      ? (selectedBackup as any).users
+      : [];
+    const usersFromBackup: UsersType[] = usersArray.map((el: any) => ({
       name: el.name,
       bets: el.bets as any[],
       index: el.index,

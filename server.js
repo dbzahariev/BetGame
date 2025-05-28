@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const { clearInterval, setInterval } = require("timers");
 const cors = require('cors');
+const backupNow = require('./client/src/components/ranking/Backup2024.json')
 
 require('dotenv').config();
 
@@ -31,15 +32,15 @@ if (process.env.NODE_ENV === "production") {
 // Set up a timer to trigger an API request every 10 minutes
 let times = 1;
 const timerFunction = async () => {
-  try {
-    const response = await fetch("https://dworld.onrender.com/api/users");
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-    console.log('Trigger awake', times);
-    if (times === 9000) clearInterval(timer);
-    times += 1;
-  } catch (err) {
-    console.error("Unable to fetch -", err.message);
-  }
+  // try {
+  //   const response = await fetch("https://dworld.onrender.com/api/users");
+  //   if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+  //   console.log('Trigger awake', times);
+  //   if (times === 9000) clearInterval(timer);
+  //   times += 1;
+  // } catch (err) {
+  //   console.error("Unable to fetch -", err.message);
+  // }
 };
 const timer = setInterval(timerFunction, 600 * 1000);
 
@@ -60,13 +61,41 @@ const fetchFootballData = async (endpoint, res) => {
   }
 };
 
+// In-memory cache for standings
+let standingsCache = null;
+let standingsCacheTime = 0;
+const STANDINGS_TTL = 180 * 1000; // 3 минути в ms
+
 // Set up routes for football data
 app.get('/api/db/matches', (req, res) => {
-  fetchFootballData("matches", res);
+  res.status(200).json({ matches: backupNow.matches });
+  // try {
+  //   fetchFootballData("matches", res);
+  // } catch (error) {
+  //   console.error(error);
+  //   res.status(500).json({ error: 'Internal Server Error' });
+  // }
 });
 
-app.get('/groups/api/db/standings', (req, res) => {
-  fetchFootballData("standings", res);
+app.get('/groups/api/db/standings', async (req, res) => {
+  try {
+    res.setHeader('Content-Type', 'application/json');
+    const now = Date.now();
+    if (standingsCache && (now - standingsCacheTime < STANDINGS_TTL)) {
+      return res.status(200).json(standingsCache);
+    }
+    const selected = { version: "v4", competition: "2018" };
+    const apiUrl = `https://api.football-data.org/${selected.version}/competitions/${selected.competition}/standings`;
+    const response = await fetch(apiUrl, { headers: { 'X-Auth-Token': process.env.FOOTBALL_API_KEY } });
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const data = await response.json();
+    standingsCache = data;
+    standingsCacheTime = now;
+    res.status(200).json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 app.get('/api/db/teams', (req, res) => {

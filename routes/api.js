@@ -1,11 +1,9 @@
 const express = require("express");
-
 const router = express.Router();
-
 const Games = require("../models/games");
+const backupNow = require('./../client/src/components/ranking/Backup2024.json')
 
 // Routes
-
 router.get("/", (req, res) => {
   Games.find({})
     .then((data) => {
@@ -18,14 +16,15 @@ router.get("/", (req, res) => {
 });
 
 router.get("/users", (req, res) => {
-  Games.find({})
-    .then((data) => {
-      return res.json(data);
-    })
-    .catch((err) => {
-      console.error(err);
-      return res.status(500);
-    });
+  res.status(200).json(backupNow.users);
+  // Games.find({})
+  //   .then((data) => {
+  //     return res.json(data);
+  //   })
+  //   .catch((err) => {
+  //     console.error(err);
+  //     return res.status(500);
+  //   });
 });
 
 router.post("/save", (req, res) => {
