@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Games = require("../models/games");
-const backupNow = require('./../client/src/components/ranking/Backup2024.json')
+const backupNow = require('../client-react/src/components/ranking/Backup2024.json')
 
 // Routes
 router.get("/", (req, res) => {

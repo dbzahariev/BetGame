@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const { clearInterval, setInterval } = require("timers");
 const cors = require('cors');
-const backupNow = require('./client/src/components/ranking/Backup2024.json')
+const backupNow = require('./client-react/src/components/ranking/Backup2024.json')
 const http = require('http');
 const { Server } = require('socket.io');
 
