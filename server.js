@@ -14,8 +14,8 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 // Import routes
-const routes = require("./routes/api");
-const routesChat = require("./routes/chat");
+// const routes = require("./routes/api");
+// const routesChat = require("./routes/chat");
 
 // Set up middleware
 app.use(cors());
@@ -120,8 +120,11 @@ app.get('/api/db/teams', (req, res) => {
 // setInterval(simulateChange, STANDINGS_TTL);
 
 // Use the imported routes
-app.use("/api", routes);
-app.use("/chat", routesChat);
+// console.log("Loading /api routes");
+// app.use("/api", routes);
+
+// console.log("Loading /chat routes");
+// app.use("/chat", routesChat);
 
 const server = http.createServer(app);
 const io = new Server(server, {
