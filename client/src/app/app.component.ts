@@ -14,6 +14,7 @@ export class AppComponent {
   title = 'client';
 
   constructor(private translate: TranslateService) {
+    console.log('AppComponent initialized');
     translate.addLangs(['en', 'bg']);
     const storedLang = sessionStorage.getItem('currentLang') || "bg";
     this.translate.setDefaultLang(storedLang);

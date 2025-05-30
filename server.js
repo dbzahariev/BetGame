@@ -77,6 +77,7 @@ const STANDINGS_TTL = 10 * 1000; // 10 секунди в ms
 
 // Set up routes for football data
 app.get('/api/db/matches', (req, res) => {
+  console.log('Using backup data for matches');
   res.status(200).json({ matches: backupNow.matches });
   // try {
   //   fetchFootballData("matches", res);
