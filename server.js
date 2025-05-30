@@ -25,10 +25,10 @@ mongoose.connect(process.env.MONGO_URI)
 
 // Serve static files in production
 if (process.env.NODE_ENV === "production") {
-  const angularDistPath = path.join(__dirname, 'dist', 'client', 'browser');
+  const angularDistPath = path.join(__dirname, 'client', 'dist', 'client', 'browser');
   app.use(express.static(angularDistPath));
 
-  app.get('*', (req, res) => {
+  app.get("/*", (req, res) => {
     res.sendFile(path.join(angularDistPath, 'index.html'));
   });
 }
@@ -80,15 +80,15 @@ let standingsCacheTime = 0;
 const STANDINGS_TTL = 10 * 1000; // 10 секунди в ms
 
 // Set up routes for football data
-// app.get('/api/db/matches', (req, res) => {
-//   console.log('Using backup data for matches');
-//   try {
-//     fetchFootballData("matches", res);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ error: 'Internal Server Error' });
-//   }
-// });
+app.get('/api/db/matches', (req, res) => {
+  console.log('Using backup data for matches');
+  try {
+    fetchFootballData("matches", res);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 // app.get('/groups/api/db/standings', async (req, res) => {
 //   try {
