@@ -25,10 +25,10 @@ mongoose.connect(process.env.MONGO_URI)
 
 // Serve static files in production
 if (process.env.NODE_ENV === "production") {
-  const angularDistPath = path.join(__dirname, 'client', 'dist', 'client', 'browser');
+  const angularDistPath = path.join(__dirname, 'dist', 'client', 'browser');
   app.use(express.static(angularDistPath));
-  
-  app.get(/(.*)/, (req, res) => {
+
+  app.get('*', (req, res) => {
     res.sendFile(path.join(angularDistPath, 'index.html'));
   });
 }
