@@ -5,6 +5,7 @@ const cors = require('cors');
 const backupNow = require('./client-react/src/components/ranking/Backup2024.json')
 const http = require('http');
 const { Server } = require('socket.io');
+const path = require('path');
 
 require('dotenv').config();
 
@@ -28,7 +29,13 @@ mongoose.connect(process.env.MONGO_URI)
 
 // Serve static files in production
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
+  const angularDistPath = path.join(__dirname, 'client', 'dist', 'client'); // провери името на проекта!
+  app.use(express.static(angularDistPath));
+
+  // Catch-all for Angular routing
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(angularDistPath, 'index.html'));
+  });
 }
 
 // Set up a timer to trigger an API request every 10 minutes
