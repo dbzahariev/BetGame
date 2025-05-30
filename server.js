@@ -13,10 +13,6 @@ const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fet
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-// Import routes
-// const routes = require("./routes/api");
-// const routesChat = require("./routes/chat");
-
 // Set up middleware
 app.use(cors());
 app.use(express.json());
@@ -78,13 +74,12 @@ const STANDINGS_TTL = 10 * 1000; // 10 секунди в ms
 // Set up routes for football data
 app.get('/api/db/matches', (req, res) => {
   console.log('Using backup data for matches');
-  res.status(200).json({ matches: [{ name: "pesho" }, { name: "pesho2" }] });
-  // try {
-  //   fetchFootballData("matches", res);
-  // } catch (error) {
-  //   console.error(error);
-  //   res.status(500).json({ error: 'Internal Server Error' });
-  // }
+  try {
+    fetchFootballData("matches", res);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 app.get('/groups/api/db/standings', async (req, res) => {
@@ -118,13 +113,6 @@ app.get('/api/db/teams', (req, res) => {
 //   io.emit('data-updated', { message: 'New data available', timestamp: new Date() });
 // }
 // setInterval(simulateChange, STANDINGS_TTL);
-
-// Use the imported routes
-// console.log("Loading /api routes");
-// app.use("/api", routes);
-
-// console.log("Loading /chat routes");
-// app.use("/chat", routesChat);
 
 const server = http.createServer(app);
 const io = new Server(server, {
