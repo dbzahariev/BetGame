@@ -25,14 +25,22 @@ mongoose.connect(process.env.MONGO_URI)
 
 // Serve static files in production
 if (process.env.NODE_ENV === "production") {
-  const angularDistPath = path.join(__dirname, 'client', 'dist', 'client', 'browser'); // провери името на проекта!
+  const angularDistPath = path.join(__dirname, 'client', 'dist', 'client', 'browser');
   app.use(express.static(angularDistPath));
-
-  // Catch-all for Angular routing
-  app.get('*', (req, res) => {
+  
+  app.get(/(.*)/, (req, res) => {
     res.sendFile(path.join(angularDistPath, 'index.html'));
   });
 }
+// if (process.env.NODE_ENV === "production") {
+//   const angularDistPath = path.join(__dirname, 'client', 'dist', 'client', 'browser'); // провери името на проекта!
+//   app.use(express.static(angularDistPath));
+
+//   // Catch-all for Angular routing
+//   app.get('*', (req, res) => {
+//     res.sendFile(path.join(angularDistPath, 'index.html'));
+//   });
+// }
 
 // Set up a timer to trigger an API request every 10 minutes
 let times = 1;
