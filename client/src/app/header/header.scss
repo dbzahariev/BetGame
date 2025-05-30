@@ -1,0 +1,52 @@
+nav ul {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  background: #fff;
+  border-radius: 8px;
+  padding: 8px 24px;
+  margin: 0;
+}
+
+nav li {
+  display: flex;
+  align-items: center;
+}
+
+nav a {
+  text-decoration: none;
+  color: #000000;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+nav a.active {
+  background: #1976d2;
+  color: #fff !important;
+}
+
+.lang-select {
+  margin-left: auto;
+}
+
+.lang-select-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lang-icon {
+  font-size: 1.1em;
+  color: #666;
+}
+
+.lang-select-inner select {
+  padding: 6px 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background: #fafafa;
+  font-size: 1em;
+  cursor: pointer;
+}

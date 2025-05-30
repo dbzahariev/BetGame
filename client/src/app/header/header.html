@@ -1,0 +1,20 @@
+<nav>
+    <ul>
+        @for (item of navLinks; track $index) {
+        <li>
+            <a [routerLink]="item.path" routerLinkActive="active">
+                {{ item.title | translate }}
+            </a>
+        </li>
+        }
+        <li class="lang-select">
+            <div class="lang-select-inner">
+                <span class="lang-icon">🌐</span>
+                <select (change)="switchLang($event)" [value]="this.translate.getDefaultLang()">
+                    <option value="bg">Български</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+        </li>
+    </ul>
+</nav>
