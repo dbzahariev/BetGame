@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Games = require("../models/games");
-const backupNow = require('../backup/Backup2024.json')
+// const backupNow = require('../backup/Backup2024.json')
 
 // Routes
 router.get("/", (req, res) => {
@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/users", (req, res) => {
-  res.status(200).json(backupNow.users);
+  res.status(200).json({ users: [{ name: "peshoUser" }, { name: "peshoUser2" }] });
   // Games.find({})
   //   .then((data) => {
   //     return res.json(data);

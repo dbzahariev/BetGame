@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const { clearInterval, setInterval } = require("timers");
 const cors = require('cors');
-const backupNow = require('./backup/Backup2024.json')
+// const backupNow = require('./backup/Backup2024.json')
 const http = require('http');
 const { Server } = require('socket.io');
 const path = require('path');
@@ -78,7 +78,7 @@ const STANDINGS_TTL = 10 * 1000; // 10 секунди в ms
 // Set up routes for football data
 app.get('/api/db/matches', (req, res) => {
   console.log('Using backup data for matches');
-  res.status(200).json({ matches: backupNow.matches });
+  res.status(200).json({ matches: [{ name: "pesho" }, { name: "pesho2" }] });
   // try {
   //   fetchFootballData("matches", res);
   // } catch (error) {
