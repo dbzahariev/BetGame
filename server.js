@@ -8,12 +8,14 @@ const DIST = path.join(__dirname, 'client', 'dist', 'client', 'browser', 'browse
 
 const server = http.createServer((req, res) => {
   if (req.url.startsWith('/api/db/matches') && req.method === 'GET') {
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify([
+    const matches = [
       { id: 1, name: 'Match One' },
       { id: 2, name: 'Match Two' },
       { id: 3, name: 'Match Three' }
-    ]));
+    ];
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(matches));
+    io.emit('matches', matches); // emit on success
     return;
   }
 
@@ -60,3 +62,13 @@ function getServerUrl() {
 server.listen(PORT, () => {
   console.log('Server running at:', getServerUrl());
 });
+
+// Periodically emit matches every 3 seconds
+setInterval(() => {
+  const matches = [
+    { id: 1, name: 'Match One' },
+    { id: 2, name: 'Match Two' },
+    { id: 3, name: 'Match Three' }
+  ];
+  io.emit('matches', matches);
+}, 3 * 1000); // every 3 seconds
