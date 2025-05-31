@@ -23,7 +23,7 @@ const server = http.createServer((req, res) => {
   }
 
   // Serve static files from Angular build (after ng build)
-  const distPath = path.join(__dirname, 'client', 'dist');
+  const distPath = path.join(__dirname, 'client', 'dist', 'client', 'browser');
   const filePath = path.join(distPath, req.url.split('?')[0]);
   if (req.url !== '/' && fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
     const ext = path.extname(filePath).toLowerCase();
