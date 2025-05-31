@@ -32,5 +32,5 @@
   "devDependencies": {
     "nodemon": "^3.1.10"
   },
-  "postinstall": "npm install"
+  "render-build": "npm install && cd client && npm install && npm run build"
 }
