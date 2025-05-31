@@ -1,6 +1,7 @@
 const http = require('http');
 const { Server } = require('socket.io');
 const fs = require('fs');
+const path = require('path');
 
 const headers = {
   'Content-Type': 'application/json',
@@ -10,7 +11,7 @@ const headers = {
   'Surrogate-Control': 'no-store'
 };
 const server = http.createServer((req, res) => {
-  if (req.url === '/api/db/matches' && req.method === 'GET') {
+  if (req.url.startsWith('/api/db/matches') && req.method === 'GET') {
     const matches = [
       { id: 1, name: 'Match One' },
       { id: 2, name: 'Match Two' },
@@ -21,28 +22,35 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  if (req.url === '/' && req.method === 'GET') {
-    // Serve the Angular index.html for the root URL
-    fs.readFile(__dirname + '/client/src/index.html', (err, data) => {
-      if (err) {
-        res.writeHead(500, { 'Content-Type': 'text/plain' });
-        res.end('Internal Server Error');
-        return;
-      }
-      res.writeHead(200, { 'Content-Type': 'text/html' });
-      res.end(data);
-    });
+  // Serve static files from Angular build (after ng build)
+  const distPath = path.join(__dirname, 'client', 'dist');
+  const filePath = path.join(distPath, req.url.split('?')[0]);
+  if (req.url !== '/' && fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+    const ext = path.extname(filePath).toLowerCase();
+    const contentType =
+      ext === '.js' ? 'application/javascript' :
+      ext === '.css' ? 'text/css' :
+      ext === '.html' ? 'text/html' :
+      ext === '.ico' ? 'image/x-icon' :
+      ext === '.json' ? 'application/json' :
+      ext === '.png' ? 'image/png' :
+      ext === '.jpg' || ext === '.jpeg' ? 'image/jpeg' :
+      'application/octet-stream';
+    res.writeHead(200, { 'Content-Type': contentType });
+    fs.createReadStream(filePath).pipe(res);
     return;
   }
 
-  if (req.url === '/api/hello' && req.method === 'GET') {
-    io.emit('message', 'A request was made to the server');
-    res.writeHead(200, headers);
-    res.end(JSON.stringify({ message: 'Hello, world!' }));
-  } else {
-    res.writeHead(404, headers);
-    res.end(JSON.stringify({ message: 'Not found' }));
-  }
+  // Fallback: serve index.html for SPA routes
+  fs.readFile(path.join(distPath, 'index.html'), (err, data) => {
+    if (err) {
+      res.writeHead(500, { 'Content-Type': 'text/plain' });
+      res.end('Internal Server Error');
+      return;
+    }
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.end(data);
+  });
 });
 
 const io = new Server(server, {
