@@ -50,5 +50,13 @@ io.on('connection', s => {
   s.on('disconnect', () => console.log('User disconnected:', s.id));
 });
 
-const HOST = '0.0.0.0';
-server.listen(PORT, HOST, () => console.log(`Server running at http://${HOST}:${PORT}/`));
+function getServerUrl() {
+  const address = server.address();
+  if (!address) return null;
+  let host = address.address;
+  if (host === '::') host = 'localhost';
+  return `http://${host}:${address.port}/`;
+}
+server.listen(PORT, () => {
+  console.log('Server running at:', getServerUrl());
+});
