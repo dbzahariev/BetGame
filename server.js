@@ -23,19 +23,19 @@ const server = http.createServer((req, res) => {
   }
 
   // Serve static files from Angular build (after ng build)
-  const distPath = path.join(__dirname, 'client', 'dist', 'client', 'browser');
+  const distPath = path.join(__dirname, 'client', 'dist', 'client', 'browser', 'browser');
   const filePath = path.join(distPath, req.url.split('?')[0]);
   if (req.url !== '/' && fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
     const ext = path.extname(filePath).toLowerCase();
     const contentType =
       ext === '.js' ? 'application/javascript' :
-      ext === '.css' ? 'text/css' :
-      ext === '.html' ? 'text/html' :
-      ext === '.ico' ? 'image/x-icon' :
-      ext === '.json' ? 'application/json' :
-      ext === '.png' ? 'image/png' :
-      ext === '.jpg' || ext === '.jpeg' ? 'image/jpeg' :
-      'application/octet-stream';
+        ext === '.css' ? 'text/css' :
+          ext === '.html' ? 'text/html' :
+            ext === '.ico' ? 'image/x-icon' :
+              ext === '.json' ? 'application/json' :
+                ext === '.png' ? 'image/png' :
+                  ext === '.jpg' || ext === '.jpeg' ? 'image/jpeg' :
+                    'application/octet-stream';
     res.writeHead(200, { 'Content-Type': contentType });
     fs.createReadStream(filePath).pipe(res);
     return;
