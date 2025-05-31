@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { socket } from '../app.component';
 
 @Component({
   selector: 'app-all-matches',
@@ -6,22 +7,22 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './all-matches.html',
   styleUrl: './all-matches.scss'
 })
-export class AllMatches implements OnInit {
+export class AllMatches implements OnInit, OnDestroy {
   matches: any[] = [];
   constructor() {
     console.log('AllMatches component initialized');
   }
 
   async ngOnInit() {
-      let res: any = await fetch('api/db/matches')
-      .then(response => response.json()).catch(error => {
+    socket.on('matches', (matches) => {
+      console.log('Получени мачове от сървъра:', matches);
+    });
+    let res: any = await fetch('api/db/matches')
+      .then(response => response.json())
+      .catch(error => {
         console.error('Error:', error);
         return [];
-      })
-      .then(data2 => {
-        console.log('Success:', data2);
-        return data2;
-      })
+      });
     // const response = await fetch('api/db/matches');
     // response.then((res) => {
     //   debugger;
@@ -29,5 +30,10 @@ export class AllMatches implements OnInit {
     // const res: any = await response.json();
     // this.matches = res;
     // console.log('AllMatches component onInit');
+  }
+
+  ngOnDestroy() {
+    socket.off('matches');
+    console.log('AllMatches component destroyed');
   }
 }

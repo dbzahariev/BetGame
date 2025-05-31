@@ -4,6 +4,8 @@ import { Header } from "./header/header";
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { io, Socket } from 'socket.io-client';
 
+export let socket: Socket;
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -13,10 +15,8 @@ import { io, Socket } from 'socket.io-client';
 })
 export class AppComponent {
   title = 'client';
-  private socket: Socket;
 
   constructor(private translate: TranslateService) {
-    console.log('AppComponent initialized');
     translate.addLangs(['en', 'bg']);
     const storedLang = sessionStorage.getItem('currentLang') || "bg";
     this.translate.setDefaultLang(storedLang);
@@ -24,17 +24,12 @@ export class AppComponent {
     // Socket.IO client initialization
     const isDev = window.location.hostname === 'localhost';
     const url = isDev ? 'http://localhost:8080' : 'https://dworld.onrender.com/';
-    console.log('window.location.origin:', url);
-    this.socket = io(url);
-    this.socket.on('connect', () => {
-      console.log('Socket.IO connected:', this.socket.id);
+    socket = io(url);
+    socket.on('connect', () => {
+      socket.emit('clientConnected', { message: 'Client connected successfully', userId: socket.id });
     });
-    this.socket.on('matches', (matches) => {
-      console.log('Получени мачове от сървъра:', matches);
-      // Тук може да се добави логика за обновяване на UI
-    });
-    this.socket.on('disconnect', () => {
-      console.log('Socket.IO disconnected');
+    socket.on('disconnect', () => {
+      socket.emit('clientDisconnected', { message: 'Client disconnected', userId: socket.id });
     });
   }
 }

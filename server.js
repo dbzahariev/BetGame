@@ -48,9 +48,8 @@ const server = http.createServer((req, res) => {
 
 const io = new Server(server, { cors: { origin: '*', methods: ['GET', 'POST'] } });
 io.on('connection', s => {
-  console.log('User connected:', s.id);
-  s.on('disconnect', () => console.log('User disconnected:', s.id));
-});
+  s.on('disconnect', () => { });
+})
 
 function getServerUrl() {
   const address = server.address();
@@ -68,7 +67,9 @@ setInterval(() => {
   const matches = [
     { id: 1, name: 'Match One' },
     { id: 2, name: 'Match Two' },
-    { id: 3, name: 'Match Three' }
+    { id: 3, name: 'Match Three' },
+    { id: 4, name: 'Match Four' },
+    { id: 5, name: 'Match Five' }
   ];
   io.emit('matches', matches);
 }, 3 * 1000); // every 3 seconds
