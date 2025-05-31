@@ -22,7 +22,7 @@ export class AppComponent {
     this.translate.setDefaultLang(storedLang);
 
     // Socket.IO client initialization
-    let url = window.location.origin.split(':')[0] + ':' + window.location.origin.split(':')[1]+ ':8080';
+    let url = 'http://localhost:8080/'//window.location.origin.split(':')[0] + ':' + window.location.origin.split(':')[1]+ ':8080';
     console.log('window.location.origin:', url);
     this.socket = io(url);
     this.socket.on('connect', () => {
