@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "client": "set NODE_OPTIONS=--openssl-legacy-provider && npm run start --prefix client",
-    "build": "cd client && npm install && npm run build",
+    "build": "npm install && cd client && npm install && npm run build",
     "start": "node --no-deprecation server.js",
     "server": "nodemon --no-deprecation server.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
@@ -31,6 +31,5 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
-  },
-  "render-build": "npm install && cd client && npm install && npm run build"
+  }
 }
