@@ -22,7 +22,8 @@ export class AppComponent {
     this.translate.setDefaultLang(storedLang);
 
     // Socket.IO client initialization
-    let url = 'http://localhost:8080/'//window.location.origin.split(':')[0] + ':' + window.location.origin.split(':')[1]+ ':8080';
+    const isDev = window.location.hostname === 'localhost';
+    const url = isDev ? 'http://localhost:8080' : 'https://dworld.onrender.com/';
     console.log('window.location.origin:', url);
     this.socket = io(url);
     this.socket.on('connect', () => {
