@@ -3,71 +3,52 @@ const { Server } = require('socket.io');
 const fs = require('fs');
 const path = require('path');
 
-const headers = {
-  'Content-Type': 'application/json',
-  'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-  'Pragma': 'no-cache',
-  'Expires': '0',
-  'Surrogate-Control': 'no-store'
-};
+const PORT = 8080;
+const DIST = path.join(__dirname, 'client', 'dist', 'client', 'browser', 'browser');
+
 const server = http.createServer((req, res) => {
   if (req.url.startsWith('/api/db/matches') && req.method === 'GET') {
-    const matches = [
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify([
       { id: 1, name: 'Match One' },
       { id: 2, name: 'Match Two' },
       { id: 3, name: 'Match Three' }
-    ];
-    res.writeHead(200, headers);
-    res.end(JSON.stringify(matches));
+    ]));
     return;
   }
 
-  // Serve static files from Angular build (after ng build)
-  const distPath = path.join(__dirname, 'client', 'dist', 'client', 'browser', 'browser');
-  const filePath = path.join(distPath, req.url.split('?')[0]);
-  if (req.url !== '/' && fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+  // Static file
+  let file = req.url === '/' ? 'index.html' : req.url.split('?')[0];
+  let filePath = path.join(DIST, file);
+  if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
     const ext = path.extname(filePath).toLowerCase();
-    const contentType =
-      ext === '.js' ? 'application/javascript' :
-        ext === '.css' ? 'text/css' :
-          ext === '.html' ? 'text/html' :
-            ext === '.ico' ? 'image/x-icon' :
-              ext === '.json' ? 'application/json' :
-                ext === '.png' ? 'image/png' :
-                  ext === '.jpg' || ext === '.jpeg' ? 'image/jpeg' :
-                    'application/octet-stream';
-    res.writeHead(200, { 'Content-Type': contentType });
-    fs.createReadStream(filePath).pipe(res);
-    return;
+    const types = {
+      '.js': 'application/javascript',
+      '.css': 'text/css',
+      '.html': 'text/html',
+      '.ico': 'image/x-icon',
+      '.json': 'application/json',
+      '.png': 'image/png',
+      '.jpg': 'image/jpeg',
+      '.jpeg': 'image/jpeg'
+    };
+    res.writeHead(200, { 'Content-Type': types[ext] || 'application/octet-stream' });
+    return fs.createReadStream(filePath).pipe(res);
   }
 
-  // Fallback: serve index.html for SPA routes
-  fs.readFile(path.join(distPath, 'index.html'), (err, data) => {
-    if (err) {
-      res.writeHead(500, { 'Content-Type': 'text/plain' });
-      res.end('Internal Server Error');
-      return;
-    }
+  // SPA fallback
+  fs.readFile(path.join(DIST, 'index.html'), (err, data) => {
+    if (err) return res.writeHead(500).end('Internal Server Error');
     res.writeHead(200, { 'Content-Type': 'text/html' });
     res.end(data);
   });
 });
 
-const io = new Server(server, {
-  cors: {
-    origin: '*',
-    methods: ['GET', 'POST']
-  }
+const io = new Server(server, { cors: { origin: '*', methods: ['GET', 'POST'] } });
+io.on('connection', s => {
+  console.log('User connected:', s.id);
+  s.on('disconnect', () => console.log('User disconnected:', s.id));
 });
 
-io.on('connection', (socket) => {
-  console.log('A user connected:', socket.id);
-  socket.on('disconnect', () => {
-    console.log('User disconnected:', socket.id);
-  });
-});
-
-const PORT = 8080;
-server.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}/`);
-});
+const HOST = '0.0.0.0';
+server.listen(PORT, HOST, () => console.log(`Server running at http://${HOST}:${PORT}/`));
