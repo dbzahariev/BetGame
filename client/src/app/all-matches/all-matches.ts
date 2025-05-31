@@ -13,16 +13,15 @@ export class AllMatches implements OnInit {
   }
 
   async ngOnInit() {
-
-    let res: any = await fetch('api/db/matches')
+      let res: any = await fetch('api/db/matches')
       .then(response => response.json()).catch(error => {
-        debugger
-        return console.error('Error:', error)
+        console.error('Error:', error);
+        return [];
       })
       .then(data2 => {
-        debugger;
+        console.log('Success:', data2);
+        return data2;
       })
-    debugger;
     // const response = await fetch('api/db/matches');
     // response.then((res) => {
     //   debugger;
