@@ -6,19 +6,23 @@ const path = require('path');
 const PORT = 8080;
 const DIST = path.join(__dirname, 'client', 'dist', 'client', 'browser', 'browser');
 
-const server = http.createServer((req, res) => {
-  if (req.url.startsWith('/api/db/matches') && req.method === 'GET') {
-    const matches = [
-      { id: 1, name: 'Match One' },
-      { id: 2, name: 'Match Two' },
-      { id: 3, name: 'Match Three' }
-    ];
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify(matches));
-    io.emit('matches', matches); // emit on success
-    return;
-  }
+const matches = [
+  { id: 1, name: 'Match One' },
+  { id: 2, name: 'Match Two' },
+  { id: 3, name: 'Match Three' },
+  { id: 4, name: 'Match Four' },
+  { id: 5, name: 'Match Five' }
+];
 
+const users = [
+  { id: 1, name: 'User One' },
+  { id: 2, name: 'User Two' },
+  { id: 3, name: 'User Three' },
+  { id: 4, name: 'User Four' },
+  { id: 5, name: 'User Five' }
+];
+
+const server = http.createServer((req, res) => {
   // Static file
   let file = req.url === '/' ? 'index.html' : req.url.split('?')[0];
   let filePath = path.join(DIST, file);
@@ -49,7 +53,17 @@ const server = http.createServer((req, res) => {
 const io = new Server(server, { cors: { origin: '*', methods: ['GET', 'POST'] } });
 io.on('connection', s => {
   s.on('disconnect', () => { });
-})
+
+  s.on('join', (data) => {
+    s.join(data.room)
+    emitData();
+  });
+
+  s.on('leave', (data) => {
+    s.leave(data.room);
+    emitData();
+  });
+});
 
 function getServerUrl() {
   const address = server.address();
@@ -62,14 +76,20 @@ server.listen(PORT, () => {
   console.log('Server running at:', getServerUrl());
 });
 
+function emitData() {
+  let isHaveUser = (io.sockets.adapter.rooms.get('users')?.size || 0) > 0;
+  let isHaveMatche = (io.sockets.adapter.rooms.get('matches')?.size || 0) > 0;
+  if (isHaveMatche) {
+    console.log('Emitting matches');
+    io.to('matches').emit('matches', matches);
+  }
+  if (isHaveUser) {
+    console.log('Emitting users');
+    io.to('users').emit('users', users);
+  }
+}
+
 // Periodically emit matches every 3 seconds
 setInterval(() => {
-  const matches = [
-    { id: 1, name: 'Match One' },
-    { id: 2, name: 'Match Two' },
-    { id: 3, name: 'Match Three' },
-    { id: 4, name: 'Match Four' },
-    { id: 5, name: 'Match Five' }
-  ];
-  io.emit('matches', matches);
+  emitData();
 }, 3 * 1000); // every 3 seconds

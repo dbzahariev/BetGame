@@ -25,11 +25,7 @@ export class AppComponent {
     const isDev = window.location.hostname === 'localhost';
     const url = isDev ? 'http://localhost:8080' : 'https://dworld.onrender.com/';
     socket = io(url);
-    socket.on('connect', () => {
-      socket.emit('clientConnected', { message: 'Client connected successfully', userId: socket.id });
-    });
-    socket.on('disconnect', () => {
-      socket.emit('clientDisconnected', { message: 'Client disconnected', userId: socket.id });
-    });
+    socket.on('connect', () => { });
+    socket.on('disconnect', () => { });
   }
 }

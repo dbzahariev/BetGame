@@ -13,16 +13,21 @@ export class AllMatches implements OnInit, OnDestroy {
     console.log('AllMatches component initialized');
   }
 
-  async ngOnInit() {
+  ngOnInit() {
+    socket.emit('join', { room: 'matches', userId: socket.id });
+
     socket.on('matches', (matches) => {
-      console.log('Получени мачове от сървъра:', matches);
+      this.matches = matches;
     });
-    let res: any = await fetch('api/db/matches')
-      .then(response => response.json())
-      .catch(error => {
-        console.error('Error:', error);
-        return [];
-      });
+    // fetch('api/db/matches')
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     this.matches = data;
+    //   })
+    //   .catch(error => {
+    //     console.error('Error:', error);
+    //     return [];
+    //   });
     // const response = await fetch('api/db/matches');
     // response.then((res) => {
     //   debugger;
@@ -33,7 +38,7 @@ export class AllMatches implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    socket.off('matches');
+    socket.emit('leave', { room: 'matches', userId: socket.id });
     console.log('AllMatches component destroyed');
   }
 }

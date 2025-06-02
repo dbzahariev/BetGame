@@ -1,1 +1,12 @@
 <p>all-matches works!</p>
+
+<!-- <button (click)="fetchMatches()">Fetch Matches</button>
+<button (click)="disfetchMatches()">Disfetch Matches</button> -->
+@for (item of matches; track item.id) {
+  <div>{{ item.name }}</div>
+}
+<ul>
+    <!-- <li @for (match of matches; track match.id)>
+        <a href="#/matches/{{match.id}}">{{match.name}}</a>
+    </li> -->
+</ul>
