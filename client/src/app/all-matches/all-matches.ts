@@ -19,6 +19,12 @@ export class AllMatches implements OnInit, OnDestroy {
     socket.on('matches', (matches) => {
       this.matches = matches;
     });
+
+    socket.emit('getGamesFromDb');
+    socket.on('gamesFromDb', (games) => {
+      debugger
+      this.matches = games;
+    });
     // fetch('api/db/matches')
     //   .then(response => response.json())
     //   .then(data => {

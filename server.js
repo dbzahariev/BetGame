@@ -1,7 +1,13 @@
+require('dotenv').config();
 const http = require('http');
 const { Server } = require('socket.io');
 const fs = require('fs');
 const path = require('path');
+const mongoose = require('mongoose');
+
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('Mongoose connected to MongoDB'))
+  .catch(err => console.error('Mongoose connection error:', err));
 
 const PORT = 8080;
 const DIST = path.join(__dirname, 'client', 'dist', 'client', 'browser', 'browser');
@@ -63,6 +69,30 @@ io.on('connection', s => {
     s.leave(data.room);
     emitData();
   });
+
+  s.on('getGamesFromDb', async () => {
+    try {
+      const Game = mongoose.model('Game', new mongoose.Schema({}, { strict: false }), 'games');
+      const games = await Game.find({}).lean();
+      s.emit('gamesFromDb', games);
+    } catch (err) {
+      s.emit('gamesFromDb', { error: 'Failed to fetch games', details: err.message });
+    }
+  });
+
+  s.on('getMatchesFromDb', () => {
+    // Example: Replace with your DB logic
+    // If you use mongoose: Matches.find({}, ...)
+    // Here, just send the matches array
+    s.emit('matchesFromDb', matches);
+  });
+
+  s.on('getUsersFromDb', () => {
+    // Example: Replace with your DB logic
+    // If you use mongoose: Users.find({}, ...)
+    // Here, just send the users array
+    s.emit('usersFromDb', users);
+  });
 });
 
 function getServerUrl() {
@@ -72,6 +102,7 @@ function getServerUrl() {
   if (host === '::') host = 'localhost';
   return `http://${host}:${address.port}/`;
 }
+
 server.listen(PORT, () => {
   console.log('Server running at:', getServerUrl());
 });

@@ -4,7 +4,7 @@ import { Groups } from './groups/groups';
 import { AllMatches } from './all-matches/all-matches';
 import { AllUsers } from './all-users/all-users';
 
-export const routes: Routes = [
+export let routes: Routes = [
     { path: 'all-matches', title: 'ALL_MATCHES', component: AllMatches },
     { path: 'all-users', title: 'ALL_USERS', component: AllUsers },
     { path: 'groups', title: 'GROUPS', component: Groups },
