@@ -103,13 +103,11 @@ server.listen(PORT, () => {
 function emitData() {
   let isHaveMatche = (io.sockets.adapter.rooms.get('matches')?.size || 0) > 0;
   if (isHaveMatche) {
-    console.log('Emitting matches');
     io.to('matches').emit('matches', matches);
   }
 }
 
 function getUsers(io) {
-  console.log('Fetching users from DB');
   try {
     let Game;
     try {
@@ -129,7 +127,6 @@ function getUsers(io) {
 }
 
 setInterval(() => {
-  console.log("io.sockets.adapter.rooms.get('users')", io.sockets.adapter.rooms.get('users'))
   let isHaveUser = (io.sockets.adapter.rooms.get('users')?.size || 0) > 0;
   if (isHaveUser) {
     getUsers(io);
