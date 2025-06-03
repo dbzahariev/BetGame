@@ -22,6 +22,7 @@ export class AllMatches implements OnInit, OnDestroy {
 
     socket.emit('getGamesFromDb');
     socket.on('gamesFromDb', (games) => {
+      console.log(JSON.stringify(games));
       debugger
       this.matches = games;
     });

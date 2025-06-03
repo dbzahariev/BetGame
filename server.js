@@ -4,6 +4,7 @@ const { Server } = require('socket.io');
 const fs = require('fs');
 const path = require('path');
 const mongoose = require('mongoose');
+const backupGames = require('./backupGames.json'); // Assuming you have a backup file
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Mongoose connected to MongoDB'))
@@ -71,8 +72,14 @@ io.on('connection', s => {
   });
 
   s.on('getGamesFromDb', async () => {
+    // s.emit('gamesFromDb', backupGames); // Use backup data for now
     try {
-      const Game = mongoose.model('Game', new mongoose.Schema({}, { strict: false }), 'games');
+      let Game;
+      try {
+        Game = mongoose.model('Game');
+      } catch (e) {
+        Game = mongoose.model('Game', new mongoose.Schema({}, { strict: false }), 'games');
+      }
       const games = await Game.find({}).lean();
       s.emit('gamesFromDb', games);
     } catch (err) {
