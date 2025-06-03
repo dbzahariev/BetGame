@@ -4,7 +4,6 @@ const { Server } = require('socket.io');
 const fs = require('fs');
 const path = require('path');
 const mongoose = require('mongoose');
-const backupGames = require('./backupGames.json'); // Assuming you have a backup file
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Mongoose connected to MongoDB'))
@@ -12,6 +11,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 const PORT = 8080;
 const DIST = path.join(__dirname, 'client', 'dist', 'client', 'browser', 'browser');
+let users = [];
 
 const matches = [
   { id: 1, name: 'Match One' },
@@ -19,14 +19,6 @@ const matches = [
   { id: 3, name: 'Match Three' },
   { id: 4, name: 'Match Four' },
   { id: 5, name: 'Match Five' }
-];
-
-const users = [
-  { id: 1, name: 'User One' },
-  { id: 2, name: 'User Two' },
-  { id: 3, name: 'User Three' },
-  { id: 4, name: 'User Four' },
-  { id: 5, name: 'User Five' }
 ];
 
 const server = http.createServer((req, res) => {
@@ -62,8 +54,14 @@ io.on('connection', s => {
   s.on('disconnect', () => { });
 
   s.on('join', (data) => {
+    console.log('somone join', data)
     s.join(data.room)
     emitData();
+
+    if (data.room === 'users') {
+      console.log('User joined users room');
+      getUsers(io);
+    }
   });
 
   s.on('leave', (data) => {
@@ -71,35 +69,23 @@ io.on('connection', s => {
     emitData();
   });
 
-  s.on('getGamesFromDb', async () => {
-    // s.emit('gamesFromDb', backupGames); // Use backup data for now
-    try {
-      let Game;
-      try {
-        Game = mongoose.model('Game');
-      } catch (e) {
-        Game = mongoose.model('Game', new mongoose.Schema({}, { strict: false }), 'games');
-      }
-      const games = await Game.find({}).lean();
-      s.emit('gamesFromDb', games);
-    } catch (err) {
-      s.emit('gamesFromDb', { error: 'Failed to fetch games', details: err.message });
-    }
-  });
 
-  s.on('getMatchesFromDb', () => {
-    // Example: Replace with your DB logic
-    // If you use mongoose: Matches.find({}, ...)
-    // Here, just send the matches array
-    s.emit('matchesFromDb', matches);
-  });
-
-  s.on('getUsersFromDb', () => {
-    // Example: Replace with your DB logic
-    // If you use mongoose: Users.find({}, ...)
-    // Here, just send the users array
-    s.emit('usersFromDb', users);
-  });
+  // s.on('getUsersFromDb', async () => {
+  //   getUsers(io);
+  //   // try {
+  //   //   let Game;
+  //   //   try {
+  //   //     Game = mongoose.model('Game');
+  //   //   } catch (e) {
+  //   //     Game = mongoose.model('Game', new mongoose.Schema({}, { strict: false }), 'games');
+  //   //   }
+  //   //   const gamesRes = await Game.find({}).lean();
+  //   //   console.log('on getGamesFromDb', gamesRes);
+  //   //   s.emit('gamesFromDb', gamesRes);
+  //   // } catch (err) {
+  //   //   s.emit('gamesFromDb', { error: 'Failed to fetch games', details: err.message });
+  //   // }
+  // });
 });
 
 function getServerUrl() {
@@ -115,17 +101,40 @@ server.listen(PORT, () => {
 });
 
 function emitData() {
-  let isHaveUser = (io.sockets.adapter.rooms.get('users')?.size || 0) > 0;
   let isHaveMatche = (io.sockets.adapter.rooms.get('matches')?.size || 0) > 0;
   if (isHaveMatche) {
     console.log('Emitting matches');
     io.to('matches').emit('matches', matches);
   }
-  if (isHaveUser) {
-    console.log('Emitting users');
-    io.to('users').emit('users', users);
+}
+
+function getUsers(io) {
+  console.log('Fetching users from DB');
+  try {
+    let Game;
+    try {
+      Game = mongoose.model('Game');
+    } catch (e) {
+      Game = mongoose.model('Game', new mongoose.Schema({}, { strict: false }), 'games');
+    }
+    Game.find({}).lean().then(usersRes => {
+      if (JSON.stringify(usersRes) !== JSON.stringify(users)) {
+        users = usersRes;
+        io.to('users').emit('usersFromDb', users);
+      }
+    });
+  } catch (err) {
+    console.error('Failed to fetch users', err);
   }
 }
+
+setInterval(() => {
+  console.log("io.sockets.adapter.rooms.get('users')", io.sockets.adapter.rooms.get('users'))
+  let isHaveUser = (io.sockets.adapter.rooms.get('users')?.size || 0) > 0;
+  if (isHaveUser) {
+    getUsers(io);
+  }
+}, 3 * 1000);
 
 // Periodically emit matches every 3 seconds
 setInterval(() => {
